@@ -1,6 +1,6 @@
 # Google Lighthouse (Abschlussprojekt)
 
-## Entwicklung einer App/Tool für Google Lighthouse Performance Tests [link](https://intra.powerofone.de/confluence/pages/viewpage.action?pageId=141018370)
+## 0. Entwicklung einer App/Tool für Google Lighthouse Performance Tests [link](https://intra.powerofone.de/confluence/pages/viewpage.action?pageId=141018370)
 Idee: Mittels eines CI Tools/App eine beliebige Anzahl von Seiten einer Website mittels Google Lighthouse testen
 
 * Ohne GUI: CI Tool (Node.js)
@@ -30,7 +30,7 @@ Idee: Mittels eines CI Tools/App eine beliebige Anzahl von Seiten einer Website 
 
 ___
 
-## Ich muss lerenen...
+## 1. Ich muss lerenen...
 
 * Testkriterien
    * __Loading:__ LCP (Largest Contentful Paint)
@@ -39,7 +39,7 @@ ___
 
 ___
 
-## Meine Fragen
+## 2. Meine Fragen
 
 * Die Technologie auswählen
    * Google Extension als Technologie? (Anscheinend existiert schon in "npm lighhouse" wäre trotzdem sinnvoll?)
