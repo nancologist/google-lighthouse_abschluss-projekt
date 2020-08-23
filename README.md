@@ -5,18 +5,22 @@ Idee: Mittels eines CI Tools/App eine beliebige Anzahl von Seiten einer Website 
 
 * Ohne GUI: CI Tool (Node.js)
 
+
 * mit GUI (vom Aufwand her eher was für 2 Personen)
     * Desktop App durch z.B. Electron
     * dadurch auch für andere nutzbar, z.B. Projektmanager
+
 
 * Seiten definieren durch z.B. sitemap.xml
     * wird oft bereits mitgeliefert beim Build (z.B. bei Hugo oder Nuxt.js)
     * Seiten ausschließen mittels pattern "/exclude/this/path/*"
     
+
 * Jeder Test läuft gegen vorher definierte Mindestwerte
     * vom Kunden definiert? (wie bei Pfizer)
     * Branchendurchschnitt? (woher nehmen?)
     * App: per GUI einstellbar?
+
 
 * Zum Schluß wird ein Report generiert (PDF) 
     * bei der App kann das auch interaktiv sein (z.B mit Charts)
