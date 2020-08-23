@@ -30,6 +30,14 @@ Idee: Mittels eines CI Tools/App eine beliebige Anzahl von Seiten einer Website 
 
 ___
 
+## Ich muss lerenen...
+
+* Testkriterien
+   * __Loading:__ LCP (Largest Contentful Paint)
+   * __Interactivity:__ FID (First Input Delay)
+   * __Visual Stability:__ CLS (Cumulative Layout Shift)
+
+___
 
 ## Meine Fragen
 
