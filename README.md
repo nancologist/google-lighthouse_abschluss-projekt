@@ -38,6 +38,6 @@ ___
    * ProtonJS für GUI?
    * ElectronJS für GUI?
    
-* In welchen Aspekten soll das Produkt sich von https://web.dev/measure/ unterscheiden? (bzw. wenn so ein Tool gibt warum bauen wir es nochmal?)
+* In welchen Aspekten soll das Produkt sich von https://web.dev/measure/ unterscheiden? (bzw. wenn so ein Tool schon online gibt warum bauen wir es nochmal?) - __Meine Antwort:__ möglicherweise wegen der Personlisierungen in der Ausschreibung (Schwellenwerte, PDF Ausgabe usw.)
    
 * Welches Repo? (zB Pixelpark Gitlab)
