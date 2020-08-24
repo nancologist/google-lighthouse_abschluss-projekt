@@ -41,13 +41,16 @@ ___
 
 ## 2. Meine Fragen (Gespräch mit Erik)
 
-* Die Technologie auswählen
-   * Google Extension als Technologie? (Anscheinend existiert schon in "npm lighhouse" wäre trotzdem sinnvoll?)
-   * ProtonJS für GUI?
-   * ElectronJS für GUI?
-   * 5 Best JS Desktop App Technologien: https://brainhub.eu/blog/javascript-frameworks-for-desktop-apps/
+* Die Technologie auswählen für eine Desktop App
+   * ElectronJS ist laut meiner Recherche am Sichersten, (vielleicht Electron+Vue oder Electron+React?)
+   * __Vuido__ (basiert auf Vue)
+    * leider seit zwei Jahren nicht mehr aktualisiert und befindet sich in der Version 0.2.0
+    * keine starke Reputation in npmjs.com und github
+   * __ProtonNative__ (basiert auf React)
+    * auch keine gute Reputation in npmjs.com
+    * on MacOS funktioniert nicht mit Node >12.13.0 
    
-* In welchen Aspekten soll das Produkt sich von https://web.dev/measure/ unterscheiden? (bzw. wenn so ein Tool schon online gibt warum bauen wir es nochmal?)  
+* In welchen Aspekten soll das Produkt sich von https://web.dev/measure/ unterscheiden? (bzw. wenn so ein Tool schon online gibt warum bauen wir es nochmal?)
 __Meine Antwort:__ möglicherweise wegen der Personlisierungen in der Ausschreibung (Schwellenwerte, PDF Ausgabe usw.)
    
 * Welcher Repo? (zB Pixelpark Gitlab)
@@ -56,31 +59,23 @@ ___
 ## 3. Run Project
 1. Install the Lighhouse node package (https://www.npmjs.com/package/lighthouse).  
    ``npm install --save lighthouse``
-   
-   
 ___
 
-## 4. Warum Proton Native?
+## 4. Electron - Demo App
 
-### 4.1. Leichter als ElectronJS
+Hinweise:
+* The recommended way of doing so is to install it as a development dependency in your app, which allows you to work on multiple apps with different Electron versions.
 
-__ElectronJS:__  
-* brings a lot of overheads (Nachteil)
-* runs a full Webbrowser to manage a small GUI (Nachteil)
+## 4.1. with JS (vanilla)
 
-__Proton Native:__
-* uses native tools with (nicht web-basiert wie ElectronJS)
-* smaller size and less resource usage.
+Source: https://www.electronjs.org/docs/tutorial/first-app
+1. ``npm init``
+2. Add ``electron .`` to pakcage.json
+3. ``npm install --save-dev electron``
 
-### 4.2. Hello World
-Quelle: https://www.freecodecamp.org/news/build-native-desktop-apps-with-javascript-a49ede90d8e9/
+## 4.2. with React
 
-* Create App:
-    * ``$ sudo npm install -g create-proton-app``
-    * ``$ create-proton-app my-app``
-
-### 4.3. Links
-Andere Beispielprojekte: https://github.com/kusti8/proton-native/tree/master/examples
+## 4.3. with Vue
 ___
 
 ## 5. Projekt Bericht (Dokumentation)
