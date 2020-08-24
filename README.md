@@ -39,18 +39,18 @@ ___
 
 ___
 
-## 2. Meine Fragen
+## 2. Meine Fragen (Gespräch mit Erik)
 
 * Die Technologie auswählen
    * Google Extension als Technologie? (Anscheinend existiert schon in "npm lighhouse" wäre trotzdem sinnvoll?)
    * ProtonJS für GUI?
    * ElectronJS für GUI?
+   * 5 Best JS Desktop App Technologien: https://brainhub.eu/blog/javascript-frameworks-for-desktop-apps/
    
 * In welchen Aspekten soll das Produkt sich von https://web.dev/measure/ unterscheiden? (bzw. wenn so ein Tool schon online gibt warum bauen wir es nochmal?)  
 __Meine Antwort:__ möglicherweise wegen der Personlisierungen in der Ausschreibung (Schwellenwerte, PDF Ausgabe usw.)
    
-* Welches Repo? (zB Pixelpark Gitlab)
-
+* Welcher Repo? (zB Pixelpark Gitlab)
 ___
 
 ## 3. Run Project
@@ -60,14 +60,20 @@ ___
    
 ___
 
-## 4. Warum Proton Native? (vs ElectronJS)
+## 4. Warum Proton Native?
+
+### 4.1. Leichter als ElectronJS
 
 __ElectronJS:__  
 * brings a lot of overheads (Nachteil)
 * runs a full Webbrowser to manage a small GUI (Nachteil)
 
 __Proton Native:__
-* uses native tools with smaller size and less resource usage.
+* uses native tools with (nicht web-basiert wie ElectronJS)
+* smaller size and less resource usage.
+
+### 4.2. Hello World mit Proton Native
+Quelle: https://www.freecodecamp.org/news/build-native-desktop-apps-with-javascript-a49ede90d8e9/
 
 ___
 
