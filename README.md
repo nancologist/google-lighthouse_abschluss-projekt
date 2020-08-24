@@ -1,6 +1,6 @@
 # Google Lighthouse (Abschlussprojekt)
 
-## 0. Entwicklung einer App/Tool für Google Lighthouse Performance Tests [link](https://intra.powerofone.de/confluence/pages/viewpage.action?pageId=141018370)
+## 0. Entwicklung einer App/Tool für Google Lighthouse Performance Tests - [link](https://intra.powerofone.de/confluence/pages/viewpage.action?pageId=141018370)
 Idee: Mittels eines CI Tools/App eine beliebige Anzahl von Seiten einer Website mittels Google Lighthouse testen
 
 * Ohne GUI: CI Tool (Node.js)
@@ -54,8 +54,8 @@ __Meine Antwort:__ möglicherweise wegen der Personlisierungen in der Ausschreib
 ___
 
 ## 3. Run Project
-1. Install the Lighhouse node package globally (https://www.npmjs.com/package/lighthouse).  
-   ``npm install -g lighthouse``
+1. Install the Lighhouse node package (https://www.npmjs.com/package/lighthouse).  
+   ``npm install --save lighthouse``
    
    
 ___
@@ -72,12 +72,15 @@ __Proton Native:__
 * uses native tools with (nicht web-basiert wie ElectronJS)
 * smaller size and less resource usage.
 
-### 4.2. Hello World mit Proton Native
+### 4.2. Hello World
 Quelle: https://www.freecodecamp.org/news/build-native-desktop-apps-with-javascript-a49ede90d8e9/
+
+* Create App:
+    * ``$ sudo npm install -g create-proton-app``
+    * ``$ create-proton-app my-app``
 
 ### 4.3. Links
 Andere Beispielprojekte: https://github.com/kusti8/proton-native/tree/master/examples
-
 ___
 
 ## 5. Projekt Bericht (Dokumentation)
