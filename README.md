@@ -36,6 +36,8 @@ ___
    * __Loading:__ LCP (Largest Contentful Paint)
    * __Interactivity:__ FID (First Input Delay)
    * __Visual Stability:__ CLS (Cumulative Layout Shift)
+   
+* [Electron Security](https://electronjs.org/docs/tutorial/security): 17 sehr wichtige Sicherheitshinweise
 
 ___
 
@@ -63,21 +65,39 @@ ___
 
 ## 4. Electron - Demo App
 
-Hinweise:
+Offizielle Hinweise:
 * The recommended way of doing so is to install it as a development dependency in your app, which allows you to work on multiple apps with different Electron versions.
+
+* Boilerplates and CLIs: https://www.electronjs.org/docs/tutorial/boilerplates-and-clis
 
 ## 4.1. with JS (vanilla)
 
-Source: https://www.electronjs.org/docs/tutorial/first-app
-1. ``npm init``
-2. Add ``electron .`` to pakcage.json
-3. ``npm install --save-dev electron``
-4. Create index.html in the root dir
-5. Run Application: ``npm start``
+* [App1: (vanilla Electron)](https://www.electronjs.org/docs/tutorial/first-app)
+    1. ``npm init``
+    2. Add ``electron .`` to pakcage.json
+    3. ``npm install --save-dev electron``
+    4. Create index.html in the root dir
+    5. Run Application: ``npm start``
+    
+* [App2: ElectronForge](https://www.electronforge.io/)
+    1. ``npx create-electron-app my-app``
 
 ## 4.2. with React
+* [App1 electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate)
+    1. ``git clone --depth 1 --single-branch https://github.com/electron-react-boilerplate/electron-react-boilerplate.git my-electron-react-example``
+    2. ``yarn`` (DON'T USE ``npm insall`` or npm at all)  
+    __Mori: This boilerplate is too complicated and too much with TS and all stuffs!__
+    
+* [App2 create-react-app + electron](https://www.youtube.com/watch?v=Cdu2O6o2DCg)
+    1. ``npm init react-app example2``
+    2. ``npm i -D electron electron-builder concurrently wait-on``
+    3. ``npm i cross-env electron-is-dev``
+    4. In ./public/ create the file ``elenctron.js``
 
 ## 4.3. with Vue
+* [App1 electron-vue](https://github.com/SimulatedGREG/electron-vue)
+    1. ``vue init simulatedgreg/electron-vue my-project``
+    __FUNKTIONEIRT LEIDER NICHT SEIT EIN PAAR MONATE
 ___
 
 ## 5. Projekt Bericht (Dokumentation)
