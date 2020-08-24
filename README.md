@@ -133,6 +133,8 @@ ___
 ## 6. Projektantrag (IHK)
 
 ### 6.1. Hinweise
+* Inhalt des Projektantrags : https://it-berufe-podcast.de/inhalte-des-projektantrags-anwendungsentwickler-podcast-25/
+* Beispiele : https://it-berufe-podcast.de/beispiel-fuer-einen-ausfuehrlichen-projektantrag-zum-abschlussprojekt/
 
 ### 6.2. Antrag
 
