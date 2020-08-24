@@ -72,6 +72,8 @@ Source: https://www.electronjs.org/docs/tutorial/first-app
 1. ``npm init``
 2. Add ``electron .`` to pakcage.json
 3. ``npm install --save-dev electron``
+4. Create index.html in the root dir
+5. Run Application: ``npm start``
 
 ## 4.2. with React
 

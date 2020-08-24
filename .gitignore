@@ -101,4 +101,4 @@ Temporary Items
 
 .idea
 /proton_helloworld/hello-world/node_modules/
-electron-with-js/node_modules
+**/node_modules
