@@ -32,7 +32,7 @@ ___
 
 ## 1. Ich muss lerenen...
 
-* Testkriterien
+* Testkriterien (3 wichtige Aspekten in 2020 laut web.dev):
    * __Loading:__ LCP (Largest Contentful Paint)
    * __Interactivity:__ FID (First Input Delay)
    * __Visual Stability:__ CLS (Cumulative Layout Shift)
@@ -50,3 +50,90 @@ ___
 __Meine Antwort:__ möglicherweise wegen der Personlisierungen in der Ausschreibung (Schwellenwerte, PDF Ausgabe usw.)
    
 * Welches Repo? (zB Pixelpark Gitlab)
+
+___
+
+## 3. Run Project
+1. Install the Lighhouse node package globally (https://www.npmjs.com/package/lighthouse).  
+   ``npm install -g lighthouse``
+   
+   
+___
+
+## 4. Warum Proton Native? (vs ElectronJS)
+
+__ElectronJS:__  
+* brings a lot of overheads (Nachteil)
+* runs a full Webbrowser to manage a small GUI (Nachteil)
+
+__Proton Native:__
+* uses native tools with smaller size and less resource usage.
+
+___
+
+## 5. Projekt Bericht (Dokumentation)
+
+_Anmerkung, die Unterteilungen müssen vielleicht nicht unbedingt genau so sein. Aber ich werde ich an den 8 Hauptabschnitten halten_
+
+### 5.1. Einleitung
+* Projektbeschreibung
+* Projektziel
+* Projektumfeld
+* Projektbegründung
+* Projektschnittstellen
+* Projektabgrenzung
+
+### 5.2. Projektplanung
+* Projektphasen
+* Ressourcenplanung
+* Entwicklungsprozess
+
+### 5.3. Analysephase
+* Ist-Analyse
+* Wirtschaftlichkeitsanalyse
+   * "Make or Buy"-Entscheidung
+   * Projektkosten
+   * Amortisationsdauer
+* Nicht-monetäre Vorteile
+* Anwendungsfälle
+* Lastenheft/Fachkonzept
+
+### 5.4. Entwurfsphase
+* Zielplattform
+* Architekturdesign
+* Entwurf der Benutzeroberfläche
+* Datenmodell
+* Geschäftslogik
+* Pflichtenheft
+
+### 5.5. Implementirungsphase
+* Iterationsplanung
+* Implementrung der Datenstruktur
+* Implmenetierung der Geschäftlogik
+
+### 5.6. Abnahme und Einfürhungsphase
+* Abnahme durch den Fachbereich
+* Deployment und Einführung
+* Abkürzungsverzeichnis (Mori: vielleicht pro Seite als 
+
+### 5.7. Dokumentation
+
+### 5.8. Fazit
+* Soll-/Ist-Vergleich
+* Lessons Learned
+* Ausblick
+
+### Sonstige
+* Anhang
+* Abbildungsverzeichnis
+* Tabellenverzeichnis
+
+___
+
+## 6. Projektantrag (IHK)
+
+### 6.1. Hinweise
+
+### 6.2. Antrag
+
+___
