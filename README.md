@@ -89,10 +89,13 @@ Offizielle Hinweise:
     __Mori: This boilerplate is too complicated and too much with TS and all stuffs!__
     
 * [App2 create-react-app + electron](https://www.youtube.com/watch?v=Cdu2O6o2DCg)
-    1. ``npm init react-app example2``
-    2. ``npm i -D electron electron-builder concurrently wait-on``
-    3. ``npm i cross-env electron-is-dev``
-    4. In ./public/ create the file ``elenctron.js``
+    __* Setup and Run:__  
+        1. ``npm init react-app example2``
+        2. ``npm i -D electron electron-builder concurrently wait-on``
+        3. ``npm i cross-env electron-is-dev``
+        4. In ./public/ create the file ``elenctron.js`` and pest the official demo code in it.
+        5. After all these changes to package.json, do it: ``npm start``
+        
 
 ## 4.3. with Vue
 * [App1 electron-vue](https://github.com/SimulatedGREG/electron-vue)
