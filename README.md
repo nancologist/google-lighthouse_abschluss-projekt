@@ -96,6 +96,12 @@ Offizielle Hinweise:
         4. In ./public/ create the file ``elenctron.js`` and pest the official demo code in it.
         5. After all these changes to package.json, do it: ``npm start``
         
+    __* Test building App:__
+        6. You should first take some changes in the ``package.json``
+        7. Then ``$ npm run build`` to see if the build process will be done with no error. (It takes some minutes, but after that you should the installer for your in the ``dist/`` folder.)
+        8. On Mac System you will get a ``.dmg`` (on Windows it should be an ``.exe`` file.), click on it/ run it.
+        9. __TEST__: Now you see your app is up and running.
+    
 
 ## 4.3. with Vue
 * [App1 electron-vue](https://github.com/SimulatedGREG/electron-vue)
