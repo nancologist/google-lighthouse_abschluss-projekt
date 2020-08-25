@@ -89,14 +89,14 @@ Offizielle Hinweise:
     __Mori: This boilerplate is too complicated and too much with TS and all stuffs!__
     
 * [App2 create-react-app + electron](https://www.youtube.com/watch?v=Cdu2O6o2DCg)
-    __* Setup and Run:__  
+    * __Setup and Run:__  
         1. ``npm init react-app example2``
         2. ``npm i -D electron electron-builder concurrently wait-on``
         3. ``npm i cross-env electron-is-dev``
         4. In ./public/ create the file ``elenctron.js`` and pest the official demo code in it.
         5. After all these changes to package.json, do it: ``npm start``
         
-    __* Test building App:__
+    * __Test building App:__
         6. You should first take some changes in the ``package.json``
         7. Then ``$ npm run build`` to see if the build process will be done with no error. (It takes some minutes, but after that you should the installer for your in the ``dist/`` folder.)
         8. On Mac System you will get a ``.dmg`` (on Windows it should be an ``.exe`` file.), click on it/ run it.
