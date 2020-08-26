@@ -119,7 +119,20 @@ Offizielle Hinweise:
 ## 4.3. with Vue
 * [App1 electron-vue](https://github.com/SimulatedGREG/electron-vue)
     1. ``vue init simulatedgreg/electron-vue my-project``
-    __FUNKTIONEIRT LEIDER NICHT SEIT EIN PAAR MONATE
+    __FUNKTIONEIRT LEIDER NICHT SEIT EIN PAAR MONATE__
+    
+* [App2 mit Vue Cli & Electron-builder Plugin](https://github.com/nklayman/vue-cli-plugin-electron-builder)
+    * https://nklayman.github.io/vue-cli-plugin-electron-builder/
+    1. ``vue create app2``
+    2. ``vue add electron-builder``
+    3. Choose Electron Version: ``^9.0.0``
+    3. ``npm run electron:serve``
+    
+    * Build for different OS and options:
+        * Use ``-mwl`` for all three OS, or ``--mac`` , ``--win`` and ``--linux`` (And ``--ia32``, ``--x64`` to specify arch)
+        * Use the above CLI args by ``$ npm run electron:build`` , and then it will be forwarded to the __electron-builder__
+        * [Vue-Electron Pluging Guide](https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/configuration.html#table-of-contents)
+        * [Electron-builder Guide](https://www.electron.build/multi-platform-build)
 ___
 
 ## 5. Projekt Bericht (Dokumentation)
@@ -157,12 +170,12 @@ _Anmerkung, die Unterteilungen müssen vielleicht nicht unbedingt genau so sein.
 * Geschäftslogik
 * Pflichtenheft
 
-### 5.5. Implementirungsphase
+### 5.5. Implementierungsphase
 * Iterationsplanung
 * Implementrung der Datenstruktur
 * Implmenetierung der Geschäftlogik
 
-### 5.6. Abnahme und Einfürhungsphase
+### 5.6. Abnahme und Einführungsphase:
 * Abnahme durch den Fachbereich
 * Deployment und Einführung
 * Abkürzungsverzeichnis (Mori: vielleicht pro Seite als 
@@ -189,4 +202,9 @@ ___
 
 ### 6.2. Antrag
 
+___
+
+## 7. Zusätliche Eigenschaften der Desktop-App:
+* CLI-Mode (Advance Mode) Für Entwickler
+* Dunkel-Modus (umschaltbar)
 ___
