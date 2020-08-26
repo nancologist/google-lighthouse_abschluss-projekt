@@ -100,7 +100,6 @@ Temporary Items
 .apdisk
 
 .idea
-/proton_helloworld/hello-world/node_modules/
 **/node_modules
 **/dist
 **/build
