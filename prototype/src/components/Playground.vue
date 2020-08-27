@@ -5,6 +5,21 @@
         <div class="trafficLight__red" v-else></div>
     </div>
     <button @click="switchLight">SWITCH</button>
+    <hr>
+    <ul>
+        <li v-for="(name, index) in names" :key="index">#{{index}} {{name}}</li>
+    </ul>
+    <hr>
+    <div v-for="(val, key, index) in movie" :key="index">
+        <p>{{ key }}: {{ val }}</p>
+    </div>
+    <hr>
+    <div v-for="(item, index) in testObject" :key="index">
+        <ul v-if="Array.isArray(item)">
+            <li v-for="(x, i) in item" :key="i">{{x}}</li>
+        </ul>
+        <p v-else>{{ item }}</p>
+    </div>
 </div>
 </template>
 
@@ -14,7 +29,17 @@ export default {
     name: 'Playground',
     data () {
         return {
-            isGreen: false
+            isGreen: false,
+            names: ['David', 'Michael', 'Paul', 'Oliver'],
+            movie: {
+                title: 'Lord of the Rings',
+                author: 'J.R.R Tolkiens',
+                books: 3
+            },
+            testObject: {
+                name: 'TESTOBJECT',
+                data: [1.67, 1.33, 2.43, 0.81]
+            }
         }
     },
     methods: {
