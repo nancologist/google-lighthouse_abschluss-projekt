@@ -1,11 +1,12 @@
 <template>
 <div id="app">
-    <button v-on:click="increase(2)">ADD</button>
-    <p>{{ num }}</p>
-    <p v-on:mousemove="updateCoord">
-        (X: {{x}}, Y: {{y}})
-        - <span v-on:click.stop="">DEAD SPOT</span>
-    </p>
+    <div>
+        <button @click="alertMe">Show Alert</button>
+    </div>
+    <div>
+        <input @keydown.enter="setValue" type="text">
+        <p>{{ myValue }}</p>
+    </div>
 </div>
 </template>
 
@@ -15,18 +16,15 @@ export default {
     name: 'Playground',
     data () {
         return {
-            num: 0,
-            x: 0,
-            y: 0
+            myValue: ''
         }
     },
     methods: {
-        increase (step) {
-            this.num += step
+        alertMe () {
+            alert('This is an alert!!!')
         },
-        updateCoord (event) {
-            this.x = event.clientX
-            this.y = event.clientY
+        setValue ({ target: { value } }) {
+            this.myValue = value
         }
     }
 }
