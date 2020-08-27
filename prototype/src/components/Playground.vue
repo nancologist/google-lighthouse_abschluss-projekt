@@ -1,16 +1,14 @@
 <template>
 <div id="playground">
-    <div>
-        <p>Current value: {{ num }}</p>
-        <button @click="num += 1">Add 1</button>
-        <button @click="num += 5">Add 5</button>
-        <p>{{ isNotLessThan37 ? 'DONE!' : 'Not Enough' }}</p>
-    </div>
-    <div>
-        <label for="timeout">Set timeout (sec)</label>
-        <input type="number" id="timeout" v-model="timeout">
-        <p>{{ num }}</p>
-    </div>
+    <div
+        class="demo"
+        :class="{
+            'red': shouldRedBg
+        }"
+        @click="toggleBg"
+    ></div>
+    <div class="demo"></div>
+    <div class="demo"></div>
 </div>
 </template>
 
@@ -18,29 +16,36 @@
 
 export default {
     name: 'Playground',
-    data () {
+    data: function () {
         return {
-            num: 0,
-            timeout: 3
+            shouldRedBg: false
         }
     },
-    computed: {
-        isNotLessThan37 () {
-            return this.num >= 37
-        }
-    },
-    watch: {
-        num () {
-            setTimeout(() => { this.num = 0 }, +this.timeout * 1000)
+    methods: {
+        toggleBg () {
+            this.shouldRedBg = !this.shouldRedBg
         }
     }
+
 }
 
 </script>
 
 <style>
-#app {
-}
+    #playground {
+        display: flex;
+    }
+
+    .demo {
+        background-color: gray;
+        height: 100px;
+        margin: 15px;
+        width: 100px;
+    }
+
+    .red {
+        background-color: red;
+    }
 </style>
 
 <!--
