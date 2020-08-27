@@ -1,24 +1,33 @@
 <template>
 <div id="app">
-<!--    <button v-on:click="greet">Start</button>-->
-<!--    <p>{{ myText }}</p>-->
-<!--    <a v-bind:href="link">Google!</a>-->
-    <button v-on:click="increase">ADD</button>
+    <button v-on:click="increase(2)">ADD</button>
     <p>{{ num }}</p>
+    <p v-on:mousemove="updateCoord">
+        (X: {{x}}, Y: {{y}})
+        - <span v-on:click.stop="">DEAD SPOT</span>
+    </p>
 </div>
 </template>
 
 <script>
 
 export default {
-    name: 'App',
+    name: 'Playground',
     data () {
         return {
-            num: 0
+            num: 0,
+            x: 0,
+            y: 0
         }
     },
     methods: {
-        increase () { this.num++ }
+        increase (step) {
+            this.num += step
+        },
+        updateCoord (event) {
+            this.x = event.clientX
+            this.y = event.clientY
+        }
     }
 }
 
