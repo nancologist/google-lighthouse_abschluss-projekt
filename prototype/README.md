@@ -9,3 +9,14 @@ ___
 ## Build Process
 * ``npm run electron:build``
 ___
+
+## Zusätliche Eigenschaften der Desktop-App:
+
+* CLI-Mode (Advance Mode) Für Entwickler
+
+* Dunkel-Modus (umschaltbar)
+
+* Zwei sprachig (Vorgabe: EN, Extra: DE)
+
+* Add Tip Page when the App opens to explain the different aspects and settings of the app.
+___

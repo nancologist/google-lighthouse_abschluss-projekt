@@ -203,8 +203,3 @@ ___
 ### 6.2. Antrag
 
 ___
-
-## 7. Zusätliche Eigenschaften der Desktop-App:
-* CLI-Mode (Advance Mode) Für Entwickler
-* Dunkel-Modus (umschaltbar)
-___
