@@ -5,17 +5,17 @@
 </template>
 
 <script>
-    import Playground from "./components/Playground";
+import Playground from './components/Playground'
 
-    export default {
-        name: 'App',
-        components: {
-            Playground
-        }
+export default {
+    name: 'App',
+    components: {
+        Playground
     }
+}
 </script>
 
 <style>
-    #app {
-    }
+#app {
+}
 </style>
