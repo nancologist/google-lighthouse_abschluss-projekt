@@ -72,67 +72,67 @@ Offizielle Hinweise:
 
 ## 4.1. with JS (vanilla)
 
-* [App1: (vanilla Electron)](https://www.electronjs.org/docs/tutorial/first-app)
+### [App1: (vanilla Electron)](https://www.electronjs.org/docs/tutorial/first-app)
     1. ``npm init``
     2. Add ``electron .`` to pakcage.json
     3. ``npm install --save-dev electron``
     4. Create index.html in the root dir
     5. Run Application: ``npm start``
     
-* [App2: ElectronForge](https://www.electronforge.io/)
+### [App2: ElectronForge](https://www.electronforge.io/)
     1. ``npx create-electron-app my-app``
 
 ## 4.2. with React
-* [App1 electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate)
-    1. ``git clone --depth 1 --single-branch https://github.com/electron-react-boilerplate/electron-react-boilerplate.git my-electron-react-example``
-    2. ``yarn`` (DON'T USE ``npm insall`` or npm at all)  
-    __Mori: This boilerplate is too complicated and too much with TS and all stuffs!__
+### [App1 electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate)
+1. ``git clone --depth 1 --single-branch https://github.com/electron-react-boilerplate/electron-react-boilerplate.git my-electron-react-example``
+2. ``yarn`` (DON'T USE ``npm insall`` or npm at all)  
+__Mori: This boilerplate is too complicated and too much with TS and all stuffs!__
     
-* [App2 create-react-app + electron](https://www.youtube.com/watch?v=Cdu2O6o2DCg)
-    * __Setup and Run:__  
-        1. ``npm init react-app example2``
-        2. ``npm i -D electron electron-builder concurrently wait-on``
-        3. ``npm i cross-env electron-is-dev``
-        4. In ./public/ create the file ``elenctron.js`` and pest the official demo code in it.
-        5. After all these changes to package.json, do it:  
-        ``cd example2/``  
-        ``npm start``
-        
-    * __Test building App:__
-        6. You should first take some changes in the ``package.json``
-        7. Then ``$ npm run build`` to see if the build process will be done with no error. (It takes some minutes, but after that you should the installer for your in the ``dist/`` folder.)
-        8. On Mac System you will get a ``.dmg`` (on Windows it should be an ``.exe`` file.), click on it/ run it.
-        9. __TEST__: Now you see your app is up and running.
-        
-    * __Boilerplate (``app2-advanced/``):__
-        * This is the more advanced version of app2 which has customized Setup Icon and Favicon ...
-        * __Mori: I don't think this version is needed, the ``app2/`` should be enough and then I build upon it.__
-        10. You should have installed Yarn before otherwise: ``npm install -g yarn``
-        11. ``$ git clone https://github.com/willjw3/react-electron.git``
-        12. Install npm and run dev server:  
-        ``$ cd react-electron/``
-        ``$ npm install``
-        ``$ npm run start``
-        13. Build App:  
-        ``$ npm run build``
+### [App2 create-react-app + electron](https://www.youtube.com/watch?v=Cdu2O6o2DCg)
+* __Setup and Run:__  
+    1. ``npm init react-app example2``
+    2. ``npm i -D electron electron-builder concurrently wait-on``
+    3. ``npm i cross-env electron-is-dev``
+    4. In ./public/ create the file ``elenctron.js`` and pest the official demo code in it.
+    5. After all these changes to package.json, do it:  
+    ``cd example2/``  
+    ``npm start``
+    
+* __Test building App:__
+    6. You should first take some changes in the ``package.json``
+    7. Then ``$ npm run build`` to see if the build process will be done with no error. (It takes some minutes, but after that you should the installer for your in the ``dist/`` folder.)
+    8. On Mac System you will get a ``.dmg`` (on Windows it should be an ``.exe`` file.), click on it/ run it.
+    9. __TEST__: Now you see your app is up and running.
+    
+* __Boilerplate (``app2-advanced/``):__
+    * This is the more advanced version of app2 which has customized Setup Icon and Favicon ...
+    * __Mori: I don't think this version is needed, the ``app2/`` should be enough and then I build upon it.__
+    10. You should have installed Yarn before otherwise: ``npm install -g yarn``
+    11. ``$ git clone https://github.com/willjw3/react-electron.git``
+    12. Install npm and run dev server:  
+    ``$ cd react-electron/``
+    ``$ npm install``
+    ``$ npm run start``
+    13. Build App:  
+    ``$ npm run build``
 
 ## 4.3. with Vue
-* [App1 electron-vue](https://github.com/SimulatedGREG/electron-vue)
-    1. ``vue init simulatedgreg/electron-vue my-project``
-    __FUNKTIONEIRT LEIDER NICHT SEIT EIN PAAR MONATE__
+### [App1 electron-vue](https://github.com/SimulatedGREG/electron-vue)
+1. ``vue init simulatedgreg/electron-vue my-project``
+__FUNKTIONEIRT LEIDER NICHT SEIT EIN PAAR MONATE__
     
-* [App2 mit Vue Cli & Electron-builder Plugin](https://github.com/nklayman/vue-cli-plugin-electron-builder)
-    * https://nklayman.github.io/vue-cli-plugin-electron-builder/
-    1. ``vue create app2``
-    2. ``vue add electron-builder``
-    3. Choose Electron Version: ``^9.0.0``
-    3. ``npm run electron:serve``
-    
-    * Build for different OS and options:
-        * Use ``-mwl`` for all three OS, or ``--mac`` , ``--win`` and ``--linux`` (And ``--ia32``, ``--x64`` to specify arch)
-        * Use the above CLI args by ``$ npm run electron:build`` , and then it will be forwarded to the __electron-builder__
-        * [Vue-Electron Pluging Guide](https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/configuration.html#table-of-contents)
-        * [Electron-builder Guide](https://www.electron.build/multi-platform-build)
+### [App2 mit Vue Cli & Electron-builder Plugin](https://github.com/nklayman/vue-cli-plugin-electron-builder)
+* https://nklayman.github.io/vue-cli-plugin-electron-builder/
+1. ``vue create app2``
+2. ``vue add electron-builder``
+3. Choose Electron Version: ``^9.0.0``
+3. ``npm run electron:serve``
+
+* Build for different OS and options:
+    * Use ``-mwl`` for all three OS, or ``--mac`` , ``--win`` and ``--linux`` (And ``--ia32``, ``--x64`` to specify arch)
+    * Use the above CLI args by ``$ npm run electron:build`` , and then it will be forwarded to the __electron-builder__
+    * [Vue-Electron Pluging Guide](https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/configuration.html#table-of-contents)
+    * [Electron-builder Guide](https://www.electron.build/multi-platform-build)
 ___
 
 ## 5. Projekt Bericht (Dokumentation)
