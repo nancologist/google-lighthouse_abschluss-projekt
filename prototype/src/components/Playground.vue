@@ -1,8 +1,10 @@
 <template>
 <div id="app">
-    <button v-on:click="greet">Start</button>
-    <p>{{ myText }}</p>
-    <a v-bind:href="link">Google!</a>
+<!--    <button v-on:click="greet">Start</button>-->
+<!--    <p>{{ myText }}</p>-->
+<!--    <a v-bind:href="link">Google!</a>-->
+    <button v-on:click="increase">ADD</button>
+    <p>{{ num }}</p>
 </div>
 </template>
 
@@ -10,20 +12,24 @@
 
 export default {
     name: 'App',
-    data: () => ({
-        myText: 'Click on start!',
-        link: 'http://google.com' // instead, "www.google.com" would be added like an endpoint!!!
-    }),
-    methods: {
-        greet () {
-            this.myText = 'Hallo Helmut!'
+    data () {
+        return {
+            num: 0
         }
+    },
+    methods: {
+        increase () { this.num++ }
     }
 }
 
 </script>
 
 <style>
-    #app {
-    }
+#app {
+}
 </style>
+
+<!--
+IMPORTANT:
+    * Avoid using arrow functions in Vue! It saves you a lot of headachase.
+-->
