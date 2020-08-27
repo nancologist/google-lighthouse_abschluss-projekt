@@ -1,0 +1,5 @@
+1. "vue-router docs" : https://router.vuejs.org/en/essentials/history-mode.html
+
+2. "The creating of another window" : https://github.com/webtorrent/webtorrent-desktop/blob/master/src/main/windows/about.js#L14
+
+3. "Calling it from a menu or via ipc" : https://github.com/webtorrent/webtorrent-desktop/blob/master/src/main/menu.js#L435
