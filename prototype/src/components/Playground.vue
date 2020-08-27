@@ -1,12 +1,14 @@
 <template>
 <div id="playground">
+    <button @click="startEffect" >Start Effect</button>
+    <div class="effect" :class="{highlight: hasEffect, shrink: !hasEffect}"></div>
     <div
-        class="demo"
-        :class="getDivClass"
-        @click="toggleBg"
-    ></div>
-    <div class="demo"></div>
-    <div class="demo"></div>
+        :class="[{black: shouldBeBlack}, 'whiteFont']"
+    >
+        I have no classes! :(
+    </div>
+    <input type="text" placeholder="Enter a Css Class" v-model="inputClass">
+    <div class="effect" :class="inputClass"></div>
 </div>
 </template>
 
@@ -14,47 +16,57 @@
 
 export default {
     name: 'Playground',
-    data: function () {
+    data () {
         return {
-            shouldRedBg: false
-        }
-    },
-    computed: {
-        getDivClass () {
-            return {
-                red: this.shouldRedBg,
-                blue: !this.shouldRedBg
-            }
+            hasEffect: false,
+            shouldBeBlack: true,
+            inputClass: ''
         }
     },
     methods: {
-        toggleBg () {
-            this.shouldRedBg = !this.shouldRedBg
+        startEffect () {
+            setInterval(() => { this.hasEffect = !this.hasEffect }, 800)
         }
     }
-
 }
 
 </script>
 
 <style>
-    #playground {
-        display: flex;
+    #playground > * {
+        margin-bottom: 20px;
     }
 
-    .demo {
-        background-color: gray;
+    .effect {
+        border: 1px solid black;
         height: 100px;
-        margin: 15px;
+        transition: all 400ms;
         width: 100px;
     }
 
-    .red {
-        background-color: red;
+    .highlight {
+        background-color: chartreuse;
+        width: 200px;
     }
 
-    .blue {
-        background-color: blue;
+    .shrink {
+        background-color: gray;
+        width: 50px;
+    }
+
+    .black {
+        background-color: black;
+    }
+
+    .whiteFont {
+        color: white;
+    }
+
+    .circle {
+        background-color: dodgerblue;
+        border-radius: 50%;
+        height: 100px;
+        width: 100px;
     }
 </style>
 
