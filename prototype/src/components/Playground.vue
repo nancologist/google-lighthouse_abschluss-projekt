@@ -1,14 +1,10 @@
 <template>
 <div id="playground">
-    <button @click="startEffect" >Start Effect</button>
-    <div class="effect" :class="{highlight: hasEffect, shrink: !hasEffect}"></div>
-    <div
-        :class="[{black: shouldBeBlack}, 'whiteFont']"
-    >
-        I have no classes! :(
+    <div class="trafficLight">
+        <div class="trafficLight__green" v-if="isGreen"></div>
+        <div class="trafficLight__red" v-else></div>
     </div>
-    <input type="text" placeholder="Enter a Css Class" v-model="inputClass">
-    <div class="effect" :class="inputClass"></div>
+    <button @click="switchLight">SWITCH</button>
 </div>
 </template>
 
@@ -18,14 +14,12 @@ export default {
     name: 'Playground',
     data () {
         return {
-            hasEffect: false,
-            shouldBeBlack: true,
-            inputClass: ''
+            isGreen: false
         }
     },
     methods: {
-        startEffect () {
-            setInterval(() => { this.hasEffect = !this.hasEffect }, 800)
+        switchLight () {
+            this.isGreen = !this.isGreen
         }
     }
 }
@@ -34,39 +28,35 @@ export default {
 
 <style>
     #playground > * {
-        margin-bottom: 20px;
+        margin: 20px;
     }
 
-    .effect {
-        border: 1px solid black;
-        height: 100px;
-        transition: all 400ms;
-        width: 100px;
+    .trafficLight {
+        background-color: #1f1f1f;
+        border-radius: 40px;
+        display: flex;
+        justify-content: center;
+        height: 180px;
+        position: relative;
+        width: 90px;
     }
 
-    .highlight {
+    .trafficLight__green {
         background-color: chartreuse;
-        width: 200px;
-    }
-
-    .shrink {
-        background-color: gray;
-        width: 50px;
-    }
-
-    .black {
-        background-color: black;
-    }
-
-    .whiteFont {
-        color: white;
-    }
-
-    .circle {
-        background-color: dodgerblue;
         border-radius: 50%;
-        height: 100px;
-        width: 100px;
+        height: 60px;
+        position: absolute;
+        top: 20px;
+        width: 60px;
+    }
+
+    .trafficLight__red {
+        background-color: red;
+        border-radius: 50%;
+        bottom: 20px;
+        height: 60px;
+        position: absolute;
+        width: 60px;
     }
 </style>
 
@@ -86,4 +76,6 @@ IMPORTANT:
     * computed vs watch : They are similar but in "watch" you can run an async code liek setTimeout(), what is not possible with "computed"
 
     * Shorthands : @ instead von v-on and : instead of v-bind
+
+    * v-else-if : NEW!
 -->
