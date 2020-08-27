@@ -2,9 +2,7 @@
 <div id="playground">
     <div
         class="demo"
-        :class="{
-            'red': shouldRedBg
-        }"
+        :class="getDivClass"
         @click="toggleBg"
     ></div>
     <div class="demo"></div>
@@ -19,6 +17,14 @@ export default {
     data: function () {
         return {
             shouldRedBg: false
+        }
+    },
+    computed: {
+        getDivClass () {
+            return {
+                red: this.shouldRedBg,
+                blue: !this.shouldRedBg
+            }
         }
     },
     methods: {
@@ -45,6 +51,10 @@ export default {
 
     .red {
         background-color: red;
+    }
+
+    .blue {
+        background-color: blue;
     }
 </style>
 
