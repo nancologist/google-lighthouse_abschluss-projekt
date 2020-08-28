@@ -103,4 +103,9 @@ IMPORTANT:
     * Shorthands : @ instead von v-on and : instead of v-bind
 
     * v-else-if : NEW!
+
+    * vm.$data
+
+    * ref-attr , this.$refs inside vue-instance
+      (Important: using "ref" in React or Vue means accessing the DOM directly, which can be overwritten. So "ref" replaces the .querySelector())
 -->

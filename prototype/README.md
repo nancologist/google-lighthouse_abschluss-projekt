@@ -20,3 +20,7 @@ ___
 
 * Add Tip Page when the App opens to explain the different aspects and settings of the app.
 ___
+
+## Using JSX in Vue
+* How to add JSX to Vue : https://github.com/vuejs/jsx
+* https://medium.com/js-dojo/using-jsx-with-vue-js-846f4fbbf07f
