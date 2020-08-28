@@ -23,4 +23,5 @@ ___
 
 ## Using JSX in Vue
 * How to add JSX to Vue : https://github.com/vuejs/jsx
-* https://medium.com/js-dojo/using-jsx-with-vue-js-846f4fbbf07f
+* Example1: https://medium.com/js-dojo/using-jsx-with-vue-js-846f4fbbf07f
+* Example2: https://scotch.io/tutorials/using-jsx-with-vue-and-why-you-should-care

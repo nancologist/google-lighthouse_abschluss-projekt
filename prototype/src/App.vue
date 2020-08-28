@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <playground/>
+        <playground :name="'Mori'"/>
     </div>
 </template>
 

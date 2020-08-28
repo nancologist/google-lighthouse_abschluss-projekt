@@ -1,54 +1,31 @@
-<template>
-<div id="playground">
-    <div class="trafficLight">
-        <div class="trafficLight__green" v-if="isGreen"></div>
-        <div class="trafficLight__red" v-else></div>
-    </div>
-    <button @click="switchLight">SWITCH</button>
-    <hr>
-    <ul>
-        <li v-for="(name, index) in names" :key="index">#{{index}} {{name}}</li>
-    </ul>
-    <hr>
-    <div v-for="(val, key, index) in movie" :key="index">
-        <p>{{ key }}: {{ val }}</p>
-    </div>
-    <hr>
-    <div v-for="(item, index) in testObject" :key="index">
-        <ul v-if="Array.isArray(item)">
-            <li v-for="(x, i) in item" :key="i">{{x}}</li>
-        </ul>
-        <p v-else>{{ item }}</p>
-    </div>
-</div>
-</template>
-
 <script>
+// ****** JSX - in Vue : ******
 
-export default {
-    name: 'Playground',
-    data () {
-        return {
-            isGreen: false,
-            names: ['David', 'Michael', 'Paul', 'Oliver'],
-            movie: {
-                title: 'Lord of the Rings',
-                author: 'J.R.R Tolkiens',
-                books: 3
-            },
-            testObject: {
-                name: 'TESTOBJECT',
-                data: [1.67, 1.33, 2.43, 0.81]
-            }
-        }
-    },
-    methods: {
-        switchLight () {
-            this.isGreen = !this.isGreen
-        }
-    }
-}
+// export default {
+//     name: 'Playground',
+//     data () {
+//         return {
+//             isGreen: false,
+//             names: ['David', 'Michael', 'Paul', 'Oliver'],
+//             movie: {
+//                 title: 'Lord of the Rings',
+//                 author: 'J.R.R Tolkiens',
+//                 books: 3
+//             }
+//         }
+//     },
+//     render () {
+//         return (
+//             <div>
+//                 <h1>Hallo Helmut!</h1>
+//             </div>
+//         )
+//     }
+// }
 
+// ****** JSX - even shorter, just like in React ******
+
+export default ({ props }) => <h1 class="red">Hallo { props.name }!</h1>
 </script>
 
 <style>
