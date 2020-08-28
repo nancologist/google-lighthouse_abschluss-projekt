@@ -52,37 +52,7 @@ export default {
 </script>
 
 <style>
-    #playground > * {
-        margin: 20px;
-    }
-
-    .trafficLight {
-        background-color: #1f1f1f;
-        border-radius: 40px;
-        display: flex;
-        justify-content: center;
-        height: 180px;
-        position: relative;
-        width: 90px;
-    }
-
-    .trafficLight__green {
-        background-color: chartreuse;
-        border-radius: 50%;
-        height: 60px;
-        position: absolute;
-        top: 20px;
-        width: 60px;
-    }
-
-    .trafficLight__red {
-        background-color: red;
-        border-radius: 50%;
-        bottom: 20px;
-        height: 60px;
-        position: absolute;
-        width: 60px;
-    }
+    @import './Playground.css';
 </style>
 
 <!--
