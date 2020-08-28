@@ -25,7 +25,10 @@
 
 // ****** JSX - even shorter, just like in React ******
 
-export default ({ props }) => <h1 class="red">Hallo { props.name }!</h1>
+export default (x) => {
+    console.log(x)
+    return <h1 class="red">Hallo { x.props.name }!</h1>
+}
 </script>
 
 <style>
