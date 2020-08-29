@@ -54,5 +54,8 @@ IMPORTANT:
 
     * slots : like props.children in react ...
 
-    * Switch between child Components with <component> : Video #131
+    * Switch between child Components with <component> :
+        - Video #131
+        - <keep-alive> : Video #133
+        - activated & deactivated lifecycle hooks : Video #134
 -->
