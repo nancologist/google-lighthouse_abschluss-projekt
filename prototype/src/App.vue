@@ -19,10 +19,10 @@ export default {
         }
     },
     methods: {
-        changeName () {
+        changeName() {
             this.myName = 'Sara'
         },
-        reverseName () {
+        reverseName() {
             this.myName = this.myName.split('').reverse().join('')
         }
     },
