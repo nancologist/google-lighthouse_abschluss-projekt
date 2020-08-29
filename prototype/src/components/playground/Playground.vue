@@ -5,7 +5,6 @@ export default (context) => {
         <div id="playground">
             <h3>Child Component</h3>
             <p>Name in Playground:<strong> { props.name }</strong></p>
-            <button vOn:click={props.callFunc}>Reverse Name</button>
         </div>
     );
 };
@@ -52,4 +51,8 @@ IMPORTANT:
         - properties of "props" -> "type", "required", "default" : Video # 112
 
     * $emit() : Video #113
+
+    * slots : like props.children in react ...
+
+    * Switch between child Components with <component> : Video #131
 -->

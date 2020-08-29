@@ -18,6 +18,7 @@ module.exports = {
         semi: ['error', 'always'],
         'space-before-function-paren': ['error', 'never'],
         'sort-keys': ['error', 'asc', { caseSensitive: false, 'minKeys': 2 }],
-        'sort-imports': ['error', { 'ignoreCase': true }]
+        'sort-imports': ['error', { 'ignoreCase': true }],
+        'import/extensions': ['error', 'always']
     }
 };
