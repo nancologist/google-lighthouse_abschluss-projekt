@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import playground from './components/playground/Playground.vue'
+import playground from './components/playground/Playground.vue';
 
 export default {
     components: {
@@ -16,18 +16,18 @@ export default {
     data () {
         return {
             myName: 'David'
-        }
+        };
     },
     methods: {
         changeName() {
-            this.myName = 'Sara'
+            this.myName = 'Sara';
         },
         reverseName() {
-            this.myName = this.myName.split('').reverse().join('')
+            this.myName = this.myName.split('').reverse().join('');
         }
     },
     name: 'App'
-}
+};
 </script>
 
 <style>
