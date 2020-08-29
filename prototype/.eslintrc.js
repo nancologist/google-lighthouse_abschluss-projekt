@@ -1,7 +1,8 @@
 module.exports = {
     root: true,
     env: {
-        node: true
+        node: true,
+        es6: true
     },
     extends: [
         'plugin:vue/essential',
@@ -11,10 +12,12 @@ module.exports = {
         parser: 'babel-eslint'
     },
     rules: {
+        'arrow-parens': ['error', 'always'],
         indent: ['error', 4],
-        'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-        'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+        'jsx-quotes': ['error', 'prefer-double'],
+        semi: ['error', 'always'],
         'space-before-function-paren': ['error', 'never'],
-        semi: ['error', 'always']
+        'sort-keys': ['error', 'asc', { caseSensitive: false, 'minKeys': 2 }],
+        'sort-imports': ['error', { 'ignoreCase': true }]
     }
 };
