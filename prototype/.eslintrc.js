@@ -5,16 +5,16 @@ module.exports = {
     },
     extends: [
         'plugin:vue/essential',
-        '@vue/standard',
+        '@vue/standard'
     ],
     parserOptions: {
         parser: 'babel-eslint'
     },
     rules: {
-        indent: 'off',
+        indent: ['error', 4],
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-        'space-before-function-paren': 'off',
-        semi: ["error", "always"]
+        'space-before-function-paren': ['error', 'never'],
+        semi: ['error', 'always']
     }
-}
+};
