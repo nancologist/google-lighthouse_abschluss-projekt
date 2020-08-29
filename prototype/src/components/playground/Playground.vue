@@ -1,38 +1,27 @@
-<script>
-// ****** JSX - in Vue : ******
+<template>
+    <h3>{{ movie.title }}</h3>
+</template>
 
-// export default {
-//     name: 'Playground',
-//     data () {
-//         return {
-//             isGreen: false,
-//             names: ['David', 'Michael', 'Paul', 'Oliver'],
-//             movie: {
-//                 title: 'Lord of the Rings',
-//                 author: 'J.R.R Tolkiens',
-//                 books: 3
-//             }
-//         }
-//     },
-//     render () {
-//         return (
-//             <div>
-//                 <h1>Hallo Helmut!</h1>
-//             </div>
-//         )
-//     }
-// }
+<script>
+export default {
+    name: 'Playground',
+    data () {
+        return {
+            movie: {
+                title: 'Lord of the Rings',
+                author: 'J.R.R Tolkiens',
+                books: 3
+            }
+        }
+    }
+}
 
 // ****** JSX - even shorter, just like in React ******
-
-export default (x) => {
-    console.log(x)
-    return <h1 class="red">Hallo { x.props.name }!</h1>
-}
+// export default ({ props }) => <h1 class="red">Hallo { props.name }!</h1>
 </script>
 
 <style>
-    @import './Playground.css';
+    @import 'Playground.css';
 </style>
 
 <!--
@@ -58,4 +47,8 @@ IMPORTANT:
 
     * ref-attr , this.$refs inside vue-instance
       (Important: using "ref" in React or Vue means accessing the DOM directly, which can be overwritten. So "ref" replaces the .querySelector())
+
+    * v-slot : https://vuejs.org/v2/guide/components-slots.html
+
+    * Vue Instance Lifecycle : Video #77
 -->
