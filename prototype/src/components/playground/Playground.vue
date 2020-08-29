@@ -2,18 +2,12 @@
     <div id="playground">
         <h3>Child Component</h3>
         <p>Name in Playground:<strong> {{ name }}</strong></p>
-        <button @click="reverseName">Reverse Name</button>
+        <button @click="$emit('REVERSE_NAME')">Reverse Name</button>
     </div>
 </template>
 
 <script>
 export default {
-    methods: {
-        reverseName () {
-            this.name = this.name.split('').reverse().join('')
-            this.$emit('REVERSE_NAME', this.name)
-        }
-    },
     name: 'Playground',
     props: {
         name: String

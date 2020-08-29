@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <h1>Name in App: {{ myName }}</h1>
-        <playground :name="myName" @REVERSE_NAME="sayName"/>
+        <playground :name="myName" @REVERSE_NAME="reverseName"/>
         <button @click="changeName">Change Name</button>
     </div>
 </template>
@@ -22,8 +22,8 @@ export default {
         changeName () {
             this.myName = 'Sara'
         },
-        sayName (name) {
-            alert(name)
+        reverseName () {
+            this.myName = this.myName.split('').reverse().join('')
         }
     },
     name: 'App'
