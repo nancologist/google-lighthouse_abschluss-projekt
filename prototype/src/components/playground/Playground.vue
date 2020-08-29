@@ -1,12 +1,11 @@
 <script>
 export default (context) => {
-    const { props, listeners } = context
-    const emitEvent = () => listeners.REVERSE_NAME()
+    const { props } = context
     return (
         <div id="playground">
             <h3>Child Component</h3>
             <p>Name in Playground:<strong> { props.name }</strong></p>
-            <button vOn:click={emitEvent}>Reverse Name</button>
+            <button vOn:click={props.callFunc}>Reverse Name</button>
         </div>
     )
 }

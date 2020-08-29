@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <h1>Name in App: {{ myName }}</h1>
-        <playground :name="myName" @REVERSE_NAME="reverseName"/>
+        <playground :name="myName" :callFunc="reverseName"/>
         <button @click="changeName">Change Name</button>
     </div>
 </template>
