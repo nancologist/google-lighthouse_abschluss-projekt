@@ -1,18 +1,22 @@
 <template>
-    <h3>{{ movie.title }}</h3>
+    <div id="playground">
+        <h3>Child Component</h3>
+        <p>Name in Playground:<strong> {{ name }}</strong></p>
+        <button @click="reverseName">Reverse Name</button>
+    </div>
 </template>
 
 <script>
 export default {
-    name: 'Playground',
-    data () {
-        return {
-            movie: {
-                title: 'Lord of the Rings',
-                author: 'J.R.R Tolkiens',
-                books: 3
-            }
+    methods: {
+        reverseName () {
+            this.name = this.name.split('').reverse().join('')
+            this.$emit('REVERSE_NAME', this.name)
         }
+    },
+    name: 'Playground',
+    props: {
+        name: String
     }
 }
 
@@ -20,7 +24,7 @@ export default {
 // export default ({ props }) => <h1 class="red">Hallo { props.name }!</h1>
 </script>
 
-<style>
+<style scoped>
     @import 'Playground.css';
 </style>
 
@@ -38,6 +42,7 @@ IMPORTANT:
     * computed vs methods : Video #26
 
     * computed vs watch : They are similar but in "watch" you can run an async code liek setTimeout(), what is not possible with "computed"
+        btw. "computed" should always have a "return"!
 
     * Shorthands : @ instead von v-on and : instead of v-bind
 
@@ -51,4 +56,10 @@ IMPORTANT:
     * v-slot : https://vuejs.org/v2/guide/components-slots.html
 
     * Vue Instance Lifecycle : Video #77
+
+    * props :
+        - You can manipulate the imported props in the child cmp : Video #111
+        - properties of "props" -> "type", "required", "default" : Video # 112
+
+    * $emit() : Video #113
 -->

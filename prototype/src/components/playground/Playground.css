@@ -1,5 +1,9 @@
-#playground > * {
+#playground {
+    background-color: darkseagreen;
+    height: 200px;
     margin: 20px;
+    padding: 6px 18px;
+    width: 500px;
 }
 
 .trafficLight {
