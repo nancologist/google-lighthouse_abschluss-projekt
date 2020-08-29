@@ -1,0 +1,19 @@
+{
+  "name": "prototype2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^10.1.0",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "lighthouse": "^6.3.0"
+  }
+}
