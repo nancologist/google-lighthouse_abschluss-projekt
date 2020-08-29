@@ -1,17 +1,14 @@
-<template>
-    <div id="playground">
-        <h3>Child Component</h3>
-        <p>Name in Playground:<strong> {{ name }}</strong></p>
-        <button @click="$emit('REVERSE_NAME')">Reverse Name</button>
-    </div>
-</template>
-
 <script>
-export default {
-    name: 'Playground',
-    props: {
-        name: String
-    }
+export default (context) => {
+    const { props, listeners } = context
+    const emitEvent = () => listeners.REVERSE_NAME()
+    return (
+        <div id="playground">
+            <h3>Child Component</h3>
+            <p>Name in Playground:<strong> { props.name }</strong></p>
+            <button vOn:click={emitEvent}>Reverse Name</button>
+        </div>
+    )
 }
 
 // ****** JSX - even shorter, just like in React ******

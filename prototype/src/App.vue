@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import playground from './components/playground/Playground'
+import playground from './components/playground/Playground.vue'
 
 export default {
     components: {
