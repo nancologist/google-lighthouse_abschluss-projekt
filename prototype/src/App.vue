@@ -13,7 +13,7 @@ export default {
     components: {
         playground
     },
-    data () {
+    data() {
         return {
             myName: 'David'
         };
