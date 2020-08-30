@@ -10,7 +10,6 @@
 </template>
 
 <script>
-const { ipcRenderer } = require('electron');
 export default {
     data() {
         return {
@@ -19,7 +18,7 @@ export default {
     },
     methods: {
         testUrl() {
-            ipcRenderer.send('xxx', this.url);
+            window.dispatchToE('xxx', this.url);
             // return;
         }
     }
