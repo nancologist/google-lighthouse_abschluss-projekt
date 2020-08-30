@@ -203,3 +203,6 @@ ___
 ### 6.2. Antrag
 
 ___
+
+## Useful Links
+* UX Checklist for Desktop Apps: https://docs.microsoft.com/en-us/windows/win32/uxguide/top-violations
