@@ -41,7 +41,8 @@ ___
 * ``ipcRenderer`` not working in ``App.vue``
 * It should be set ``nodeIntegration: true`` for an SFC (So if a script node package (vue-cli dependency or 3rd party package) access internet it could be dangerous.)
 
-* ``__dirname`` wird durch webpack manipuliert und ``lighhouse`` braucht die richtige ``__dirname`` um einen Bericht zu schreiben. (``background.js`` is bundled with webpack.). Ich habe viel versucht durch ``webpack.config.js`` dieses Verhalten zu manipulieren aber es geht leider nicht.
+* ``__dirname`` und andere globale Node-Variablen werden durch webpack manipuliert und ``lighhouse`` braucht diese Variablen um den Bericht zu schreiben. (``background.js`` is unfortunately bundled with webpack.).  
+Ich habe viel versucht durch ``webpack.config.js`` dieses Verhalten zu manipulieren aber es geht leider nicht. (Das gleiche passiert mit React-demo-app)
 ___
 
 ### Project setup

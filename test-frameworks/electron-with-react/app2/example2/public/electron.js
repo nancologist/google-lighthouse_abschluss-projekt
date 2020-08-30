@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require('test-frameworks/electron-with-react/app2/example2/public/electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
+const lh = require('lighthouse');
 
 function createWindow () {
     // Create the browser window.

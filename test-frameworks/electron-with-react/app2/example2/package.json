@@ -14,6 +14,7 @@
     "@testing-library/user-event": "^7.1.2",
     "cross-env": "^7.0.2",
     "electron-is-dev": "^1.2.0",
+    "lighthouse": "^6.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3"
