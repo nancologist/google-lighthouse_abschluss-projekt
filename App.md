@@ -39,8 +39,9 @@ ___
 
 ### __Problems:__ 
 * ``ipcRenderer`` not working in ``App.vue``
-* By generating html there's a ``"no such file or dir"`` error.
 * It should be set ``nodeIntegration: true`` for an SFC (So if a script node package (vue-cli dependency or 3rd party package) access internet it could be dangerous.)
+
+* ``__dirname`` wird durch webpack manipuliert und ``lighhouse`` braucht die richtige ``__dirname`` um einen Bericht zu schreiben. (``background.js`` is bundled with webpack.). Ich habe viel versucht durch ``webpack.config.js`` dieses Verhalten zu manipulieren aber es geht leider nicht.
 ___
 
 ### Project setup
