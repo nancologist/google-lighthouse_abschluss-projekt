@@ -5,7 +5,7 @@
   "description": "My Electron application description",
   "main": "src/index.js",
   "scripts": {
-    "start": "electron-forge start",
+    "start": "set NODE_ENV=development && electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
@@ -45,6 +45,7 @@
     }
   },
   "dependencies": {
+    "electron-reload": "^1.5.0",
     "electron-squirrel-startup": "^1.0.0"
   },
   "devDependencies": {

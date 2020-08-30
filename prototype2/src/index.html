@@ -8,5 +8,16 @@
   <body>
     <h1>💖 Hello World!</h1>
     <p>Welcome to your Electron application.</p>
+    <input type="text">
+    <button>send</button>
+    <script>
+        import { ipcRenderer } from 'electron';
+        // const { ipcRenderer } = window.require('electron');
+        const btn = document.querySelector('button');
+        const input = document.querySelector('input');
+        btn.addEventListener('click', () => {
+            ipcRenderer.send('xxx', input.value);
+        })
+    </script>
   </body>
 </html>
