@@ -20,7 +20,7 @@
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             const url = input.value;
-            ipcRenderer.sendSync('xxx', url);
+            ipcRenderer.send('xxx', url);
         })
     </script>
 </body>
