@@ -4,31 +4,30 @@ import { app, protocol, BrowserWindow } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
 const isDevelopment = process.env.NODE_ENV !== 'production';
-
-const { ipcMain } = require('electron')
+const { ipcMain } = require('electron');
 
 ipcMain.on('xxx', (event, arg) => {
     console.log(arg);
-    // const url = arg;
-    // const fs = require('fs');
-    // const lighthouse = require('lighthouse');
-    // const chromeLauncher = require('chrome-launcher');
-    //
-    // (async () => {
-    //     const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-    //     const options = {logLevel: 'info', output: 'html', onlyCategories: ['performance'], port: chrome.port};
-    //     const runnerResult = await lighthouse('http://www.nancologist.com', options);
-    //
-    //     // `.report` is the HTML report as a string
-    //     const reportHtml = runnerResult.report;
-    //     fs.writeFileSync('lhreport.html', reportHtml);
-    //
-    //     // `.lhr` is the Lighthouse Result as a JS object
-    //     console.log('Report is done for', runnerResult.lhr.finalUrl);
-    //     console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
-    //
-    //     await chrome.kill();
-    // })();
+    const url = arg;
+    const fs = require('fs');
+    const lighthouse = require('lighthouse');
+    const chromeLauncher = require('chrome-launcher');
+
+    (async () => {
+        const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
+        const options = {logLevel: 'info', output: 'html', onlyCategories: ['performance'], port: chrome.port};
+        const runnerResult = await lighthouse('http://www.nancologist.com', options);
+
+        // `.report` is the HTML report as a string
+        const reportHtml = runnerResult.report;
+        fs.writeFileSync('lhreport.html', reportHtml);
+
+        // `.lhr` is the Lighthouse Result as a JS object
+        console.log('Report is done for', runnerResult.lhr.finalUrl);
+        console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
+
+        await chrome.kill();
+    })();
 })
 
 // Keep a global reference of the window object, if you don't, the window will

@@ -19,7 +19,8 @@ export default {
     },
     methods: {
         testUrl() {
-            ipcRenderer.sendSync('xxx', this.url);
+            ipcRenderer.send('xxx', this.url);
+            // return;
         }
     }
 };
