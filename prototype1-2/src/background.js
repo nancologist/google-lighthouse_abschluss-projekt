@@ -4,6 +4,8 @@ import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 // const lighthouse = require('lighthouse');
 const path = require('path');
+const fs = require('fs');
+const express = require('lighthouse');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
