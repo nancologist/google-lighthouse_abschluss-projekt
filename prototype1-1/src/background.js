@@ -4,11 +4,11 @@ import { app, protocol, BrowserWindow } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
 const isDevelopment = process.env.NODE_ENV !== 'production';
-const { ipcMain } = require('electron');
-const path = require('path');
-const fs = require('fs');
-const lighthouse = require('lighthouse');
-const chromeLauncher = require('chrome-launcher');
+import { ipcMain } from 'electron';
+import path from 'path';
+import fs from 'fs';
+// const lighthouse = require('lighthouse');
+// const chromeLauncher = require('chrome-launcher');
 
 ipcMain.on('xxx', (event, arg) => {
     console.log(arg);
