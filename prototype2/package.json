@@ -28,5 +28,8 @@
   "devDependencies": {
     "electron": "^10.1.0",
     "electron-builder": "^22.8.0"
+  },
+  "dependencies": {
+    "lighthouse": "^6.3.0"
   }
 }
