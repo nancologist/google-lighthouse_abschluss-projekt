@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "set NODE_ENV=development && electron ."
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "electron": "^10.1.0",
-    "nodemon": "^2.0.4"
+    "electron-reload": "^1.5.0"
   },
   "dependencies": {
     "lighthouse": "^6.3.0"
