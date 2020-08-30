@@ -15,16 +15,19 @@ ___
 * https://github.com/benmosher/eslint-plugin-import
 ___
 
-## Prototype 2 ([Electron Boilerplate](https://github.com/electron-userland/electron-forge))
+## Prototype 2 
 
 ### Setup
-1. ``npx create-electron-app .`` or ``yarn create electron-app my-new-app``
-
-
-### Dependencies
-* ``electron-reloader`` - For Hot Reloading the app in dev mode.
-    * ``npm install electron-reload --save-dev``
-    * https://www.geeksforgeeks.org/hot-reload-in-electronjs/
+1. ``git clone https://github.com/electron/electron-quick-start .``
+2. ``electron-reloader`` - For Hot Reloading the app in dev mode.
+   * ``yarn add electron-reload --save-dev``
+   * https://www.geeksforgeeks.org/hot-reload-in-electronjs/
+   
+## Building and Packaging (https://github.com/electron-userland/electron-builder)
+* Look at ``electron-builder.pdf`` instead of :
+1. ``yarn add electron-builder --dev``
+2. ``yarn pack`` to test , ``yarn dist`` to build packages
+3. ...
 ___
 
 ## Prototype 1 ``klayman/vue-cli-plugin-electron-builder``

@@ -4,6 +4,10 @@ const path = require('path')
 
 ipcMain.on('xxx', (event, arg) => {
     console.log(arg);
+    const testWin = new BrowserWindow({
+        width: 150,
+        height: 90
+    })
 });
 
 function createWindow () {
