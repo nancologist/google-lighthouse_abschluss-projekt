@@ -30,7 +30,8 @@ function createWindow() {
             // Needed only if nodeIntegration is set to "false":
             // preload: path.join(__dirname, '..', 'src', 'preload.js'),
 
-            // If any problem with node modules, just set it to "true":
+            // If any problem with node modules, just set nodeIntegration to
+            // "true":
             nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
         },
     });
