@@ -11,6 +11,8 @@
 
 <script>
 const fs = require('fs');
+const { ipcRenderer } = require('electron');
+
 fs.readdir('.', (err, files) => {
     console.log(files);
     if (err) console.log(err);
@@ -24,8 +26,7 @@ export default {
     },
     methods: {
         testUrl() {
-            window.dispatchToE('xxx', this.url);
-            // return;
+            ipcRenderer.send('xxx', this.url);
         }
     }
 };

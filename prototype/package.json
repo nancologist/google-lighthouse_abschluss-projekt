@@ -12,7 +12,7 @@
     "postuninstall": "electron-builder install-app-deps",
     "start": "npm run electron:serve"
   },
-  "main": "background.js",
+  "main": "src/electron/index.js",
   "dependencies": {
     "core-js": "^3.6.5",
     "lighthouse": "^6.3.0",
