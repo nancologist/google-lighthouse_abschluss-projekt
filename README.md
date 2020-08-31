@@ -206,3 +206,8 @@ ___
 
 ## Useful Links
 * UX Checklist for Desktop Apps: https://docs.microsoft.com/en-us/windows/win32/uxguide/top-violations
+
+___
+
+## 7. Projektspräsi
+* Use this in presentation https://learning.oreilly.com/videos/desktop-apps-with/0636920361862 to give a strong base to Electron!!!
