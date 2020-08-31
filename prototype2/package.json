@@ -2,9 +2,9 @@
   "name": "electron-quick-start",
   "version": "1.0.0",
   "description": "A minimal Electron application",
-  "main": "main.js",
+  "main": "./src/main.js",
   "build": {
-    "appId": "your.id",
+    "appId": "lighhouse.pixelpark",
     "mac": {
       "category": "your.app.category.type"
     }

@@ -1,0 +1,39 @@
+/* Montserrat, Rubik, Roboto */
+/* URL gegen Regel ... */
+/*@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&display=swap');*/
+/*@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&family=Rubik:wght@300;400;500;600;700;800&display=swap');*/
+/*@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&family=Roboto:wght@300;400;500;700;900&family=Rubik:wght@300;400;500;600;700;800&display=swap');*/
+
+*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Remove Arrows from Input:Number --------------- */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+/* ------------------------------------------------ */
+
+:root {
+    --first-color: #17252A;
+    --second-color: #2B7A78;
+    --third-color: #3AAFA9;
+    --fourth-color: #DEF2F1;
+    --fifth-color: #FEFFFF;
+}
+
+body {
+    background-color: var(--third-color);
+    color: var(--first-color);
+    font-family: 'Montserrat', Arial, Helvetica, Helvetica Neue, sans-serif;
+}
