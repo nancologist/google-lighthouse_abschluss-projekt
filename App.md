@@ -24,12 +24,13 @@ ___
    * https://www.geeksforgeeks.org/hot-reload-in-electronjs/
    
 3. Create fonts https://google-webfonts-helper.herokuapp.com/
-   
+
+4. Add Eslint https://eslint.org/docs/user-guide/getting-started
+
 ## Building and Packaging (https://github.com/electron-userland/electron-builder)
-* Look at ``electron-builder.pdf`` instead of :
 1. ``yarn add electron-builder --dev``
-2. ``yarn pack`` to test , ``yarn dist`` to build packages
-3. ...
+2. ``yarn pack`` to test packaging , ``yarn dist`` to build packages
+3. ... (Look at ``electron-builder.pdf``)
 ___
 
 ## Prototype 1 ``klayman/vue-cli-plugin-electron-builder``
