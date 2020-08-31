@@ -49,11 +49,12 @@ function createWindow() {
         minWidth: 800,
         show: false, // see 'ready-to-show' event listener.
         webPreferences: {
-            // nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
-            preload: path.join(__dirname, '..', 'src', 'preload.js')
-            // __dirname = "dist_electron/"
+            // If any problem with node modules, just set it to "true":
+            nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
         },
     });
+
+    if (isDev) win.webContents.openDevTools();
 
     if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
