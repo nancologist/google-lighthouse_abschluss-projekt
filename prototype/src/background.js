@@ -13,23 +13,23 @@ const isDev = process.env.NODE_ENV !== 'production';
 
 ipcMain.on('xxx', (event, arg) => {
     console.log(arg);
-    const url = arg;
-
-    (async () => {
-        const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-        const options = {logLevel: 'info', output: 'html', onlyCategories: ['performance'], port: chrome.port};
-        const runnerResult = await lighthouse('http://www.nancologist.com', options);
-
-        // `.report` is the HTML report as a string
-        const reportHtml = runnerResult.report;
-        fs.writeFileSync('../lhreport.html', reportHtml);
-
-        // `.lhr` is the Lighthouse Result as a JS object
-        console.log('Report is done for', runnerResult.lhr.finalUrl);
-        console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
-
-        await chrome.kill();
-    })();
+    // const url = arg;
+    //
+    // (async () => {
+    //     const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
+    //     const options = {logLevel: 'info', output: 'html', onlyCategories: ['performance'], port: chrome.port};
+    //     const runnerResult = await lighthouse('http://www.nancologist.com', options);
+    //
+    //     // `.report` is the HTML report as a string
+    //     const reportHtml = runnerResult.report;
+    //     fs.writeFileSync('../lhreport.html', reportHtml);
+    //
+    //     // `.lhr` is the Lighthouse Result as a JS object
+    //     console.log('Report is done for', runnerResult.lhr.finalUrl);
+    //     console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
+    //
+    //     await chrome.kill();
+    // })();
 })
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -49,6 +49,9 @@ function createWindow() {
         minWidth: 800,
         show: false, // see 'ready-to-show' event listener.
         webPreferences: {
+            // Needed only if nodeIntegration is set to "false":
+            // preload: path.join(__dirname, '..', 'src', 'preload.js'),
+
             // If any problem with node modules, just set it to "true":
             nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
         },
@@ -72,26 +75,6 @@ function createWindow() {
     //  then shows the app, instead of that, OPEN the window immediately and
     //  then use a Spinner instead (if possible).
     win.once('ready-to-show', () => { win.show() });
-
-    win.on('close', () => {
-        prompt({
-            title: 'Prompt example',
-            label: 'URL:',
-            value: 'http://example.org',
-            inputAttrs: {
-                type: 'url'
-            },
-            type: 'input'
-        })
-        .then((r) => {
-            if(r === null) {
-                console.log('user cancelled');
-            } else {
-                console.log('result', r);
-            }
-        })
-        .catch(console.error);
-    })
 
     win.on('closed', () => {
         win = null;

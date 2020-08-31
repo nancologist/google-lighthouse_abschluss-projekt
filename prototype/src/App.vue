@@ -10,7 +10,6 @@
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
 const fs = require('fs');
 fs.readdir('.', (err, files) => {
     console.log(files);
