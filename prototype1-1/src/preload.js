@@ -8,5 +8,5 @@
  * which expose everything to the script.
  * */
 
-// const { ipcRenderer } = require('electron');
-// window.dispatchToE = ipcRenderer.send;
+const { ipcRenderer } = require('electron');
+window.dispatchToE = ipcRenderer.send;
