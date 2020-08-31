@@ -5,6 +5,14 @@ const fs = require('fs');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
 
+const env = process.env.NODE_ENV || 'development';
+if (env === 'development') {
+    require('electron-reload')(__dirname, {
+        electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
+        hardResetMethod: 'exit'
+    });
+}
+
 ipcMain.on('xxx', (event, arg) => {
     console.log(arg);
     (async () => {
@@ -45,7 +53,9 @@ function createWindow () {
   mainWindow.loadFile(path.join(__dirname, 'view', 'index.html'))
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+    if (env === 'development') {
+        mainWindow.webContents.openDevTools()
+    }
 }
 
 // This method will be called when Electron has finished

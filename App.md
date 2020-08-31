@@ -23,6 +23,8 @@ ___
    * ``yarn add electron-reload --save-dev``
    * https://www.geeksforgeeks.org/hot-reload-in-electronjs/
    
+3. Create fonts https://google-webfonts-helper.herokuapp.com/
+   
 ## Building and Packaging (https://github.com/electron-userland/electron-builder)
 * Look at ``electron-builder.pdf`` instead of :
 1. ``yarn add electron-builder --dev``

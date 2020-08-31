@@ -10,7 +10,7 @@
     }
   },
   "scripts": {
-    "start": "electron .",
+    "start": "set NODE_ENV=development && electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "postinstall": "electron-builder install-app-deps"
@@ -27,7 +27,8 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^10.1.0",
-    "electron-builder": "^22.8.0"
+    "electron-builder": "^22.8.0",
+    "electron-reload": "^1.5.0"
   },
   "dependencies": {
     "lighthouse": "^6.3.0"
