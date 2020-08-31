@@ -1,15 +1,15 @@
 'use strict';
 
-import { app, protocol, BrowserWindow } from 'electron';
-import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
-import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
-const isDevelopment = process.env.NODE_ENV !== 'production';
-import { ipcMain } from 'electron';
-import path from 'path';
-import fs from 'fs';
-
+const path = require('path');
+const fs = require('fs');
+const { app, ipcMain, protocol, BrowserWindow } = require('electron');
+const { createProtocol } = require('vue-cli-plugin-electron-builder/lib');
+const installExtension = require('electron-devtools-installer').default;
+const { VUEJS_DEVTOOLS } = require('electron-devtools-installer');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
+
+const isDev = process.env.NODE_ENV !== 'production';
 
 ipcMain.on('xxx', (event, arg) => {
     console.log(arg);
@@ -42,27 +42,55 @@ protocol.registerSchemesAsPrivileged([
 ]);
 
 function createWindow() {
-    // Create the browser window.
     win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        // To show the right background color while the app is loading.
+        backgroundColor: '#3AAFA9',
+        minHeight: 600,
+        minWidth: 800,
+        show: false, // see 'ready-to-show' event listener.
         webPreferences: {
             // nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
-            nodeIntegration: false,
             preload: path.join(__dirname, '..', 'src', 'preload.js')
             // __dirname = "dist_electron/"
-        }
+        },
     });
 
     if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
         win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
-        if (!process.env.IS_TEST) win.webContents.openDevTools();
     } else {
         createProtocol('app');
         // Load the index.html when not in development
         win.loadURL('app://./index.html');
     }
+
+    // Show app only after the page is completely rendered.
+    // (It makes the use of bg-color in BrowserWindow constructor a bit
+    // unnecessary, but it's recommended to set bg-color there.)
+    // Todo: Downside of this action is, that it takes a bit to render and
+    //  then shows the app, instead of that, OPEN the window immediately and
+    //  then use a Spinner instead (if possible).
+    win.once('ready-to-show', () => { win.show() });
+
+    win.on('close', () => {
+        prompt({
+            title: 'Prompt example',
+            label: 'URL:',
+            value: 'http://example.org',
+            inputAttrs: {
+                type: 'url'
+            },
+            type: 'input'
+        })
+        .then((r) => {
+            if(r === null) {
+                console.log('user cancelled');
+            } else {
+                console.log('result', r);
+            }
+        })
+        .catch(console.error);
+    })
 
     win.on('closed', () => {
         win = null;
@@ -90,7 +118,7 @@ app.on('activate', () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async() => {
-    if (isDevelopment && !process.env.IS_TEST) {
+    if (isDev && !process.env.IS_TEST) {
     // Install Vue Devtools
         try {
             await installExtension(VUEJS_DEVTOOLS);
@@ -102,7 +130,7 @@ app.on('ready', async() => {
 });
 
 // Exit cleanly on request from parent process in development mode.
-if (isDevelopment) {
+if (isDev) {
     if (process.platform === 'win32') {
         process.on('message', (data) => {
             if (data === 'graceful-exit') {

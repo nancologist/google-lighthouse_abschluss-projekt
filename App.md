@@ -36,11 +36,19 @@ ___
 ## Prototype 1 ``klayman/vue-cli-plugin-electron-builder``
 (SFC: Single File Component i.e. ``.vue`` files)
 
+___
+
 ### __Summary:__
 * This is a combination of Vue-Cli and Electron which are delivered together
 * Unfortunately because of the following problems and security issues between a vue SFC, lighthouse and electron, it doesn't worth it. 
 
-### __Problems:__ 
+___
+
+## Depndencies
+* __[electron-prompt](https://www.npmjs.com/package/electron-prompt)__
+Because ``alert``, ``prompt`` and other process blockers are removed by Electron team we need to use this package.
+
+### __Problems (ALL SOLVED)__ 
 * ``ipcRenderer`` not working in ``App.vue``
 * It should be set ``nodeIntegration: true`` for an SFC (So if a script node package (vue-cli dependency or 3rd party package) access internet it could be dangerous.)
 
