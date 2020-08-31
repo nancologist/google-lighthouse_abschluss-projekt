@@ -10,3 +10,5 @@
 
 // const { ipcRenderer } = require('electron');
 // window.dispatchToE = ipcRenderer.send;
+
+// LAST STATUS : WE USE nodeIntegration : true INSTEAD.

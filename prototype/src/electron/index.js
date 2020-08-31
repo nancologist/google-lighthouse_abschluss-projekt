@@ -6,31 +6,9 @@ const { app, ipcMain, protocol, BrowserWindow } = require('electron');
 const { createProtocol } = require('vue-cli-plugin-electron-builder/lib');
 const installExtension = require('electron-devtools-installer').default;
 const { VUEJS_DEVTOOLS } = require('electron-devtools-installer');
-const lighthouse = require('lighthouse');
-const chromeLauncher = require('chrome-launcher');
+require('./controllers/index.js');
 
 const isDev = process.env.NODE_ENV !== 'production';
-
-ipcMain.on('xxx', (event, arg) => {
-    console.log(arg);
-    // const url = arg;
-    //
-    // (async () => {
-    //     const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-    //     const options = {logLevel: 'info', output: 'html', onlyCategories: ['performance'], port: chrome.port};
-    //     const runnerResult = await lighthouse('http://www.nancologist.com', options);
-    //
-    //     // `.report` is the HTML report as a string
-    //     const reportHtml = runnerResult.report;
-    //     fs.writeFileSync('../lhreport.html', reportHtml);
-    //
-    //     // `.lhr` is the Lighthouse Result as a JS object
-    //     console.log('Report is done for', runnerResult.lhr.finalUrl);
-    //     console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
-    //
-    //     await chrome.kill();
-    // })();
-})
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
