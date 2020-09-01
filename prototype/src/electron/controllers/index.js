@@ -1,9 +1,24 @@
-const { ipcMain } = require('electron');
-const lighthouse = require('lighthouse');
-const chromeLauncher = require('chrome-launcher');
+const { ipcMain, dialog } = require('electron');
+const fs = require('fs');
+const path = require('path');
+// const lighthouse = require('lighthouse');
+// const chromeLauncher = require('chrome-launcher');
 
-ipcMain.on('xxx', (event, arg) => {
-    console.log(arg);
+const ROOT_DIR = path.join(__dirname, '..');
+
+ipcMain.on('STORE_REPORT', (event, arg) => {
+    const testText = arg;
+
+    const filePath = dialog.showSaveDialogSync({
+        message: 'Please choose a directory.',
+    });
+
+    fs.writeFile(filePath, testText, (err) => {
+        if (err) return console.log(err);
+        console.log('done!');
+    });
+
+    // Write Lighthouse's test report in a html file.
     // const url = arg;
     //
     // (async () => {

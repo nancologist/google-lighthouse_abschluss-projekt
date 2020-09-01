@@ -4,19 +4,21 @@
         <form class="main-window__form">
             <label for="url">Select a website: </label>
             <input id="url" type="text" v-model.lazy="url">
-            <button @click.prevent="testUrl">test</button>
+            <button @click.prevent="testUrl">Test & Save Report</button>
         </form>
+        <a href="../../test.txt" download>Download It!</a>
     </div>
 </template>
 
 <script>
-const fs = require('fs');
+// const fs = require('fs');
 const { ipcRenderer } = require('electron');
 
-fs.readdir('.', (err, files) => {
-    console.log(files);
-    if (err) console.log(err);
-});
+// Test a native module: Print the dirs and files in the current directory.
+// fs.readdir('.', (err, files) => {
+//     console.log(files);
+//     if (err) console.log(err);
+// });
 
 export default {
     data() {
@@ -26,7 +28,7 @@ export default {
     },
     methods: {
         testUrl() {
-            ipcRenderer.send('xxx', this.url);
+            ipcRenderer.send('STORE_REPORT', this.url);
         }
     }
 };
