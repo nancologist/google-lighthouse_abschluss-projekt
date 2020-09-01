@@ -1,4 +1,4 @@
-const { BrowserWindow, ipcMain, dialog } = require('electron');
+const { BrowserWindow, ipcMain, dialog, getCurrentWindow } = require('electron');
 const fs = require('fs');
 const path = require('path');
 // const lighthouse = require('lighthouse');
@@ -8,8 +8,10 @@ const ROOT_DIR = path.join(__dirname, '..');
 
 ipcMain.on('STORE_REPORT', (event, arg) => {
     const testText = arg;
-    // console.log(event);
-    dialog.showSaveDialog({
+    // To attach the dialog to its parent window:
+    const parentWin = BrowserWindow.getFocusedWindow();
+
+    dialog.showSaveDialog(parentWin, {
         message: 'Choose a directory to store lighthouse report.',
     })
     .then(({canceled, filePath}) => {
