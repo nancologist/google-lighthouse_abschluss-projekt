@@ -2,8 +2,17 @@
     <div class="main-window">
         <h1>Test a website</h1>
         <form class="main-window__form">
-            <label for="url">Select a website: </label>
-            <input id="url" type="text" v-model.lazy="url">
+            <input id="url" type="text" v-model.lazy="auditForm.url" placeholder="Enter URL...">
+            <select name="reportFormat" v-model="auditForm.reportFormat">
+                <option disabled value="">Select report format</option>
+                <option value="json">JSON</option>
+                <option value="html">HTML</option>
+            </select>
+            <select name="isCutomConfig" v-model="auditForm.isCustom">
+                <option disabled value="">Use custom configuration?</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
             <button @click.prevent="testUrl">Test & Save Report</button>
         </form>
         <a href="../../test.txt" download>Download It!</a>
@@ -23,12 +32,20 @@ const { ipcRenderer } = require('electron');
 export default {
     data() {
         return {
-            url: ''
+            auditForm: {
+                isCustom: '',
+                reportFormat: '',
+                url: ''
+            }
         };
     },
     methods: {
         testUrl() {
-            ipcRenderer.send('STORE_REPORT', this.url);
+            this.auditForm = {
+                ...this.auditForm,
+                isCustom: (this.auditForm.isCustom === 'yes')
+            };
+            ipcRenderer.send('STORE_REPORT', this.auditForm);
         }
     }
 };

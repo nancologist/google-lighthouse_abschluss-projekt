@@ -1,47 +1,67 @@
 const { BrowserWindow, ipcMain, dialog, getCurrentWindow } = require('electron');
 const fs = require('fs');
 const path = require('path');
-// const lighthouse = require('lighthouse');
-// const chromeLauncher = require('chrome-launcher');
+const lighthouse = require('lighthouse');
+const { throttling: { desktopDense4G } } = require('lighthouse/lighthouse-core/config/constants.js');
+const chromeLauncher = require('chrome-launcher');
 
 const ROOT_DIR = path.join(__dirname, '..');
 
-ipcMain.on('STORE_REPORT', (event, arg) => {
-    const testText = arg;
+ipcMain.on('STORE_REPORT', (event, auditForm) => {
+    const { isCustom, reportFormat, url } = auditForm;
     // To attach the dialog to its parent window:
     const parentWin = BrowserWindow.getFocusedWindow();
 
     dialog.showSaveDialog(parentWin, {
-        message: 'Choose a directory to store lighthouse report.',
+        message: 'Choose a directory to store report.',
+        filters: [{ name: 'Report', extensions: [reportFormat] }]
     })
-    .then(({canceled, filePath}) => {
-        if (!canceled && !!filePath) {
-            fs.writeFile(filePath, testText, (err) => {
-                if (err) return console.log(err);
-                console.log('Writing file started.')
-            })
-        }
-    })
-    .catch((err) => {
-        console.log(err);
-    });
-
-    // Write Lighthouse's test report in a html file.
-    // const url = arg;
-    //
-    // (async () => {
-    //     const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-    //     const options = {logLevel: 'info', output: 'html', onlyCategories: ['performance'], port: chrome.port};
-    //     const runnerResult = await lighthouse('http://www.nancologist.com', options);
-    //
-    //     // `.report` is the HTML report as a string
-    //     const reportHtml = runnerResult.report;
-    //     fs.writeFileSync('../lhreport.html', reportHtml);
-    //
-    //     // `.lhr` is the Lighthouse Result as a JS object
-    //     console.log('Report is done for', runnerResult.lhr.finalUrl);
-    //     console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
-    //
-    //     await chrome.kill();
-    // })();
+        .then(({canceled, filePath}) => {
+            if (!canceled && !!filePath) {
+                testWebsiteAndCreateReport({ url, filePath, reportFormat, isCustom }).catch(err => {
+                    console.log(err);
+                })
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 });
+
+// Write Lighthouse's test report in a html file.
+async function testWebsiteAndCreateReport({ url, filePath, reportFormat, isCustom }) {
+    const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
+    // output: json, html, csv
+    const options = {logLevel: 'info', output: reportFormat, onlyCategories: ['performance'], port: chrome.port};
+
+    let runnerResult;
+
+    if (isCustom) {
+        runnerResult = await lighthouse(url, options);
+    } else {
+        runnerResult = await lighthouse(url, options, customConfig);
+    }
+
+    // `.report` is the HTML report as a string
+    const reportHtml = runnerResult.report;
+    fs.writeFileSync(filePath, reportHtml);
+
+    // `.lhr` is the Lighthouse Result as a JS object
+    console.log('Report is done for', runnerResult.lhr.finalUrl);
+    console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
+
+    await chrome.kill();
+}
+
+// A Lighthouse Custom Config Sample
+const customConfig = {
+    extends: 'lighthouse:default',
+    settings: {
+        maxWaitForFcp: 15 * 100,
+        maxWaitForLoad: 35 * 100,
+        emulatedFormFactor: 'desktop',
+        throttling: desktopDense4G,
+        // Skip the h2 audit so it doesn't lie to us. See https://github.com/GoogleChrome/lighthouse/issues/6539
+        skipAudits: ['uses-http2'],
+    },
+};
