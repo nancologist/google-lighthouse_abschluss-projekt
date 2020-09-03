@@ -1,8 +1,8 @@
 <template>
     <v-app>
-        <div class="layout">
+        <div class="layout"> <!-- Todo: Maybe add a Layout cmp ? (but for now it's very thin and ok here) -->
             <div class="main-window">
-                <button v-if="!appStarted" @click="appStarted = true" >Start</button>
+                <v-btn v-if="!appStarted" @click="appStarted = true" >Start App</v-btn>
                 <AuditForm v-else />
             </div>
         </div>
@@ -11,7 +11,6 @@
 
 <script>
 import AuditForm from './components/AuditForm.vue';
-
 export default {
     components: { AuditForm },
     data() {

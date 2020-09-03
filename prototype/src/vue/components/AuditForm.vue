@@ -17,13 +17,12 @@
             :label="'Use custom configuration?'"
             v-model="auditForm.isCustom"
         />
-        <button @click.prevent="testUrl">Test & Save Report</button>
+        <v-btn @click.prevent="testUrl">Test & Save Report</v-btn>
     </form>
 </template>
 
 <script>
 // const { ipcRenderer } = require('electron');
-
 export default {
     data() {
         return {
