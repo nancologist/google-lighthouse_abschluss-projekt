@@ -35,7 +35,7 @@ export default {
             auditForm: {
                 isCustom: '',
                 reportFormat: '',
-                url: ''
+                url: 'https://'
             }
         };
     },

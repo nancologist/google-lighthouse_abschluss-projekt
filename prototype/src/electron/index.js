@@ -6,7 +6,7 @@ const { app, ipcMain, protocol, BrowserWindow } = require('electron');
 const { createProtocol } = require('vue-cli-plugin-electron-builder/lib');
 const installExtension = require('electron-devtools-installer').default;
 const { VUEJS_DEVTOOLS } = require('electron-devtools-installer');
-require('./controllers/index.js');
+require('./controllers.js');
 
 const isDev = process.env.NODE_ENV !== 'production';
 
@@ -106,3 +106,4 @@ if (isDev) {
         });
     }
 }
+

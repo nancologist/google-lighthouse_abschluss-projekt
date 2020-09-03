@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const lighthouse = require('lighthouse');
 const { throttling: { desktopDense4G } } = require('lighthouse/lighthouse-core/config/constants.js');
-const chromeLauncher = require('chrome-launcher');
+// const chromeLauncher = require('chrome-launcher');
 
 const ROOT_DIR = path.join(__dirname, '..');
 
@@ -32,7 +32,12 @@ ipcMain.on('STORE_REPORT', (event, auditForm) => {
 async function testWebsiteAndCreateReport({ url, filePath, reportFormat, isCustom }) {
     const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
     // output: json, html, csv
-    const options = {logLevel: 'info', output: reportFormat, onlyCategories: ['performance'], port: chrome.port};
+    const options = {
+        logLevel: 'info',
+        output: reportFormat,
+        onlyCategories: ['performance'],
+        port: chrome.port
+    };
 
     let runnerResult;
 
@@ -57,8 +62,8 @@ async function testWebsiteAndCreateReport({ url, filePath, reportFormat, isCusto
 const customConfig = {
     extends: 'lighthouse:default',
     settings: {
-        maxWaitForFcp: 15 * 100,
-        maxWaitForLoad: 35 * 100,
+        maxWaitForFcp: 15 * 1000,
+        maxWaitForLoad: 35 * 1000,
         emulatedFormFactor: 'desktop',
         throttling: desktopDense4G,
         // Skip the h2 audit so it doesn't lie to us. See https://github.com/GoogleChrome/lighthouse/issues/6539
