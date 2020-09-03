@@ -1,18 +1,27 @@
 <template>
     <form class="main-window__form">
-        <h1>Test a website</h1>
-        <input id="url" type="text" v-model.lazy="auditForm.url" placeholder="Enter URL...">
-        <select name="reportFormat" v-model="auditForm.reportFormat">
-            <option disabled value="">Select report format</option>
-            <option value="json">JSON</option>
-            <option value="html">HTML</option>
-        </select>
-        <select name="isCutomConfig" v-model="auditForm.isCustom">
-            <option disabled value="">Use custom configuration?</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </select>
-        <button @click.prevent="testUrl">Test & Save Report</button>
+        <v-text-field
+            @focus="auditForm.url = 'https://'"
+            filled
+            label="Enter URL"
+            v-model.lazy="auditForm.url"
+        />
+        <v-select
+            label="Select report format"
+            v-model="auditForm.reportFormat"
+            :items="['HTML', 'JSON']"
+        />
+<!--        <select name="reportFormat" v-model="auditForm.reportFormat">-->
+<!--            <option disabled value="">Select report format</option>-->
+<!--            <option value="json">JSON</option>-->
+<!--            <option value="html">HTML</option>-->
+<!--        </select>-->
+<!--        <select name="isCutomConfig" v-model="auditForm.isCustom">-->
+<!--            <option disabled value="">Use custom configuration?</option>-->
+<!--            <option value="yes">Yes</option>-->
+<!--            <option value="no">No</option>-->
+<!--        </select>-->
+<!--        <button @click.prevent="testUrl">Test & Save Report</button>-->
     </form>
 </template>
 
@@ -25,8 +34,12 @@ export default {
             auditForm: {
                 isCustom: '',
                 reportFormat: '',
-                url: 'https://'
-            }
+                url: ''
+            },
+            formats: [
+                'HTML',
+                'JSON'
+            ]
         };
     },
     methods: {

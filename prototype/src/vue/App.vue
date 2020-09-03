@@ -1,8 +1,11 @@
 <template>
-    <div class="main-window">
-        <button v-if="!appStarted" @click="appStarted = true" >Start Test</button>
-        <AuditForm v-else />
-    </div>
+    <v-app>
+        <div class="main-window">
+            <h1>Test a website</h1>
+            <button v-if="!appStarted" @click="appStarted = true" >Start</button>
+            <AuditForm v-else />
+        </div>
+    </v-app>
 </template>
 
 <script>

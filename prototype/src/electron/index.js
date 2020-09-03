@@ -33,7 +33,7 @@ function createWindow() {
             // If any problem with node modules, just set nodeIntegration to
             // "true":
             nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
-        },
+        }
     });
 
     if (isDev) win.webContents.openDevTools();
@@ -53,7 +53,7 @@ function createWindow() {
     // Todo: Downside of this action is, that it takes a bit to render and
     //  then shows the app, instead of that, OPEN the window immediately and
     //  then use a Spinner instead (if possible).
-    win.once('ready-to-show', () => { win.show() });
+    win.once('ready-to-show', () => { win.show(); });
 
     win.on('closed', () => {
         win = null;
@@ -106,4 +106,3 @@ if (isDev) {
         });
     }
 }
-

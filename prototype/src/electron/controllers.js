@@ -16,11 +16,11 @@ ipcMain.on('STORE_REPORT', (event, auditForm) => {
         message: 'Choose a directory to store report.',
         filters: [{ name: 'Report', extensions: [reportFormat] }]
     })
-        .then(({canceled, filePath}) => {
+        .then(({ canceled, filePath }) => {
             if (!canceled && !!filePath) {
-                testWebsiteAndCreateReport({ url, filePath, reportFormat, isCustom }).catch(err => {
+                testWebsiteAndCreateReport({ url, filePath, reportFormat, isCustom }).catch((err) => {
                     console.log(err);
-                })
+                });
             }
         })
         .catch((err) => {
@@ -67,6 +67,6 @@ const customConfig = {
         emulatedFormFactor: 'desktop',
         throttling: desktopDense4G,
         // Skip the h2 audit so it doesn't lie to us. See https://github.com/GoogleChrome/lighthouse/issues/6539
-        skipAudits: ['uses-http2'],
-    },
+        skipAudits: ['uses-http2']
+    }
 };

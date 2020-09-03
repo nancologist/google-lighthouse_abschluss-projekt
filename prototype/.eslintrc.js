@@ -9,6 +9,7 @@ module.exports = {
         'plugin:vue/essential',
         '@vue/standard'
     ],
+    ignorePatterns: ['**/node_modules/'],
     parserOptions: {
         parser: 'babel-eslint'
     },
@@ -18,8 +19,8 @@ module.exports = {
         'jsx-quotes': ['error', 'prefer-double'],
         semi: ['error', 'always'],
         'space-before-function-paren': ['error', 'never'],
-        'sort-keys': ['error', 'asc', { caseSensitive: false, 'minKeys': 2 }],
-        'sort-imports': ['error', { 'ignoreCase': true }],
-        'import/extensions': ['error', 'always']
+        // 'sort-keys': ['error', 'asc', { caseSensitive: false, 'minKeys': 2 }],
+        // 'sort-imports': ['error', { 'ignoreCase': true }],
+        // 'import/extensions': ['error', 'always']
     }
 };
