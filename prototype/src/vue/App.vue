@@ -1,9 +1,11 @@
 <template>
     <v-app>
-        <div class="main-window">
-            <h1>Test a website</h1>
-            <button v-if="!appStarted" @click="appStarted = true" >Start</button>
-            <AuditForm v-else />
+        <div class="layout">
+            <div class="main-window">
+                <h1>Test a website</h1>
+                <button v-if="!appStarted" @click="appStarted = true" >Start</button>
+                <AuditForm v-else />
+            </div>
         </div>
     </v-app>
 </template>
@@ -22,8 +24,10 @@ export default {
 </script>
 
 <style>
+    @import "assets/css/main.css";
+
     .main-window {
-        margin: 10px 20px;
+        margin: auto;
         text-align: center;
     }
 </style>

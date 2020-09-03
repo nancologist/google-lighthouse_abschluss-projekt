@@ -26,7 +26,7 @@ input[type=number] {
     --fifth-color: #FEFFFF;
 }
 
-body {
+.layout {
     background-color: var(--third-color);
     color: var(--first-color);
     font-family: 'Montserrat', "Times New Roman";
