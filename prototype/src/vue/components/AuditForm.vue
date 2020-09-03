@@ -1,7 +1,8 @@
 <template>
     <form class="main-window__form">
+        <h1>Test a website</h1>
         <v-text-field
-            @focus="auditForm.url = 'https://'"
+            @focus="initUrlField"
             filled
             label="Enter URL"
             v-model.lazy="auditForm.url"
@@ -9,24 +10,19 @@
         <v-select
             label="Select report format"
             v-model="auditForm.reportFormat"
-            :items="['HTML', 'JSON']"
+            :items="formats"
         />
-<!--        <select name="reportFormat" v-model="auditForm.reportFormat">-->
-<!--            <option disabled value="">Select report format</option>-->
-<!--            <option value="json">JSON</option>-->
-<!--            <option value="html">HTML</option>-->
-<!--        </select>-->
-<!--        <select name="isCutomConfig" v-model="auditForm.isCustom">-->
-<!--            <option disabled value="">Use custom configuration?</option>-->
-<!--            <option value="yes">Yes</option>-->
-<!--            <option value="no">No</option>-->
-<!--        </select>-->
-<!--        <button @click.prevent="testUrl">Test & Save Report</button>-->
+        <!-- Todo: Find a way to disable hover effect of switch button (it's very ugly!) -->
+        <v-switch
+            :label="'Use custom configuration?'"
+            v-model="auditForm.isCustom"
+        />
+        <button @click.prevent="testUrl">Test & Save Report</button>
     </form>
 </template>
 
 <script>
-const { ipcRenderer } = require('electron');
+// const { ipcRenderer } = require('electron');
 
 export default {
     data() {
@@ -37,18 +33,24 @@ export default {
                 url: ''
             },
             formats: [
-                'HTML',
-                'JSON'
+                { text: 'HTML', value: 'html' },
+                { text: 'JSON', value: 'json' }
             ]
         };
     },
     methods: {
         testUrl() {
-            this.auditForm = {
-                ...this.auditForm,
-                isCustom: (this.auditForm.isCustom === 'yes')
-            };
-            ipcRenderer.send('STORE_REPORT', this.auditForm);
+            console.log(this.auditForm);
+            // this.auditForm = {
+            //     ...this.auditForm,
+            //     isCustom: (this.auditForm.isCustom === 'yes')
+            // };
+            // ipcRenderer.send('STORE_REPORT', this.auditForm);
+        },
+        initUrlField() {
+            if (!this.auditForm.url) {
+                this.auditForm.url = 'https://';
+            }
         }
     }
 };

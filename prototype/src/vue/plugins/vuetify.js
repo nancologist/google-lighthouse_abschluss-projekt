@@ -9,7 +9,7 @@ const options = {
         // disable: true
         themes: {
             light: {
-                primary: '#ff0000'
+                primary: '#FEFFFF'
                 // secondary: '#ff0000'
                 // accent: '#ff0000'
                 // error: '#ff0000'

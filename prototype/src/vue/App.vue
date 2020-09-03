@@ -2,7 +2,6 @@
     <v-app>
         <div class="layout">
             <div class="main-window">
-                <h1>Test a website</h1>
                 <button v-if="!appStarted" @click="appStarted = true" >Start</button>
                 <AuditForm v-else />
             </div>
