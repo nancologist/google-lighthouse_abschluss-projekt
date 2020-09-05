@@ -17,12 +17,12 @@
             :label="'Use custom configuration?'"
             v-model="auditForm.isCustom"
         />
-        <v-btn @click.prevent="testUrl">Test & Save Report</v-btn>
+        <v-btn @click.prevent="testUrl">Run Test</v-btn>
     </form>
 </template>
 
 <script>
-// const { ipcRenderer } = require('electron');
+const { ipcRenderer } = require('electron');
 export default {
     data() {
         return {
@@ -39,12 +39,8 @@ export default {
     },
     methods: {
         testUrl() {
-            console.log(this.auditForm);
-            // this.auditForm = {
-            //     ...this.auditForm,
-            //     isCustom: (this.auditForm.isCustom === 'yes')
-            // };
-            // ipcRenderer.send('STORE_REPORT', this.auditForm);
+            // console.log(this.auditForm);
+            ipcRenderer.send('STORE_REPORT', this.auditForm);
         },
         initUrlField() {
             if (!this.auditForm.url) {

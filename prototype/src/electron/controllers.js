@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const lighthouse = require('lighthouse');
 const { throttling: { desktopDense4G } } = require('lighthouse/lighthouse-core/config/constants.js');
-// const chromeLauncher = require('chrome-launcher');
+const chromeLauncher = require('chrome-launcher');
 
 const ROOT_DIR = path.join(__dirname, '..');
 
@@ -60,13 +60,13 @@ async function testWebsiteAndCreateReport({ url, filePath, reportFormat, isCusto
 
 // A Lighthouse Custom Config Sample
 const customConfig = {
-    extends: 'lighthouse:default',
+    // extends: 'lighthouse:default',
     settings: {
-        maxWaitForFcp: 15 * 1000,
-        maxWaitForLoad: 35 * 1000,
-        emulatedFormFactor: 'desktop',
-        throttling: desktopDense4G,
-        // Skip the h2 audit so it doesn't lie to us. See https://github.com/GoogleChrome/lighthouse/issues/6539
-        skipAudits: ['uses-http2']
+        onlyAudits: [
+            'first-meaningful-paint',
+            'speed-index',
+            'first-cpu-idle',
+            'interactive',
+        ],
     }
 };
