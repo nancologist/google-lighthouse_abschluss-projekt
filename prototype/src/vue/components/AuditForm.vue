@@ -34,11 +34,13 @@
             </v-stepper-content>
 
             <v-stepper-content class="stepper__content" step="2">
-                <!-- Todo: Find a way to disable hover effect of switch button (it's very ugly!) -->
-                <v-switch
-                    :label="'Use custom configuration?'"
-                    v-model="auditForm.isCustom"
-                />
+                <div class="stepper__content__lh-config">
+                    <!-- Todo: Find a way to disable hover effect of switch button (it's very ugly!) -->
+                    <v-switch
+                        :label="'Use custom configuration?'"
+                        v-model="auditForm.isCustom"
+                    />
+                </div>
             </v-stepper-content>
 
             <v-stepper-content class="stepper__content" step="3">
@@ -88,7 +90,7 @@ export default {
         background-color: var(--third-color) !important;
         /*box-shadow: none;*/
         height: 100vh;
-        padding: 10px 15px;
+        padding: 10px 20px;
     }
 
     .stepper__header {
@@ -98,8 +100,13 @@ export default {
     .stepper__content {
         border-radius: 5px;
         /*box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);*/
-        height: 75vh;
+        height: 600px;
         margin-top: 10px;
+    }
+
+    .stepper__content__lh-config {
+        height: 550px;
+        overflow: scroll;
     }
 
     .stepper__buttons {
