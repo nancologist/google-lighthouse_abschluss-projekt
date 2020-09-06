@@ -33,18 +33,18 @@ async function testWebsiteAndCreateReport({ url, filePath, reportFormat, isCusto
     const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
     // output: json, html, csv
     const options = {
-        logLevel: 'info',
+        // logLevel: 'info',
         output: reportFormat,
-        onlyCategories: ['performance'],
+        // onlyCategories: ['performance'],
         port: chrome.port
     };
 
     let runnerResult;
 
     if (isCustom) {
-        runnerResult = await lighthouse(url, options);
-    } else {
         runnerResult = await lighthouse(url, options, customConfig);
+    } else {
+        runnerResult = await lighthouse(url, options);
     }
 
     // `.report` is the HTML report as a string
@@ -59,14 +59,15 @@ async function testWebsiteAndCreateReport({ url, filePath, reportFormat, isCusto
 }
 
 // A Lighthouse Custom Config Sample
+// Todo: Customize 1. Audits (and 2. their threshold) & 3. Throttling
 const customConfig = {
-    // extends: 'lighthouse:default',
+    extends: 'lighthouse:default',
     settings: {
         onlyAudits: [
-            'first-meaningful-paint',
-            'speed-index',
-            'first-cpu-idle',
-            'interactive',
+            'first-meaningful-paint'
+            // 'speed-index',
+            // 'first-cpu-idle',
+            // 'interactive',
         ],
     }
 };
