@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-stepper class="stepper" v-model="currentStep">
-            <v-stepper-header>
+            <v-stepper-header class="stepper__header">
                 <v-stepper-step :complete="currentStep > 1" step="1" editable>
                     Select URL
                 </v-stepper-step>
@@ -17,8 +17,8 @@
                 </v-stepper-step>
             </v-stepper-header>
 
-            <v-stepper-content step="1">
-                <div class="stepper__content">
+            <v-stepper-content class="stepper__content" step="1">
+                <div>
                     <v-text-field
                         @focus="initUrlField"
                         filled
@@ -31,34 +31,28 @@
                         :items="formats"
                     />
                 </div>
-                <div class="stepper__btn">
-                    <v-btn class="stepper__content__btn-next" @click="currentStep = 2">Next Step</v-btn>
-                </div>
             </v-stepper-content>
 
             <v-stepper-content class="stepper__content" step="2">
-                <div class="stepper__content">
+                <div>
                     <!-- Todo: Find a way to disable hover effect of switch button (it's very ugly!) -->
                     <v-switch
                         :label="'Use custom configuration?'"
                         v-model="auditForm.isCustom"
                     />
                 </div>
-                <div class="stepper__btn">
-                    <v-btn @click="currentStep = 1">Back</v-btn>
-                    <v-btn @click="currentStep = 3">Next Step</v-btn>
-                </div>
             </v-stepper-content>
 
             <v-stepper-content class="stepper__content" step="3">
-                <div class="stepper__content">
+                <div>
                     <p>Lorem ipsum dolor sit amet.</p>
-                </div>
-                <div class="stepper__btn">
-                    <v-btn @click="currentStep = 2">Back</v-btn>
                     <v-btn @click.prevent="testUrl">Run Test</v-btn>
                 </div>
             </v-stepper-content>
+            <div class="stepper__buttons">
+                <v-btn @click="currentStep--" :disabled="currentStep <= 1">Back</v-btn>
+                <v-btn @click="currentStep++" :disabled="currentStep >= 3">Next</v-btn>
+            </div>
         </v-stepper>
     </div>
 </template>
@@ -82,7 +76,6 @@ export default {
     },
     methods: {
         testUrl() {
-            // console.log(this.auditForm);
             ipcRenderer.send('STORE_REPORT', this.auditForm);
         },
         initUrlField() {
@@ -99,10 +92,17 @@ export default {
         background-color: var(--third-color) !important;
         box-shadow: none;
         height: 100vh;
-        padding: 10px;
+        padding: 10px 15px;
     }
 
     .stepper__content {
-        height: 60%;
+        height: 75vh;
+        margin-top: 10px;
+    }
+
+    .stepper__buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
     }
 </style>

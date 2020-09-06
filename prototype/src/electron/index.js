@@ -23,8 +23,8 @@ function createWindow() {
     win = new BrowserWindow({
         // To show the right background color while the app is loading.
         backgroundColor: '#3AAFA9',
-        minHeight: 600,
-        minWidth: 800,
+        height: 768,
+        width: 1024,
         show: false, // see 'ready-to-show' event listener.
         webPreferences: {
             // Needed only if nodeIntegration is set to "false":
