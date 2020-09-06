@@ -34,12 +34,30 @@
             </v-stepper-content>
 
             <v-stepper-content class="stepper__content" step="2">
-                <div class="stepper__content__lh-config">
+                <div class="stepper__content__lh-configs">
                     <!-- Todo: Find a way to disable hover effect of switch button (it's very ugly!) -->
                     <v-switch
                         :label="'Use custom configuration?'"
                         v-model="auditForm.isCustom"
                     />
+                    <div class="stepper__content__lh-configs__config">
+                        <v-expansion-panels>
+                            <v-expansion-panel>
+                                <v-expansion-panel-header>First Meaningful Paint</v-expansion-panel-header>
+                                <v-expansion-panel-content>
+                                    <p>
+                                        First Meaningful Paint measures when the primary content of a page is visible.
+                                        <a
+                                            @click="openLink('https://web.dev/first-meaningful-paint/')"
+                                            class="link"
+                                        >
+                                            [Learn more]
+                                        </a>
+                                    </p>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                        </v-expansion-panels>
+                    </div>
                 </div>
             </v-stepper-content>
 
@@ -80,6 +98,9 @@ export default {
             if (!this.auditForm.url) {
                 this.auditForm.url = 'https://';
             }
+        },
+        openLink(url) {
+            require('electron').shell.openExternal(url);
         }
     }
 };
@@ -100,11 +121,11 @@ export default {
     .stepper__content {
         border-radius: 5px;
         /*box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);*/
-        height: 600px;
+        height: 585px;
         margin-top: 10px;
     }
 
-    .stepper__content__lh-config {
+    .stepper__content__lh-configs {
         height: 550px;
         overflow: scroll;
     }
@@ -113,5 +134,9 @@ export default {
         display: flex;
         justify-content: space-between;
         margin-top: 10px;
+    }
+
+    .link {
+        color: var(--third-color);
     }
 </style>

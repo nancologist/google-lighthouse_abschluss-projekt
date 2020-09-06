@@ -68,3 +68,15 @@ ___
 * Example1: https://medium.com/js-dojo/using-jsx-with-vue-js-846f4fbbf07f
 * Example2: https://scotch.io/tutorials/using-jsx-with-vue-and-why-you-should-care
 ___
+
+### Best of Vuetify for the project
+* __Bottom sheets__ : Maybe for showing the test result or the logs of the test.
+* __Dialogs__
+* __Expansion Panels__ : Maybe for test results or categories
+* __Sliders__
+* __Parallax__ : Cooooool!
+* __Progress > Circular__ : Maybe for the test result
+* __Sparklines__ : Maybe for the test result
+* __Skeleton Loaders__ for Spinner (or Luke Haas)
+* __Tabs__
+* __Tooltips__
