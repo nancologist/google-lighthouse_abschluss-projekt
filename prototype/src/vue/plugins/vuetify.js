@@ -9,9 +9,10 @@ const options = {
         // disable: true
         themes: {
             light: {
-                // primary: '#FEFFFF'
-                // secondary: '#ff0000'
-                // accent: '#ff0000'
+                primary: '#FEFFFF',
+                primaryDark: '#17252A',
+                secondary: '#3AAFA9'
+                // accent: '#17252A'
                 // error: '#ff0000'
             }
         }

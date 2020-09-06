@@ -2,17 +2,17 @@
     <div>
         <v-stepper class="stepper" v-model="currentStep">
             <v-stepper-header class="stepper__header">
-                <v-stepper-step :complete="currentStep > 1" step="1" editable>
+                <v-stepper-step color="primaryDark" :complete="currentStep > 1" step="1" editable>
                     Select URL
                 </v-stepper-step>
                 <v-divider/>
 
-                <v-stepper-step :complete="currentStep > 2" step="2" editable>
+                <v-stepper-step color="primaryDark" :complete="currentStep > 2" step="2" editable>
                     Setup configuration
                 </v-stepper-step>
                 <v-divider/>
 
-                <v-stepper-step step="3" editable>
+                <v-stepper-step color="primaryDark" step="3" editable>
                     Confirm setup
                 </v-stepper-step>
             </v-stepper-header>
@@ -26,6 +26,8 @@
                         v-model.lazy="auditForm.url"
                     />
                     <v-select
+                        filled
+                        item-color="secondary"
                         label="Select report format"
                         v-model="auditForm.reportFormat"
                         :items="formats"
