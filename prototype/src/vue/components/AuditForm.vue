@@ -18,38 +18,32 @@
             </v-stepper-header>
 
             <v-stepper-content class="stepper__content" step="1">
-                <div>
-                    <v-text-field
-                        @focus="initUrlField"
-                        filled
-                        label="Enter URL"
-                        v-model.lazy="auditForm.url"
-                    />
-                    <v-select
-                        filled
-                        item-color="secondary"
-                        label="Select report format"
-                        v-model="auditForm.reportFormat"
-                        :items="formats"
-                    />
-                </div>
+                <v-text-field
+                    @focus="initUrlField"
+                    filled
+                    label="Enter URL"
+                    v-model.lazy="auditForm.url"
+                />
+                <v-select
+                    filled
+                    item-color="secondary"
+                    label="Select report format"
+                    v-model="auditForm.reportFormat"
+                    :items="formats"
+                />
             </v-stepper-content>
 
             <v-stepper-content class="stepper__content" step="2">
-                <div>
-                    <!-- Todo: Find a way to disable hover effect of switch button (it's very ugly!) -->
-                    <v-switch
-                        :label="'Use custom configuration?'"
-                        v-model="auditForm.isCustom"
-                    />
-                </div>
+                <!-- Todo: Find a way to disable hover effect of switch button (it's very ugly!) -->
+                <v-switch
+                    :label="'Use custom configuration?'"
+                    v-model="auditForm.isCustom"
+                />
             </v-stepper-content>
 
             <v-stepper-content class="stepper__content" step="3">
-                <div>
-                    <p>Lorem ipsum dolor sit amet.</p>
-                    <v-btn @click.prevent="testUrl">Run Test</v-btn>
-                </div>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <v-btn @click.prevent="testUrl">Run Test</v-btn>
             </v-stepper-content>
             <div class="stepper__buttons">
                 <v-btn @click="currentStep--" :disabled="currentStep <= 1">Back</v-btn>
@@ -92,12 +86,18 @@ export default {
 <style scoped>
     .stepper {
         background-color: var(--third-color) !important;
-        box-shadow: none;
+        /*box-shadow: none;*/
         height: 100vh;
         padding: 10px 15px;
     }
 
+    .stepper__header {
+        border-radius: 5px;
+    }
+
     .stepper__content {
+        border-radius: 5px;
+        /*box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);*/
         height: 75vh;
         margin-top: 10px;
     }
