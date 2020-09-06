@@ -27,5 +27,6 @@ export default {
     .main-window {
         margin: auto;
         text-align: center;
+        width: 100%;
     }
 </style>
