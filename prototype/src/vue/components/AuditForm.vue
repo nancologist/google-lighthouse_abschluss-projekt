@@ -37,7 +37,7 @@
                 <div class="stepper__content__lh-configs">
                     <!-- Todo: Find a way to disable hover effect of switch button (it's very ugly!) -->
                     <v-switch
-                        :label="'Use custom configuration?'"
+                        label="Use custom configuration?"
                         v-model="auditForm.isCustom"
                     />
                     <div class="my-config">
@@ -84,18 +84,18 @@
                                                 </a>
                                             </p>
                                         </div>
-                                        <div class="panels__panel__content">
-                                            <div class="panels__panel__content__controls">
-                                                <v-text-field
-                                                    color="secondary"
-                                                    label="Set acceptable duration"
-                                                    filled
-                                                >
-                                                </v-text-field>
-                                                <v-btn class="mx-2" fab color="secondary">
-                                                    <v-icon>mdi-plus</v-icon>
-                                                </v-btn>
-                                            </div>
+                                        <div class="config-panel__control">
+                                            <v-text-field
+                                                append-icon="mdi-timer-outline"
+                                                class="config-panel__control__input"
+                                                color="secondary"
+                                                label="reference time (ms)"
+                                                outlined
+                                                v-model="auditForm.refTime"
+                                            />
+                                            <v-btn :disabled="!auditForm.refTime" class="mx-2" fab color="secondary">
+                                                <v-icon>mdi-plus</v-icon>
+                                            </v-btn>
                                         </div>
                                     </v-expansion-panel-content>
                                 </v-expansion-panel>
@@ -141,7 +141,8 @@ export default {
             auditForm: {
                 isCustom: '',
                 reportFormat: '',
-                url: ''
+                url: '',
+                refTime: ''
             },
             formats: [
                 { text: 'HTML', value: 'html' },
@@ -230,12 +231,22 @@ export default {
 
     .config-panels__item {
         /*max-width: 48%;*/
-        margin: 5px;
+        margin: 3px;
         border-radius: 5px;
         box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.4);
     }
 
     .config-panel__info {
         text-align: left;
+    }
+
+    .config-panel__control {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
+
+    .config-panel__control__input {
+        max-width: 50%;
     }
 </style>
