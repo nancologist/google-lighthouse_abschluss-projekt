@@ -19,9 +19,11 @@
 
             <v-stepper-content class="stepper__content" step="1">
                 <v-text-field
+                    append-icon="mdi-web"
                     @focus="initUrlField"
+                    @blur="resetUrlField"
                     filled
-                    label="Enter URL"
+                    label="URL"
                     v-model.lazy="auditForm.url"
                 />
                 <v-select
@@ -41,31 +43,6 @@
                         v-model="auditForm.isCustom"
                     />
                     <div class="my-config">
-                        <!--<div style="display: none" class="config-card">
-                            <p class="config-card__title">First Meaningful Paint</p>
-                            <div class="config-card__info">
-                                <p>
-                                    First Meaningful Paint measures when the primary content of a page is visible.
-                                    <a
-                                        @click="openLink('https://web.dev/first-meaningful-paint/')"
-                                        class="link"
-                                    >
-                                        [Learn more]
-                                    </a>
-                                </p>
-                            </div>
-                            <div class="config-card__control">
-                                <v-text-field
-                                    color="secondary"
-                                    label="Set reference duration"
-                                    filled
-                                >
-                                </v-text-field>
-                                <v-btn class="mx-2" fab color="secondary">
-                                    <v-icon>mdi-plus</v-icon>
-                                </v-btn>
-                            </div>
-                        </div>-->
                         <v-expansion-panels>
                             <div class="config-panels">
                                 <v-expansion-panel class="config-panels__item">
@@ -89,7 +66,7 @@
                                                 append-icon="mdi-timer-outline"
                                                 class="config-panel__control__input"
                                                 color="secondary"
-                                                label="reference time (ms)"
+                                                label="Reference Time (ms)"
                                                 outlined
                                                 v-model="auditForm.refTime"
                                             />
@@ -155,11 +132,19 @@ export default {
         testUrl() {
             ipcRenderer.send('STORE_REPORT', this.auditForm);
         },
+
         initUrlField() {
             if (!this.auditForm.url) {
                 this.auditForm.url = 'https://';
             }
         },
+
+        resetUrlField() {
+            if (this.auditForm.url === 'https://') {
+                this.auditForm.url = '';
+            }
+        },
+
         openLink(url) {
             require('electron').shell.openExternal(url);
         }
@@ -214,14 +199,6 @@ export default {
     .link {
         color: var(--third-color);
     }
-
-    /*.config-card {*/
-    /*    display: none;*/
-    /*    background-color: var(--fourth-color);*/
-    /*    border-radius: 5px;*/
-    /*    box-shodaw: 0 1px 2px 1px black;*/
-    /*    padding: 15px;*/
-    /*}*/
 
     .config-panels {
         width: 98%;
