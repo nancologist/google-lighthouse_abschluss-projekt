@@ -41,19 +41,34 @@
                         v-model="auditForm.isCustom"
                     />
                     <div class="stepper__content__lh-configs__config">
-                        <v-expansion-panels>
-                            <v-expansion-panel>
+                        <v-expansion-panels class="panels">
+                            <v-expansion-panel class="panels__panel">
                                 <v-expansion-panel-header>First Meaningful Paint</v-expansion-panel-header>
                                 <v-expansion-panel-content>
-                                    <p>
-                                        First Meaningful Paint measures when the primary content of a page is visible.
-                                        <a
-                                            @click="openLink('https://web.dev/first-meaningful-paint/')"
-                                            class="link"
-                                        >
-                                            [Learn more]
-                                        </a>
-                                    </p>
+                                    <div class="panels__panel__content">
+                                        <div class="panels__panel__content__info">
+                                            <p>
+                                                First Meaningful Paint measures when the primary content of a page is visible.
+                                                <a
+                                                    @click="openLink('https://web.dev/first-meaningful-paint/')"
+                                                    class="link"
+                                                >
+                                                    [Learn more]
+                                                </a>
+                                            </p>
+                                        </div>
+                                        <div class="panels__panel__content__controls">
+                                            <v-text-field
+                                                color="secondary"
+                                                label="Set acceptable duration"
+                                                filled
+                                            >
+                                            </v-text-field>
+                                            <v-btn class="mx-2" fab color="secondary">
+                                                <v-icon>mdi-plus</v-icon>
+                                            </v-btn>
+                                        </div>
+                                    </div>
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
                         </v-expansion-panels>
@@ -138,5 +153,18 @@ export default {
 
     .link {
         color: var(--third-color);
+    }
+
+    .panels__panel__content {
+        display: flex;
+    }
+
+    .panels__panel__content__info {
+        width: 50%;
+    }
+
+    .panels__panel__content__controls {
+        display: flex;
+        flex-direction: column;
     }
 </style>

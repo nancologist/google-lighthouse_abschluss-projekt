@@ -59,7 +59,6 @@ async function testWebsiteAndCreateReport({ url, filePath, reportFormat, isCusto
 }
 
 // A Lighthouse Custom Config Sample
-// Todo: Customize 1. Audits (and 2. their threshold) & 3. Throttling
 const customConfig = {
     extends: 'lighthouse:default',
     settings: {
