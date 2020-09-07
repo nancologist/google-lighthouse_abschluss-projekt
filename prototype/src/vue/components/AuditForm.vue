@@ -179,12 +179,12 @@ export default {
     }
 
     .stepper__content {
-        height: 585px;
+        height: 400px;
         margin-top: 10px;
     }
 
     .stepper__content__lh-configs {
-        height: 550px;
+        /*height: 550px;*/
     }
 
     .stepper__buttons {
