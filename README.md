@@ -184,7 +184,11 @@ _Anmerkung, die Unterteilungen müssen vielleicht nicht unbedingt genau so sein.
 
 ### 5.8. Fazit
 * Soll-/Ist-Vergleich
+
 * Lessons Learned
+    * Native Dependencies verhalten sich fehlerhaft, wenn sie in einem gebündelten Modul importiert werden, sodass die Fehlermeldungen auch keine Hilfe und sogar irreführend sein können.
+    * Eine UI-Bibliothek zu benutzen macht einerseits den Ablauf des Projekts schneller, aber anderseits bringt die Beschränkungen und Anpassungsschwierigkeiten mit.
+ 
 * Ausblick
 
 ### Sonstige
