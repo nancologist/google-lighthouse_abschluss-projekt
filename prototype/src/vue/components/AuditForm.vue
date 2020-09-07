@@ -40,8 +40,8 @@
                         :label="'Use custom configuration?'"
                         v-model="auditForm.isCustom"
                     />
-                    <div class="stepper__content__lh-configs__config">
-                        <div style="display: none" class="config-card">
+                    <div class="my-config">
+                        <!--<div style="display: none" class="config-card">
                             <p class="config-card__title">First Meaningful Paint</p>
                             <div class="config-card__info">
                                 <p>
@@ -65,7 +65,7 @@
                                     <v-icon>mdi-plus</v-icon>
                                 </v-btn>
                             </div>
-                        </div>
+                        </div>-->
                         <v-expansion-panels>
                             <div class="config-panels">
                                 <v-expansion-panel class="config-panels__item">
@@ -179,12 +179,10 @@ export default {
     }
 
     .stepper__content {
+        border-radius: 5px;
         height: 400px;
         margin-top: 10px;
-    }
-
-    .stepper__content__lh-configs {
-        /*height: 550px;*/
+        overflow-y: scroll;
     }
 
     .stepper__buttons {
@@ -192,6 +190,22 @@ export default {
         justify-content: space-between;
         margin-top: 10px;
     }
+
+    /* Show Scrollbar always (not just when scrolling) */
+    .stepper__content::-webkit-scrollbar {
+        -webkit-appearance: none;
+    }
+
+    .stepper__content::-webkit-scrollbar:vertical {
+        width: 5px;
+    }
+
+    .stepper__content::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        border: 1px solid var(--fourth-color); /* should match background, can't be transparent */
+        background-color: var(--fourth-color);
+    }
+    /* --------------------------------------------- */
 
     .link {
         color: var(--third-color);
