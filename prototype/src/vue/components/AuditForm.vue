@@ -3,7 +3,7 @@
         <v-stepper class="stepper" v-model="currentStep">
             <v-stepper-header class="stepper__header">
                 <v-stepper-step color="primaryDark" :complete="currentStep > 1" step="1" editable>
-                    Select URL
+                    <span>Select URL</span>
                 </v-stepper-step>
                 <v-divider/>
 
@@ -41,13 +41,40 @@
                         v-model="auditForm.isCustom"
                     />
                     <div class="stepper__content__lh-configs__config">
-                        <v-expansion-panels class="panels">
-                            <v-expansion-panel class="panels__panel">
-                                <v-expansion-panel-header>First Meaningful Paint</v-expansion-panel-header>
-                                <v-expansion-panel-content>
-                                    <div class="panels__panel__content">
-                                        <div class="panels__panel__content__info">
-                                            <p>
+                        <div style="display: none" class="config-card">
+                            <p class="config-card__title">First Meaningful Paint</p>
+                            <div class="config-card__info">
+                                <p>
+                                    First Meaningful Paint measures when the primary content of a page is visible.
+                                    <a
+                                        @click="openLink('https://web.dev/first-meaningful-paint/')"
+                                        class="link"
+                                    >
+                                        [Learn more]
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="config-card__control">
+                                <v-text-field
+                                    color="secondary"
+                                    label="Set reference duration"
+                                    filled
+                                >
+                                </v-text-field>
+                                <v-btn class="mx-2" fab color="secondary">
+                                    <v-icon>mdi-plus</v-icon>
+                                </v-btn>
+                            </div>
+                        </div>
+                        <v-expansion-panels>
+                            <div class="config-panels">
+                                <v-expansion-panel class="config-panels__item">
+                                    <v-expansion-panel-header>
+                                        First Meaningful Paint
+                                    </v-expansion-panel-header>
+                                    <v-expansion-panel-content>
+                                        <div class="config-panel__info">
+                                            <small>
                                                 First Meaningful Paint measures when the primary content of a page is visible.
                                                 <a
                                                     @click="openLink('https://web.dev/first-meaningful-paint/')"
@@ -55,22 +82,40 @@
                                                 >
                                                     [Learn more]
                                                 </a>
-                                            </p>
+                                            </small>
                                         </div>
-                                        <div class="panels__panel__content__controls">
-                                            <v-text-field
-                                                color="secondary"
-                                                label="Set acceptable duration"
-                                                filled
-                                            >
-                                            </v-text-field>
-                                            <v-btn class="mx-2" fab color="secondary">
-                                                <v-icon>mdi-plus</v-icon>
-                                            </v-btn>
+                                        <div class="panels__panel__content">
+                                            <div class="panels__panel__content__controls">
+                                                <v-text-field
+                                                    color="secondary"
+                                                    label="Set acceptable duration"
+                                                    filled
+                                                >
+                                                </v-text-field>
+                                                <v-btn class="mx-2" fab color="secondary">
+                                                    <v-icon>mdi-plus</v-icon>
+                                                </v-btn>
+                                            </div>
                                         </div>
-                                    </div>
-                                </v-expansion-panel-content>
-                            </v-expansion-panel>
+                                    </v-expansion-panel-content>
+                                </v-expansion-panel>
+                                <v-expansion-panel class="config-panels__item">
+                                    <v-expansion-panel-header>
+                                        I am a dummy expansion panel!
+                                    </v-expansion-panel-header>
+                                    <v-expansion-panel-content>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, ullam.</p>
+                                    </v-expansion-panel-content>
+                                </v-expansion-panel>
+                                <v-expansion-panel class="config-panels__item">
+                                    <v-expansion-panel-header>
+                                        I am a dummy expansion panel!
+                                    </v-expansion-panel-header>
+                                    <v-expansion-panel-content>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, ullam.</p>
+                                    </v-expansion-panel-content>
+                                </v-expansion-panel>
+                            </div>
                         </v-expansion-panels>
                     </div>
                 </div>
@@ -134,7 +179,6 @@ export default {
     }
 
     .stepper__content {
-        border-radius: 5px;
         /*box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);*/
         height: 585px;
         margin-top: 10px;
@@ -142,7 +186,6 @@ export default {
 
     .stepper__content__lh-configs {
         height: 550px;
-        overflow: scroll;
     }
 
     .stepper__buttons {
@@ -155,16 +198,28 @@ export default {
         color: var(--third-color);
     }
 
-    .panels__panel__content {
+    /*.config-card {*/
+    /*    display: none;*/
+    /*    background-color: var(--fourth-color);*/
+    /*    border-radius: 5px;*/
+    /*    box-shodaw: 0 1px 2px 1px black;*/
+    /*    padding: 15px;*/
+    /*}*/
+
+    .config-panels {
+        width: 98%;
         display: flex;
+        flex-wrap: wrap;
     }
 
-    .panels__panel__content__info {
-        width: 50%;
+    .config-panels__item {
+        /*max-width: 48%;*/
+        margin: 5px;
+        border-radius: 5px;
+        box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.4);
     }
 
-    .panels__panel__content__controls {
-        display: flex;
-        flex-direction: column;
+    .config-panel__info {
+        text-align: left;
     }
 </style>

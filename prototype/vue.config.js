@@ -11,7 +11,7 @@ module.exports = {
             externals: [
                 'lighthouse'
             ],
-            mainProcessFile: 'src/electron/index.js',
+            mainProcessFile: 'src/electron/electron.js',
             nodeIntegration: true
         }
     },
