@@ -70,11 +70,11 @@
                             <div class="config-panels">
                                 <v-expansion-panel class="config-panels__item">
                                     <v-expansion-panel-header>
-                                        First Meaningful Paint
+                                        <h3>First Meaningful Paint</h3>
                                     </v-expansion-panel-header>
                                     <v-expansion-panel-content>
                                         <div class="config-panel__info">
-                                            <small>
+                                            <p>
                                                 First Meaningful Paint measures when the primary content of a page is visible.
                                                 <a
                                                     @click="openLink('https://web.dev/first-meaningful-paint/')"
@@ -82,7 +82,7 @@
                                                 >
                                                     [Learn more]
                                                 </a>
-                                            </small>
+                                            </p>
                                         </div>
                                         <div class="panels__panel__content">
                                             <div class="panels__panel__content__controls">
@@ -101,7 +101,7 @@
                                 </v-expansion-panel>
                                 <v-expansion-panel class="config-panels__item">
                                     <v-expansion-panel-header>
-                                        I am a dummy expansion panel!
+                                        <h3>I am a dummy expansion panel!</h3>
                                     </v-expansion-panel-header>
                                     <v-expansion-panel-content>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, ullam.</p>
@@ -109,7 +109,7 @@
                                 </v-expansion-panel>
                                 <v-expansion-panel class="config-panels__item">
                                     <v-expansion-panel-header>
-                                        I am a dummy expansion panel!
+                                        <h3>I am a dummy expansion panel!</h3>
                                     </v-expansion-panel-header>
                                     <v-expansion-panel-content>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, ullam.</p>
@@ -191,7 +191,10 @@ export default {
         margin-top: 10px;
     }
 
-    /* Show Scrollbar always (not just when scrolling) */
+    /*
+        Show Scrollbar always if there's an overflow.
+        (not just when scrolling)
+    */
     .stepper__content::-webkit-scrollbar {
         -webkit-appearance: none;
     }
