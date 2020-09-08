@@ -2,17 +2,17 @@
     <div>
         <v-stepper class="stepper" v-model="currentStep">
             <v-stepper-header class="stepper__header">
-                <v-stepper-step color="primaryDark" :complete="currentStep > 1" step="1" editable>
+                <v-stepper-step color="secondaryDark" :complete="currentStep > 1" step="1" editable>
                     <span>Select URL</span>
                 </v-stepper-step>
                 <v-divider/>
 
-                <v-stepper-step color="primaryDark" :complete="currentStep > 2" step="2" editable>
+                <v-stepper-step color="secondaryDark" :complete="currentStep > 2" step="2" editable>
                     Setup configuration
                 </v-stepper-step>
                 <v-divider/>
 
-                <v-stepper-step color="primaryDark" step="3" editable>
+                <v-stepper-step color="secondaryDark" step="3" editable>
                     Confirm setup
                 </v-stepper-step>
             </v-stepper-header>
@@ -100,12 +100,12 @@
 
             <v-stepper-content class="stepper__content" step="3">
                 <div class="step-three">
-                    <p>The preview of set config comes HERE...</p>
-                    <v-btn @click.prevent="runTestInteractive">
-                        Run Test
+                    <p>THE PREVIEW OF SET CONFIG WILL BE SHOWN HERE...</p>
+                    <v-btn @click.prevent="runTestInteractive" :loading="loading">
+                        <v-icon color="secondaryDark" left>mdi-test-tube</v-icon> Run Test
                     </v-btn>
-                    <v-btn @click.prevent="runTest">
-                        <v-icon left>mdi-text-box-multiple</v-icon> Export Report
+                    <v-btn @click.prevent="runTest" :loading="loading">
+                        <v-icon color="secondaryDark" left>mdi-text-box-multiple</v-icon> Export Report
                     </v-btn>
                 </div>
             </v-stepper-content>
@@ -133,7 +133,8 @@ export default {
                 { text: 'HTML', value: 'html' },
                 { text: 'JSON', value: 'json' }
             ],
-            currentStep: 1
+            currentStep: 1,
+            loading: false,
         };
     },
     methods: {
@@ -143,6 +144,7 @@ export default {
 
         runTestInteractive() {
             this.auditForm.interactive = true;
+            this.loading = true;
             ipcRenderer.send('RUN_TEST', this.auditForm);
         },
 
@@ -164,6 +166,7 @@ export default {
     },
     created() {
         ipcRenderer.on('REPORT_CREATED', (event, arg) => {
+            this.loading = false;
             console.log(arg);
         });
     }

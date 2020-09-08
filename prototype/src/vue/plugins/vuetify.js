@@ -10,8 +10,8 @@ const options = {
         themes: {
             light: {
                 primary: '#FEFFFF',
-                primaryDark: '#17252A',
-                secondary: '#3AAFA9'
+                secondary: '#3AAFA9',
+                secondaryDark: '#17252A',
                 // accent: '#17252A'
                 // error: '#ff0000'
             }
