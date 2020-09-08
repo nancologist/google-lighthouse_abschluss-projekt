@@ -115,3 +115,22 @@
     text-align: left;
     padding: 5px 12px;
 }
+
+/*
+    Show Scrollbar always if there's an overflow.
+    (not just when scrolling)
+*/
+.report::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.report::-webkit-scrollbar:vertical {
+    width: 8px;
+}
+
+.report::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    border: 1px solid var(--fourth-color); /* should match background, can't be transparent */
+    background-color: var(--third-color);
+}
+/* --------------------------------------------- */
