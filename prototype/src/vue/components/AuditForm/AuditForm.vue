@@ -101,10 +101,10 @@
             <v-stepper-content class="stepper__content" step="3">
                 <div class="step-three">
                     <p>The preview of set config comes HERE...</p>
-                    <v-btn @click.prevent="runInteractiveTest">
+                    <v-btn @click.prevent="runTestInteractive">
                         Run Test
                     </v-btn>
-                    <v-btn @click.prevent="createReport">
+                    <v-btn @click.prevent="runTest">
                         <v-icon left>mdi-text-box-multiple</v-icon> Export Report
                     </v-btn>
                 </div>
@@ -126,7 +126,8 @@ export default {
                 isCustom: '',
                 reportFormat: '',
                 url: '',
-                refTime: ''
+                refTime: '',
+                interactiveTest: false,
             },
             formats: [
                 { text: 'HTML', value: 'html' },
@@ -136,11 +137,14 @@ export default {
         };
     },
     methods: {
-        createReport() {
-            ipcRenderer.send('CREATE_REPORT', this.auditForm);
+        runTest() {
+            ipcRenderer.send('RUN_TEST', this.auditForm);
         },
 
-        runInteractiveTest() {},
+        runTestInteractive() {
+            this.auditForm.interactiveTest = true;
+            ipcRenderer.send('RUN_TEST', this.auditForm);
+        },
 
         initUrlField() {
             if (!this.auditForm.url) {
