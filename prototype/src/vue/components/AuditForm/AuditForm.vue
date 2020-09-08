@@ -104,7 +104,7 @@
                     <v-btn @click.prevent="runTestInteractive" :loading="loading">
                         <v-icon color="secondaryDarker" left>mdi-test-tube</v-icon> Run Test
                     </v-btn>
-                    <v-btn @click.prevent="runTest" :loading="loading">
+                    <v-btn @click.prevent="runTest" :disabled="loading">
                         <v-icon color="secondaryDarker" left>mdi-text-box-multiple</v-icon> Export Report
                     </v-btn>
                 </div>
