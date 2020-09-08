@@ -114,6 +114,9 @@
                 <v-btn @click="currentStep++" :disabled="currentStep >= 3">Next</v-btn>
             </div>
         </v-stepper>
+        <v-bottom-sheet v-model="reportSheet">
+            <h3>Hallo Helmut!</h3>
+        </v-bottom-sheet>
     </div>
 </template>
 
@@ -135,6 +138,7 @@ export default {
             ],
             currentStep: 1,
             loading: false,
+            reportSheet: false,
         };
     },
     methods: {
@@ -167,6 +171,7 @@ export default {
     created() {
         ipcRenderer.on('REPORT_CREATED', (event, arg) => {
             this.loading = false;
+            this.reportSheet = true;
             console.log(arg);
         });
     }

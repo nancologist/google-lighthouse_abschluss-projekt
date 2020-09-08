@@ -62,16 +62,18 @@ async function testWebsiteAndCreateReport({ url, filePath, reportFormat, isCusto
 
     // `.report` is the HTML report as a string
     const report = runnerResult.report;
+    console.log(runnerResult.lhr); // todo: maybe interesting for report sheet?
 
     if (interactive) {
+        await chrome.kill();
         return report;
     } else {
         fs.writeFileSync(filePath, report);
     }
 
     // `.lhr` is the Lighthouse Result as a JS object
-    console.log('Report is done for', runnerResult.lhr.finalUrl);
-    console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
+    // console.log('Report is done for', runnerResult.lhr.finalUrl);
+    // console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
 
     await chrome.kill();
 }
