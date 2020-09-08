@@ -46,7 +46,7 @@
 /* --------------------------------------------- */
 
 .link {
-    color: var(--third-color);
+    color: var(--third-color) !important;
 }
 
 .config-panels {

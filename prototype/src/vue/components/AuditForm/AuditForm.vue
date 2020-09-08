@@ -38,10 +38,8 @@
             <v-stepper-content class="stepper__content" step="2">
                 <div class="stepper__content__lh-configs">
                     <!-- Todo: Find a way to disable hover effect of switch button (it's very ugly!) -->
-                    <v-switch
-                        label="Use the preset configuration?"
-                        v-model="auditForm.isCustom"
-                    />
+                    <v-switch v-model="auditForm.interactive" label="Interactive Mode"/>
+                    <v-switch label="Use the preset configuration?" v-model="auditForm.isCustom"/>
                     <div class="my-config">
                         <v-expansion-panels>
                             <div class="config-panels">
@@ -101,10 +99,10 @@
             <v-stepper-content class="stepper__content" step="3">
                 <div class="step-three">
                     <p>THE PREVIEW OF SET CONFIG WILL BE SHOWN HERE...</p>
-                    <v-btn @click.prevent="runTestInteractive" :loading="loading">
+                    <v-btn @click.prevent="runTest" :loading="loading" v-if="auditForm.interactive">
                         <v-icon color="secondaryDarker" left>mdi-test-tube</v-icon> Run Test
                     </v-btn>
-                    <v-btn @click.prevent="runTest" :disabled="loading">
+                    <v-btn @click.prevent="runTest" v-else>
                         <v-icon color="secondaryDarker" left>mdi-text-box-multiple</v-icon> Export Report
                     </v-btn>
                 </div>
@@ -154,11 +152,6 @@ export default {
     },
     methods: {
         runTest() {
-            ipcRenderer.send('RUN_TEST', this.auditForm);
-        },
-
-        runTestInteractive() {
-            this.auditForm.interactive = true;
             this.loading = true;
             ipcRenderer.send('RUN_TEST', this.auditForm);
         },
