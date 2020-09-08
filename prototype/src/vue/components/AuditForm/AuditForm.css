@@ -22,6 +22,18 @@
     margin-top: 10px;
 }
 
+.stepper__buttons__prev {
+    position: absolute !important;
+    bottom: 20px;
+    left: 30px;
+}
+
+.stepper__buttons__next {
+    position: absolute !important;
+    bottom: 20px;
+    right: 30px;
+}
+
 .step-three > button {
     margin: 0 5px;
 }
@@ -88,6 +100,8 @@
     /*color: var(--third-color);*/
     /*color: var(--second-color);*/
     color: var(--first-color);
+
+    overflow: scroll;
 
     text-align: center;
 }

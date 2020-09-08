@@ -108,11 +108,11 @@
                 </div>
             </v-stepper-content>
             <div class="stepper__buttons">
-                <v-btn @click="currentStep--" :disabled="currentStep <= 1">Back</v-btn>
-                <v-btn @click="currentStep++" :disabled="currentStep >= 3">Next</v-btn>
+                <v-btn class="stepper__buttons__prev" @click="currentStep--" :disabled="currentStep <= 1">Back</v-btn>
+                <v-btn class="stepper__buttons__next" @click="currentStep++" :disabled="currentStep >= 3">Next</v-btn>
             </div>
         </v-stepper>
-        <v-bottom-sheet v-model="reportSheet" inset>
+        <v-bottom-sheet v-model="reportSheet" scrollable inset>
             <div class="report">
                 <div class="report-content">
                     <h3>Test Report</h3>
@@ -152,7 +152,7 @@ export default {
     },
     methods: {
         runTest() {
-            this.loading = true;
+            if (this.auditForm.interactive) this.loading = true;
             ipcRenderer.send('RUN_TEST', this.auditForm);
         },
 
