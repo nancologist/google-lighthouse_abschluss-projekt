@@ -161,6 +161,11 @@ export default {
         openLink(url) {
             require('electron').shell.openExternal(url);
         }
+    },
+    created() {
+        ipcRenderer.on('REPORT_CREATED', (event, arg) => {
+            console.log(arg);
+        });
     }
 };
 </script>

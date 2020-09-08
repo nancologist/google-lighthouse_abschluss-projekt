@@ -16,7 +16,11 @@ ipcMain.on('RUN_TEST', (event, auditForm) => {
     if (interactive) {
         testWebsiteAndCreateReport(auditForm).then(report => {
             report = JSON.parse(report);
-            console.log(report.audits);
+            if (report.audits) {
+                event.reply('REPORT_CREATED', report.audits);
+            } else {
+                console.log('Report not found!!!');
+            }
         })
     } else {
         dialog.showSaveDialog(parentWin, {
