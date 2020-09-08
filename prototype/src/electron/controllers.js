@@ -62,7 +62,12 @@ async function testWebsiteAndCreateReport({ url, filePath, reportFormat, isCusto
 
     // `.report` is the HTML report as a string
     const report = runnerResult.report;
-    console.log(runnerResult.lhr); // todo: maybe interesting for report sheet?
+
+    // console.log(runnerResult.lhr);
+    // todo: Interesting Props of runnerResult.lhr: "requestedUrl", "finalUrl",
+    //  "runWarnings",
+    //  "userAgent", "benchmarkIndex"
+    //      Maybe Use Them In The Report... ("more"-btn)
 
     if (interactive) {
         await chrome.kill();
@@ -84,9 +89,9 @@ const customConfig = {
     settings: {
         // onlyCategories: ['performance'],
         onlyAudits: [
-            'first-meaningful-paint'
-            // 'speed-index',
-            // 'first-cpu-idle',
+            'first-meaningful-paint',
+            'speed-index',
+            'first-cpu-idle',
             // 'interactive',
         ],
     }

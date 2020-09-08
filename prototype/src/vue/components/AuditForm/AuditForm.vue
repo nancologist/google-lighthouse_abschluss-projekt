@@ -2,17 +2,17 @@
     <div>
         <v-stepper class="stepper" v-model="currentStep">
             <v-stepper-header class="stepper__header">
-                <v-stepper-step color="secondaryDark" :complete="currentStep > 1" step="1" editable>
+                <v-stepper-step color="secondaryDarker" :complete="currentStep > 1" step="1" editable>
                     <span>Select URL</span>
                 </v-stepper-step>
                 <v-divider/>
 
-                <v-stepper-step color="secondaryDark" :complete="currentStep > 2" step="2" editable>
+                <v-stepper-step color="secondaryDarker" :complete="currentStep > 2" step="2" editable>
                     Setup configuration
                 </v-stepper-step>
                 <v-divider/>
 
-                <v-stepper-step color="secondaryDark" step="3" editable>
+                <v-stepper-step color="secondaryDarker" step="3" editable>
                     Confirm setup
                 </v-stepper-step>
             </v-stepper-header>
@@ -102,10 +102,10 @@
                 <div class="step-three">
                     <p>THE PREVIEW OF SET CONFIG WILL BE SHOWN HERE...</p>
                     <v-btn @click.prevent="runTestInteractive" :loading="loading">
-                        <v-icon color="secondaryDark" left>mdi-test-tube</v-icon> Run Test
+                        <v-icon color="secondaryDarker" left>mdi-test-tube</v-icon> Run Test
                     </v-btn>
                     <v-btn @click.prevent="runTest" :loading="loading">
-                        <v-icon color="secondaryDark" left>mdi-text-box-multiple</v-icon> Export Report
+                        <v-icon color="secondaryDarker" left>mdi-text-box-multiple</v-icon> Export Report
                     </v-btn>
                 </div>
             </v-stepper-content>
@@ -114,8 +114,18 @@
                 <v-btn @click="currentStep++" :disabled="currentStep >= 3">Next</v-btn>
             </div>
         </v-stepper>
-        <v-bottom-sheet v-model="reportSheet">
-            <h3>Hallo Helmut!</h3>
+        <v-bottom-sheet v-model="reportSheet" inset>
+            <div class="report">
+                <div class="report-content">
+                    <h3>Test Report</h3>
+                    <hr>
+                    <div class="audit" v-for="a in audits" :key="a.id">
+                        <h4>{{ a.title }}</h4>
+                        <p>Score: {{ a.score }}</p>
+                        <p>Duration: {{ a.numericValue }} ms</p>
+                    </div>
+                </div>
+            </div>
         </v-bottom-sheet>
     </div>
 </template>
@@ -132,6 +142,7 @@ export default {
                 refTime: '',
                 interactive: false,
             },
+            audits: {},
             formats: [
                 { text: 'HTML', value: 'html' },
                 { text: 'JSON', value: 'json' }
@@ -169,10 +180,12 @@ export default {
         }
     },
     created() {
-        ipcRenderer.on('REPORT_CREATED', (event, arg) => {
+        console.log('CMP CREATED!');
+        ipcRenderer.once('REPORT_CREATED', (event, res) => {
             this.loading = false;
             this.reportSheet = true;
-            console.log(arg);
+            this.audits = res;
+            console.log('Event Listener Counter!');
         });
     }
 };

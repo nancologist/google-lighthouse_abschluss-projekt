@@ -75,3 +75,29 @@
 .config-panel__control__input {
     max-width: 50%;
 }
+
+/*Report*/
+.report {
+    /*background-color: rgba(0,0,0, 0.4);*/
+    /*background-color: rgba(255, 255, 255, 0.4);*/
+    background-color: var(--fourth-color);
+
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    /*color: var(--third-color);*/
+    /*color: var(--second-color);*/
+    color: var(--first-color);
+
+    text-align: center;
+}
+
+.report-content {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.audit {
+    text-align: left;
+    padding: 5px 12px;
+}

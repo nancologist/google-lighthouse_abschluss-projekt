@@ -11,7 +11,8 @@ const options = {
             light: {
                 primary: '#FEFFFF',
                 secondary: '#3AAFA9',
-                secondaryDark: '#17252A',
+                secondaryDark: '#2B7A78',
+                secondaryDarker: '#17252A'
                 // accent: '#17252A'
                 // error: '#ff0000'
             }
