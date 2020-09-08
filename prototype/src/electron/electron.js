@@ -12,7 +12,7 @@ const isDev = process.env.NODE_ENV !== 'production';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win;
+let mainWindow;
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -20,7 +20,7 @@ protocol.registerSchemesAsPrivileged([
 ]);
 
 function createWindow() {
-    win = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         // To show the right background color while the app is loading.
         backgroundColor: '#3AAFA9',
         height: 600,
@@ -35,16 +35,17 @@ function createWindow() {
             nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
         }
     });
+    mainWindow.name = 'MAIN_WINDOW'
 
-    if (isDev) win.webContents.openDevTools();
+    if (isDev) mainWindow.webContents.openDevTools();
 
     if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
-        win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
+        mainWindow.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
     } else {
         createProtocol('app');
         // Load the index.html when not in development
-        win.loadURL('app://./index.html');
+        mainWindow.loadURL('app://./index.html');
     }
 
     // Show app only after the page is completely rendered.
@@ -53,10 +54,10 @@ function createWindow() {
     // Todo: Downside of this action is, that it takes a bit to render and
     //  then shows the app, instead of that, OPEN the window immediately and
     //  then use a Spinner instead (if possible).
-    win.once('ready-to-show', () => { win.show(); });
+    mainWindow.once('ready-to-show', () => { mainWindow.show(); });
 
-    win.on('closed', () => {
-        win = null;
+    mainWindow.on('closed', () => {
+        mainWindow = null;
     });
 }
 
@@ -72,7 +73,7 @@ app.on('window-all-closed', () => {
 app.on('activate', () => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
-    if (win === null) {
+    if (mainWindow === null) {
         createWindow();
     }
 });
@@ -106,3 +107,4 @@ if (isDev) {
         });
     }
 }
+

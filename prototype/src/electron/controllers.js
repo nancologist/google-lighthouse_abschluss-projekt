@@ -1,5 +1,3 @@
-import AuditForm from "../vue/components/AuditForm/AuditForm";
-
 const { BrowserWindow, ipcMain, dialog, getCurrentWindow } = require('electron');
 const fs = require('fs');
 const path = require('path');
@@ -10,18 +8,21 @@ const chromeLauncher = require('chrome-launcher');
 const ROOT_DIR = path.join(__dirname, '..');
 
 ipcMain.on('RUN_TEST', (event, auditForm) => {
-    const { reportFormat } = auditForm;
-    // Todo: When you come back go to the lighthouse method at line36 and
-    //  there check the condition "interactiveTest" and then if it's true
-    //  send the data back to Vue instead of writing it to a file, use
-    //  https://discuss.atom.io/t/ipc-send-from-main-process-to-renderer/16046/2 , 2nd Answer for that!
+    const { reportFormat, interactive } = auditForm;
     // To attach the dialog to its parent window:
-    const parentWin = BrowserWindow.getFocusedWindow();
+    const parentWin = BrowserWindow.getAllWindows()
+        .find(win => win.name === 'MAIN_WINDOW');
 
-    dialog.showSaveDialog(parentWin, {
-        message: 'Choose a directory to store report.',
-        filters: [{ name: 'Report', extensions: [reportFormat] }]
-    })
+    if (interactive) {
+        testWebsiteAndCreateReport(auditForm).then(report => {
+            report = JSON.parse(report);
+            console.log(report.audits);
+        })
+    } else {
+        dialog.showSaveDialog(parentWin, {
+            message: 'Choose a directory to store report.',
+            filters: [{ name: 'Report', extensions: [reportFormat] }]
+        })
         .then(({ canceled, filePath }) => {
             if (!canceled && !!filePath) {
                 testWebsiteAndCreateReport(auditForm).catch((err) => {
@@ -32,10 +33,11 @@ ipcMain.on('RUN_TEST', (event, auditForm) => {
         .catch((err) => {
             console.log(err);
         });
+    }
 });
 
 // Write Lighthouse's test report in a html file.
-async function testWebsiteAndCreateReport({ url, filePath, reportFormat, isCustom }) {
+async function testWebsiteAndCreateReport({ url, filePath, reportFormat, isCustom, interactive }) {
     const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
     // output: json, html, csv
     const options = {
@@ -52,11 +54,16 @@ async function testWebsiteAndCreateReport({ url, filePath, reportFormat, isCusto
         runnerResult = await lighthouse(url, options);
     }
 
-    console.log(runnerResult.report);
+    // console.log(runnerResult.report);
 
     // `.report` is the HTML report as a string
-    const reportHtml = runnerResult.report;
-    fs.writeFileSync(filePath, reportHtml);
+    const report = runnerResult.report;
+
+    if (interactive) {
+        return report;
+    } else {
+        fs.writeFileSync(filePath, report);
+    }
 
     // `.lhr` is the Lighthouse Result as a JS object
     console.log('Report is done for', runnerResult.lhr.finalUrl);

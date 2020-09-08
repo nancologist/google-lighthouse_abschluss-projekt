@@ -15,6 +15,7 @@ module.exports = {
     },
     rules: {
         'arrow-parens': ['error', 'always'],
+        'comma-dangle': 'off',
         indent: ['error', 4],
         'jsx-quotes': ['error', 'prefer-double'],
         semi: ['error', 'always'],

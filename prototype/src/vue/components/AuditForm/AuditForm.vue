@@ -127,7 +127,7 @@ export default {
                 reportFormat: '',
                 url: '',
                 refTime: '',
-                interactiveTest: false,
+                interactive: false,
             },
             formats: [
                 { text: 'HTML', value: 'html' },
@@ -142,7 +142,7 @@ export default {
         },
 
         runTestInteractive() {
-            this.auditForm.interactiveTest = true;
+            this.auditForm.interactive = true;
             ipcRenderer.send('RUN_TEST', this.auditForm);
         },
 
