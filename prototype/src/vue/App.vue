@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import AuditForm from './components/AuditForm.vue';
+import AuditForm from './components/AuditForm/AuditForm.vue';
 export default {
     components: { AuditForm },
     data() {
