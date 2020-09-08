@@ -39,7 +39,7 @@
                 <div class="stepper__content__lh-configs">
                     <!-- Todo: Find a way to disable hover effect of switch button (it's very ugly!) -->
                     <v-switch
-                        label="Use custom configuration?"
+                        label="Use the preset configuration?"
                         v-model="auditForm.isCustom"
                     />
                     <div class="my-config">
@@ -99,8 +99,15 @@
             </v-stepper-content>
 
             <v-stepper-content class="stepper__content" step="3">
-                <p>Lorem ipsum dolor sit amet.</p>
-                <v-btn @click.prevent="testUrl">Run Test</v-btn>
+                <div class="step-three">
+                    <p>The preview of set config comes HERE...</p>
+                    <v-btn @click.prevent="runInteractiveTest">
+                        Run Test
+                    </v-btn>
+                    <v-btn @click.prevent="createReport">
+                        <v-icon left>mdi-text-box-multiple</v-icon> Export Report
+                    </v-btn>
+                </div>
             </v-stepper-content>
             <div class="stepper__buttons">
                 <v-btn @click="currentStep--" :disabled="currentStep <= 1">Back</v-btn>
@@ -129,9 +136,11 @@ export default {
         };
     },
     methods: {
-        testUrl() {
-            ipcRenderer.send('STORE_REPORT', this.auditForm);
+        createReport() {
+            ipcRenderer.send('CREATE_REPORT', this.auditForm);
         },
+
+        runInteractiveTest() {},
 
         initUrlField() {
             if (!this.auditForm.url) {
@@ -175,6 +184,10 @@ export default {
         display: flex;
         justify-content: space-between;
         margin-top: 10px;
+    }
+
+    .step-three > button {
+        margin: 0 5px;
     }
 
     /*

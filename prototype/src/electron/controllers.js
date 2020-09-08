@@ -7,7 +7,7 @@ const chromeLauncher = require('chrome-launcher');
 
 const ROOT_DIR = path.join(__dirname, '..');
 
-ipcMain.on('STORE_REPORT', (event, auditForm) => {
+ipcMain.on('CREATE_REPORT', (event, auditForm) => {
     const { isCustom, reportFormat, url } = auditForm;
     // To attach the dialog to its parent window:
     const parentWin = BrowserWindow.getFocusedWindow();
@@ -40,12 +40,13 @@ async function testWebsiteAndCreateReport({ url, filePath, reportFormat, isCusto
     };
 
     let runnerResult;
-
     if (isCustom) {
         runnerResult = await lighthouse(url, options, customConfig);
     } else {
         runnerResult = await lighthouse(url, options);
     }
+
+    console.log(runnerResult.report);
 
     // `.report` is the HTML report as a string
     const reportHtml = runnerResult.report;
@@ -62,6 +63,7 @@ async function testWebsiteAndCreateReport({ url, filePath, reportFormat, isCusto
 const customConfig = {
     extends: 'lighthouse:default',
     settings: {
+        // onlyCategories: ['performance'],
         onlyAudits: [
             'first-meaningful-paint'
             // 'speed-index',
