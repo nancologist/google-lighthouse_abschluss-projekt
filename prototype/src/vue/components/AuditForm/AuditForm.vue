@@ -181,7 +181,7 @@ export default {
     },
     created() {
         console.log('CMP CREATED!');
-        ipcRenderer.once('REPORT_CREATED', (event, res) => {
+        ipcRenderer.on('REPORT_CREATED', (event, res) => {
             this.loading = false;
             this.reportSheet = true;
             this.audits = res;
