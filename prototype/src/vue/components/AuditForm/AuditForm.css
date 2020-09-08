@@ -73,7 +73,7 @@
 }
 
 .config-panel__control__input {
-    max-width: 50%;
+    max-width: 50% !important;
 }
 
 /*Report*/
