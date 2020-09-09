@@ -5,15 +5,12 @@
                 <v-btn v-if="!appStarted" @click="appStarted = true" >Start App</v-btn>
                 <AuditForm v-else />
             </div>
-<!--            <p style="color: white; font-weight: bold">NAME: {{ name }}</p>-->
-<!--            <pg2 :name="name" @input="name = $event"/>-->
         </div>
     </v-app>
 </template>
 
 <script>
 import AuditForm from './components/AuditForm/AuditForm.vue';
-// import pg2 from './components/playground/pg2.vue';
 export default {
     components: { AuditForm },
     data() {
