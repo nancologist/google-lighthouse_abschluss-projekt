@@ -127,12 +127,10 @@ export default {
         }
     },
     created() {
-        console.log('CMP CREATED!');
         ipcRenderer.on('REPORT_CREATED', (event, res) => {
             this.loading = false;
             this.reportSheet = true;
             this.resultAudits = res;
-            console.log('Event Listener Counter!');
         });
     }
 };
