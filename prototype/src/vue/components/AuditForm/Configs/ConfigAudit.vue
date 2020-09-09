@@ -1,6 +1,6 @@
 <template>
     <v-expansion-panel
-        class="expansion-panels__panel"
+        class="expansion-panels__panel config-panel"
     >
         <v-expansion-panel-header :disable-icon-rotate="added">
             <h3>{{ audit.title }}</h3>
@@ -94,4 +94,23 @@ export default {
 </script>
 
 <style scoped>
+    .expansion-panels__panel {
+        margin: 3px;
+        border-radius: 5px;
+        box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.4);
+    }
+
+    .config-panel__info {
+        text-align: left;
+    }
+
+    .config-panel__control {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
+
+    .config-panel__control__input {
+        max-width: 50% !important;
+    }
 </style>
