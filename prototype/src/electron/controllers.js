@@ -51,6 +51,7 @@ async function testWebsiteAndCreateReport(auditForm) {
         configs
     } = auditForm;
     const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
+
     // output: json, html, csv
     const options = {
         logLevel: 'info', // Todo: Change for production
@@ -91,12 +92,10 @@ async function testWebsiteAndCreateReport(auditForm) {
     await chrome.kill();
 }
 
-// A Lighthouse Custom Config Sample
 const customConfig = {
     extends: 'lighthouse:default',
     settings: {
         // onlyCategories: ['performance'],
-        onlyAudits: [
-        ],
+        onlyAudits: [],
     }
 };
