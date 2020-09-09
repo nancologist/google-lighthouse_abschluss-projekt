@@ -41,37 +41,12 @@
                     <v-switch v-model="auditForm.interactive" label="Interactive Mode"/>
                     <v-switch label="Use the preset configuration?" v-model="auditForm.isCustom"/>
                     <v-expansion-panels class="expansion-panels">
-                        <v-expansion-panel class="expansion-panels__panel" v-for="auditConfig in auditConfigs" :key="auditConfig.id">
-                            <v-expansion-panel-header>
-                                <h3>{{ auditConfig.title }}</h3>
-                            </v-expansion-panel-header>
-                            <v-expansion-panel-content>
-                                <div class="config-panel__info">
-                                    <p>
-                                        {{ auditConfig.description.split(' [Learn more](')[0] }}
-                                        <a
-                                            @click="openLink(auditConfig.description.split(' [Learn more](')[1])"
-                                            class="link"
-                                        >
-                                            [Learn more]
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="config-panel__control">
-                                    <v-text-field
-                                        append-icon="mdi-timer-outline"
-                                        class="config-panel__control__input"
-                                        color="secondary"
-                                        label="Reference Time (ms)"
-                                        outlined
-                                        v-model="auditForm.refTime"
-                                    />
-                                    <v-btn :disabled="!auditForm.refTime" class="mx-2" fab color="secondary">
-                                        <v-icon>mdi-plus</v-icon>
-                                    </v-btn>
-                                </div>
-                            </v-expansion-panel-content>
-                        </v-expansion-panel>
+                        <TestConfig
+                            v-for="configAudit in configAudits"
+                            :key="configAudit.id"
+                            :audit="configAudit"
+                            @addAudit="addConfigAudit"
+                        />
                     </v-expansion-panels>
                 </div>
             </v-stepper-content>
@@ -94,28 +69,31 @@
         </v-stepper>
 
         <v-bottom-sheet v-model="reportSheet" scrollable inset>
-            <Report :audits="audits"/>
+            <Report :audits="resultAudits"/>
         </v-bottom-sheet>
     </div>
 </template>
 
 <script>
 import Report from './Report/Report.vue';
-const { audits: auditConfigs } = require('../../data/data.json');
+import TestConfig from './Configs/TestConfig.vue';
+const { audits: configAudits } = require('../../data/data.json');
 const { ipcRenderer } = require('electron');
 export default {
-    components: { Report },
+    components: { Report, TestConfig },
     data() {
         return {
             auditForm: {
                 isCustom: '',
                 reportFormat: 'json',
                 url: '',
-                refTime: '',
                 interactive: false,
+                configs: {
+                    audits: []
+                }
             },
-            audits: {},
-            auditConfigs,
+            resultAudits: {},
+            configAudits,
             formats: [
                 { text: 'HTML', value: 'html' },
                 { text: 'JSON', value: 'json' }
@@ -143,10 +121,9 @@ export default {
             }
         },
 
-        openLink(text) {
-            // Remove the extra ")." at the end of string
-            const url = text.substring(0, text.length - 2);
-            require('electron').shell.openExternal(url);
+        addConfigAudit(newConfigAudit) {
+            this.auditForm.configs.audits.push(newConfigAudit);
+            // console.log(this.auditForm.configs.audits);
         }
     },
     created() {
@@ -154,7 +131,7 @@ export default {
         ipcRenderer.on('REPORT_CREATED', (event, res) => {
             this.loading = false;
             this.reportSheet = true;
-            this.audits = res;
+            this.resultAudits = res;
             console.log('Event Listener Counter!');
         });
     }
