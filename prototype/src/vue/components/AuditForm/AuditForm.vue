@@ -55,13 +55,13 @@
             <v-stepper-content class="stepper__content" step="3">
                 <div class="step-three">
                     <p>THE PREVIEW OF SET CONFIG WILL BE SHOWN HERE...</p>
-                    <v-btn @click.prevent="runTest" :loading="loading" v-if="auditForm.interactive">
+                    <v-btn @click.prevent="runTest" :disabled="loading2" :loading="loading" v-if="auditForm.interactive">
                         <v-icon color="secondaryDarker" left>mdi-test-tube</v-icon> Run Test
                     </v-btn>
-                    <v-btn @click.prevent="runTest" v-else>
+                    <v-btn @click.prevent="runTest" v-else :disabled="loading2">
                         <v-icon color="secondaryDarker" left>mdi-text-box-multiple</v-icon> Export Report
                     </v-btn>
-                    <v-btn @click="runPowertest" style="color: var(--danger)">
+                    <v-btn @click="runPowertest" style="color: var(--danger)" :loading="loading2" :disabled="loading">
                         <v-icon color="error" left>mdi-radioactive</v-icon> POWER-TEST
                     </v-btn>
                 </div>
@@ -106,6 +106,7 @@ export default {
             ],
             currentStep: 1,
             loading: false,
+            loading2: false,
             reportSheetOpen: false,
             isPowertest: false,
         };
@@ -117,6 +118,7 @@ export default {
         },
 
         runPowertest() {
+            this.loading2 = true;
             ipcRenderer.send('RUN_POWERTEST', this.auditForm);
         },
 
@@ -145,6 +147,7 @@ export default {
     created() {
         ipcRenderer.on('REPORT_CREATED', (event, res) => {
             this.loading = false;
+            this.loading2 = false;
             this.isPowertest = Array.isArray(res);
             if (this.isPowertest) {
                 this.resultReports = res;
