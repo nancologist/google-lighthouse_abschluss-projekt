@@ -71,6 +71,7 @@ export default {
         addConfig() {
             this.inputDisabled = true;
             this.added = true;
+
             const newAudit = {
                 id: this.audit.id,
                 refTime: this.refTime
@@ -82,7 +83,8 @@ export default {
             this.inputDisabled = false;
             this.refTime = '';
             this.added = false;
-            // Emit removeAudit to parent cmp ...
+
+            this.$emit('removeAudit', this.audit.id);
         }
     },
 };

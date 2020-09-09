@@ -46,6 +46,7 @@
                             :key="configAudit.id"
                             :audit="configAudit"
                             @addAudit="addConfigAudit"
+                            @removeAudit="removeConfigAudit"
                         />
                     </v-expansion-panels>
                 </div>
@@ -125,6 +126,11 @@ export default {
             const alreadyAdded = this.auditForm.configs.audits
                 .findIndex((configAudit) => configAudit.id === newConfigAudit.id) > -1;
             if (!alreadyAdded) this.auditForm.configs.audits.push(newConfigAudit);
+            console.log(this.auditForm.configs.audits);
+        },
+
+        removeConfigAudit(auditId) {
+            this.auditForm.configs.audits = this.auditForm.configs.audits.filter((audit) => audit.id !== auditId);
             console.log(this.auditForm.configs.audits);
         }
     },
