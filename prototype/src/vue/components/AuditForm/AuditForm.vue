@@ -117,11 +117,7 @@
                 <div class="report-content">
                     <h3>Test Report</h3>
                     <hr>
-                    <div class="audit" v-for="a in audits" :key="a.id">
-                        <h4>{{ a.title }}</h4>
-                        <p>Score: {{ a.score }}</p>
-                        <p>Duration: {{ a.numericValue }} ms</p>
-                    </div>
+                    <AuditItem v-for="audit in audits" :key="audit.id" :audit="audit" />
                 </div>
             </div>
         </v-bottom-sheet>
@@ -129,13 +125,18 @@
 </template>
 
 <script>
+import AuditItem from './AuditItem/AuditItem.vue';
 const { ipcRenderer } = require('electron');
 export default {
+    components: { AuditItem },
+    comments: {
+        AuditItem
+    },
     data() {
         return {
             auditForm: {
                 isCustom: '',
-                reportFormat: '',
+                reportFormat: 'json',
                 url: '',
                 refTime: '',
                 interactive: false,

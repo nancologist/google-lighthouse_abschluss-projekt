@@ -111,11 +111,6 @@
     padding-bottom: 10px;
 }
 
-.audit {
-    text-align: left;
-    padding: 5px 12px;
-}
-
 /*
     Show Scrollbar always if there's an overflow.
     (not just when scrolling)
