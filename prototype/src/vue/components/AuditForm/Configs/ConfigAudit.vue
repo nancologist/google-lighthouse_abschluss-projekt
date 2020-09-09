@@ -3,7 +3,7 @@
         class="expansion-panels__panel config-panel"
     >
         <v-expansion-panel-header :disable-icon-rotate="added">
-            <h3>{{ audit.title }}</h3>
+            <h3 ref="panel">{{ audit.title }}</h3>
             <template v-slot:actions v-if="added">
                 <v-icon color="secondaryDark">mdi-check-bold</v-icon>
             </template>
@@ -74,6 +74,7 @@ export default {
         addConfig() {
             this.inputDisabled = true;
             this.added = true;
+            this.$refs.panel.click();
 
             const newAudit = {
                 id: this.audit.id,
