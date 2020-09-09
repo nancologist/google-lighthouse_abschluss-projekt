@@ -1,9 +1,13 @@
 <template>
     <div class="report scrollbar">
         <div class="report-content">
-            <h3>Test Report</h3>
+            <h2>Test Report</h2>
             <hr>
-            <AuditItem v-for="audit in audits" :key="audit.id" :audit="audit" />
+            <AuditItem
+                v-for="audit in audits"
+                :key="audit.id"
+                :audit="audit"
+            />
         </div>
     </div>
 </template>
@@ -12,7 +16,7 @@
 import AuditItem from './AuditItem/AuditItem.vue';
 export default {
     components: { AuditItem },
-    props: ['audits', 'isPowertest']
+    props: ['audits']
 };
 </script>
 

@@ -40,7 +40,7 @@ function createWindow() {
     if (isDev) mainWindow.webContents.openDevTools();
 
     if (process.env.WEBPACK_DEV_SERVER_URL) {
-    // Load the url of the dev server if in development mode
+    // Load the url of the dev server if in development mode.
         mainWindow.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
     } else {
         createProtocol('app');
@@ -101,4 +101,3 @@ if (isDev) {
         });
     }
 }
-
