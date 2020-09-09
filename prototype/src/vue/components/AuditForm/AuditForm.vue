@@ -40,59 +40,55 @@
                     <!-- Todo: Find a way to disable hover effect of switch button (it's very ugly!) -->
                     <v-switch v-model="auditForm.interactive" label="Interactive Mode"/>
                     <v-switch label="Use the preset configuration?" v-model="auditForm.isCustom"/>
-                    <div class="my-config">
-                        <v-expansion-panels>
-                            <div class="config-panels">
-                                <v-expansion-panel class="config-panels__item">
-                                    <v-expansion-panel-header>
-                                        <h3>First Meaningful Paint</h3>
-                                    </v-expansion-panel-header>
-                                    <v-expansion-panel-content>
-                                        <div class="config-panel__info">
-                                            <p>
-                                                First Meaningful Paint measures when the primary content of a page is visible.
-                                                <a
-                                                    @click="openLink('https://web.dev/first-meaningful-paint/')"
-                                                    class="link"
-                                                >
-                                                    [Learn more]
-                                                </a>
-                                            </p>
-                                        </div>
-                                        <div class="config-panel__control">
-                                            <v-text-field
-                                                append-icon="mdi-timer-outline"
-                                                class="config-panel__control__input"
-                                                color="secondary"
-                                                label="Reference Time (ms)"
-                                                outlined
-                                                v-model="auditForm.refTime"
-                                            />
-                                            <v-btn :disabled="!auditForm.refTime" class="mx-2" fab color="secondary">
-                                                <v-icon>mdi-plus</v-icon>
-                                            </v-btn>
-                                        </div>
-                                    </v-expansion-panel-content>
-                                </v-expansion-panel>
-                                <v-expansion-panel class="config-panels__item">
-                                    <v-expansion-panel-header>
-                                        <h3>I am a dummy expansion panel!</h3>
-                                    </v-expansion-panel-header>
-                                    <v-expansion-panel-content>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, ullam.</p>
-                                    </v-expansion-panel-content>
-                                </v-expansion-panel>
-                                <v-expansion-panel class="config-panels__item">
-                                    <v-expansion-panel-header>
-                                        <h3>I am a dummy expansion panel!</h3>
-                                    </v-expansion-panel-header>
-                                    <v-expansion-panel-content>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, ullam.</p>
-                                    </v-expansion-panel-content>
-                                </v-expansion-panel>
-                            </div>
-                        </v-expansion-panels>
-                    </div>
+                    <v-expansion-panels class="expnasion-panels">
+                            <v-expansion-panel class="expansion-panels__panel">
+                                <v-expansion-panel-header>
+                                    <h3>First Meaningful Paint</h3>
+                                </v-expansion-panel-header>
+                                <v-expansion-panel-content>
+                                    <div class="config-panel__info">
+                                        <p>
+                                            First Meaningful Paint measures when the primary content of a page is visible.
+                                            <a
+                                                @click="openLink('https://web.dev/first-meaningful-paint/')"
+                                                class="link"
+                                            >
+                                                [Learn more]
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <div class="config-panel__control">
+                                        <v-text-field
+                                            append-icon="mdi-timer-outline"
+                                            class="config-panel__control__input"
+                                            color="secondary"
+                                            label="Reference Time (ms)"
+                                            outlined
+                                            v-model="auditForm.refTime"
+                                        />
+                                        <v-btn :disabled="!auditForm.refTime" class="mx-2" fab color="secondary">
+                                            <v-icon>mdi-plus</v-icon>
+                                        </v-btn>
+                                    </div>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                            <v-expansion-panel class="expansion-panels__panel">
+                                <v-expansion-panel-header>
+                                    <h3>I am a dummy expansion panel!</h3>
+                                </v-expansion-panel-header>
+                                <v-expansion-panel-content>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, ullam.</p>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                            <v-expansion-panel class="expansion-panels__panel">
+                                <v-expansion-panel-header>
+                                    <h3>I am a dummy expansion panel!</h3>
+                                </v-expansion-panel-header>
+                                <v-expansion-panel-content>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, ullam.</p>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                    </v-expansion-panels>
                 </div>
             </v-stepper-content>
 
@@ -112,6 +108,7 @@
                 <v-btn class="stepper__buttons__next" @click="currentStep++" :disabled="currentStep >= 3">Next</v-btn>
             </div>
         </v-stepper>
+
         <v-bottom-sheet v-model="reportSheet" scrollable inset>
             <Report :audits="audits"/>
         </v-bottom-sheet>

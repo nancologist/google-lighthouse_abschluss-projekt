@@ -42,14 +42,11 @@
     color: var(--third-color) !important;
 }
 
-.config-panels {
-    width: 98%;
+.expansion-panels {
     display: flex;
-    flex-wrap: wrap;
 }
 
-.config-panels__item {
-    /*max-width: 48%;*/
+.expansion-panels__panel {
     margin: 3px;
     border-radius: 5px;
     box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.4);
