@@ -40,7 +40,7 @@
                     <!-- Todo: Find a way to disable hover effect of switch button (it's very ugly!) -->
                     <v-switch v-model="auditForm.interactive" label="Interactive Mode"/>
                     <v-switch label="Use the preset configuration?" v-model="auditForm.isCustom"/>
-                    <v-expansion-panels class="expnasion-panels">
+                    <v-expansion-panels class="expansion-panels">
                             <v-expansion-panel class="expansion-panels__panel">
                                 <v-expansion-panel-header>
                                     <h3>First Meaningful Paint</h3>
