@@ -1,5 +1,5 @@
 <template>
-    <div class="audit">
+    <div class="audit" v-if="!!audit.id">
         <h4>{{ audit.title }}</h4>
         <p>Score: {{ audit.score }}</p>
         <p>Duration: {{ audit.numericValue }} ms</p>
