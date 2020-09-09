@@ -24,6 +24,7 @@ input[type=number] {
     --third-color: #3AAFA9;
     --fourth-color: #DEF2F1;
     --fifth-color: #FEFFFF;
+    --danger: #AF3A40;
 }
 
 .layout {

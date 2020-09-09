@@ -5,7 +5,7 @@ const lighthouse = require('lighthouse');
 const { throttling: { desktopDense4G } } = require('lighthouse/lighthouse-core/config/constants.js');
 const chromeLauncher = require('chrome-launcher');
 
-const ROOT_DIR = path.join(__dirname, '..');
+const ROOT_DIR = path.join(__dirname, '..'); // => prototype/
 
 ipcMain.on('RUN_TEST', (event, auditForm) => {
     const { reportFormat, interactive } = auditForm;
@@ -39,6 +39,14 @@ ipcMain.on('RUN_TEST', (event, auditForm) => {
         });
     }
 });
+
+ipcMain.on('RUN_POWERTEST', (event, auditForm) => {
+    // Mimic recieving sitemap file from Vue:
+    auditForm.sitemapPath = path.join(
+        __dirname, '..', '..', 'samples', 'sitemaps', 'sample1.xml'
+    );
+    console.log(auditForm.sitemapPath);
+})
 
 // Write Lighthouse's test report in a html file.
 async function testWebsiteAndCreateReport(auditForm) {

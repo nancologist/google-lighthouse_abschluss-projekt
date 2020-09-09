@@ -61,6 +61,9 @@
                     <v-btn @click.prevent="runTest" v-else>
                         <v-icon color="secondaryDarker" left>mdi-text-box-multiple</v-icon> Export Report
                     </v-btn>
+                    <v-btn @click="runPowertest" style="color: var(--danger)">
+                        <v-icon color="error" left>mdi-radioactive</v-icon> POWER-TEST
+                    </v-btn>
                 </div>
             </v-stepper-content>
             <div class="stepper__buttons">
@@ -88,7 +91,7 @@ export default {
                 isCustom: false,
                 reportFormat: 'json',
                 url: '',
-                interactive: false,
+                interactive: true,
                 configs: {
                     audits: []
                 }
@@ -108,6 +111,10 @@ export default {
         runTest() {
             if (this.auditForm.interactive) this.loading = true;
             ipcRenderer.send('RUN_TEST', this.auditForm);
+        },
+
+        runPowertest() {
+            ipcRenderer.send('RUN_POWERTEST', this.auditForm);
         },
 
         initUrlField() {
