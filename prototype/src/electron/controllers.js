@@ -4,6 +4,7 @@ const path = require('path');
 const lighthouse = require('lighthouse');
 const { throttling: { desktopDense4G } } = require('lighthouse/lighthouse-core/config/constants.js');
 const chromeLauncher = require('chrome-launcher');
+const xml2js = require('xml2js');
 
 const ROOT_DIR = path.join(__dirname, '..'); // => prototype/
 
@@ -45,8 +46,17 @@ ipcMain.on('RUN_POWERTEST', (event, auditForm) => {
     auditForm.sitemapPath = path.join(
         __dirname, '..', '..', 'samples', 'sitemaps', 'sample1.xml'
     );
-    console.log(auditForm.sitemapPath);
+
+    getAllSitemapUrls(auditForm.sitemapPath).then(x => console.log(x));
 })
+
+const customConfig = {
+    extends: 'lighthouse:default',
+    settings: {
+        // onlyCategories: ['performance'],
+        onlyAudits: [],
+    }
+};
 
 // Write Lighthouse's test report in a html file.
 async function testWebsiteAndCreateReport(auditForm) {
@@ -100,10 +110,18 @@ async function testWebsiteAndCreateReport(auditForm) {
     await chrome.kill();
 }
 
-const customConfig = {
-    extends: 'lighthouse:default',
-    settings: {
-        // onlyCategories: ['performance'],
-        onlyAudits: [],
-    }
-};
+// XML -> POJO
+function getAllSitemapUrls(xmlPath) {
+    let urls = [];
+    const parser = new xml2js.Parser();
+    return new Promise((resolve, reject) => {
+        fs.readFile(xmlPath, (err, data) => {
+            if (err) reject(err);
+            parser.parseString(data, (err, xmlDoc) => {
+                if (err) reject(err);
+                urls = xmlDoc.urlset.url.map(el => el.loc[0]);
+                resolve(urls);
+            });
+        });
+    })
+}
