@@ -30,7 +30,7 @@ function createWindow() {
             // Needed only if nodeIntegration is set to "false":
             // preload: path.join(__dirname, '..', 'src', 'preload.js'),
 
-            // If any problem with node modules, just set nodeIntegration to
+            // If any problem with node modules, please set nodeIntegration to
             // "true":
             nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
         }
@@ -48,12 +48,6 @@ function createWindow() {
         mainWindow.loadURL('app://./index.html');
     }
 
-    // Show app only after the page is completely rendered.
-    // (It makes the use of bg-color in BrowserWindow constructor a bit
-    // unnecessary, but it's recommended to set bg-color there.)
-    // Todo: Downside of this action is, that it takes a bit to render and
-    //  then shows the app, instead of that, OPEN the window immediately and
-    //  then use a Spinner instead (if possible).
     mainWindow.once('ready-to-show', () => { mainWindow.show(); });
 
     mainWindow.on('closed', () => {
