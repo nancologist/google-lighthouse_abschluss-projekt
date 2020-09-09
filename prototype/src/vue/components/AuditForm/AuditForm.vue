@@ -122,8 +122,10 @@ export default {
         },
 
         addConfigAudit(newConfigAudit) {
-            this.auditForm.configs.audits.push(newConfigAudit);
-            // console.log(this.auditForm.configs.audits);
+            const alreadyAdded = this.auditForm.configs.audits
+                .findIndex((configAudit) => configAudit.id === newConfigAudit.id) > -1;
+            if (!alreadyAdded) this.auditForm.configs.audits.push(newConfigAudit);
+            console.log(this.auditForm.configs.audits);
         }
     },
     created() {
