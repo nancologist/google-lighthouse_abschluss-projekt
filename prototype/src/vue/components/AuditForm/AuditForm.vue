@@ -41,53 +41,37 @@
                     <v-switch v-model="auditForm.interactive" label="Interactive Mode"/>
                     <v-switch label="Use the preset configuration?" v-model="auditForm.isCustom"/>
                     <v-expansion-panels class="expansion-panels">
-                            <v-expansion-panel class="expansion-panels__panel">
-                                <v-expansion-panel-header>
-                                    <h3>First Meaningful Paint</h3>
-                                </v-expansion-panel-header>
-                                <v-expansion-panel-content>
-                                    <div class="config-panel__info">
-                                        <p>
-                                            First Meaningful Paint measures when the primary content of a page is visible.
-                                            <a
-                                                @click="openLink('https://web.dev/first-meaningful-paint/')"
-                                                class="link"
-                                            >
-                                                [Learn more]
-                                            </a>
-                                        </p>
-                                    </div>
-                                    <div class="config-panel__control">
-                                        <v-text-field
-                                            append-icon="mdi-timer-outline"
-                                            class="config-panel__control__input"
-                                            color="secondary"
-                                            label="Reference Time (ms)"
-                                            outlined
-                                            v-model="auditForm.refTime"
-                                        />
-                                        <v-btn :disabled="!auditForm.refTime" class="mx-2" fab color="secondary">
-                                            <v-icon>mdi-plus</v-icon>
-                                        </v-btn>
-                                    </div>
-                                </v-expansion-panel-content>
-                            </v-expansion-panel>
-                            <v-expansion-panel class="expansion-panels__panel">
-                                <v-expansion-panel-header>
-                                    <h3>I am a dummy expansion panel!</h3>
-                                </v-expansion-panel-header>
-                                <v-expansion-panel-content>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, ullam.</p>
-                                </v-expansion-panel-content>
-                            </v-expansion-panel>
-                            <v-expansion-panel class="expansion-panels__panel">
-                                <v-expansion-panel-header>
-                                    <h3>I am a dummy expansion panel!</h3>
-                                </v-expansion-panel-header>
-                                <v-expansion-panel-content>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, ullam.</p>
-                                </v-expansion-panel-content>
-                            </v-expansion-panel>
+                        <v-expansion-panel class="expansion-panels__panel" v-for="auditConfig in auditConfigs" :key="auditConfig.id">
+                            <v-expansion-panel-header>
+                                <h3>{{ auditConfig.title }}</h3>
+                            </v-expansion-panel-header>
+                            <v-expansion-panel-content>
+                                <div class="config-panel__info">
+                                    <p>
+                                        {{ auditConfig.description.split(' [Learn more](')[0] }}
+                                        <a
+                                            @click="openLink(auditConfig.description.split(' [Learn more](')[1])"
+                                            class="link"
+                                        >
+                                            [Learn more]
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="config-panel__control">
+                                    <v-text-field
+                                        append-icon="mdi-timer-outline"
+                                        class="config-panel__control__input"
+                                        color="secondary"
+                                        label="Reference Time (ms)"
+                                        outlined
+                                        v-model="auditForm.refTime"
+                                    />
+                                    <v-btn :disabled="!auditForm.refTime" class="mx-2" fab color="secondary">
+                                        <v-icon>mdi-plus</v-icon>
+                                    </v-btn>
+                                </div>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
                     </v-expansion-panels>
                 </div>
             </v-stepper-content>
@@ -117,6 +101,7 @@
 
 <script>
 import Report from './Report/Report.vue';
+const { audits: auditConfigs } = require('../../data/data.json');
 const { ipcRenderer } = require('electron');
 export default {
     components: { Report },
@@ -130,6 +115,7 @@ export default {
                 interactive: false,
             },
             audits: {},
+            auditConfigs,
             formats: [
                 { text: 'HTML', value: 'html' },
                 { text: 'JSON', value: 'json' }
@@ -157,7 +143,9 @@ export default {
             }
         },
 
-        openLink(url) {
+        openLink(text) {
+            // Remove the extra ")." at the end of string
+            const url = text.substring(0, text.length - 2);
             require('electron').shell.openExternal(url);
         }
     },
