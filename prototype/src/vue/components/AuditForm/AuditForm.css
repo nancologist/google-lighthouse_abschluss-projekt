@@ -38,25 +38,6 @@
     margin: 0 5px;
 }
 
-/*
-    Show Scrollbar always if there's an overflow.
-    (not just when scrolling)
-*/
-.stepper__content::-webkit-scrollbar {
-    -webkit-appearance: none;
-}
-
-.stepper__content::-webkit-scrollbar:vertical {
-    width: 5px;
-}
-
-.stepper__content::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    border: 1px solid var(--fourth-color); /* should match background, can't be transparent */
-    background-color: var(--fourth-color);
-}
-/* --------------------------------------------- */
-
 .link {
     color: var(--third-color) !important;
 }
@@ -87,45 +68,3 @@
 .config-panel__control__input {
     max-width: 50% !important;
 }
-
-/*Report*/
-.report {
-    /*background-color: rgba(0,0,0, 0.4);*/
-    /*background-color: rgba(255, 255, 255, 0.4);*/
-    background-color: var(--fourth-color);
-
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-
-    /*color: var(--third-color);*/
-    /*color: var(--second-color);*/
-    color: var(--first-color);
-
-    overflow: scroll;
-
-    text-align: center;
-}
-
-.report-content {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-/*
-    Show Scrollbar always if there's an overflow.
-    (not just when scrolling)
-*/
-.report::-webkit-scrollbar {
-    -webkit-appearance: none;
-}
-
-.report::-webkit-scrollbar:vertical {
-    width: 8px;
-}
-
-.report::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    border: 1px solid var(--fourth-color); /* should match background, can't be transparent */
-    background-color: var(--third-color);
-}
-/* --------------------------------------------- */

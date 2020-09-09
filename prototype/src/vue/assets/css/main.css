@@ -39,3 +39,22 @@ input[type=number] {
         margin-left: 4px;
     }
 }
+
+/*
+    Show Scrollbar always if there's an overflow.
+    (not just when scrolling)
+*/
+.scrollbar::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.scrollbar::-webkit-scrollbar:vertical {
+    width: 8px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    border: 1px solid var(--fourth-color); /* should match background, can't be transparent */
+    background-color: var(--first-color);
+}
+/* --------------------------------------------- */

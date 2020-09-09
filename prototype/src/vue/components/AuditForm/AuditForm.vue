@@ -35,7 +35,7 @@
                 />
             </v-stepper-content>
 
-            <v-stepper-content class="stepper__content" step="2">
+            <v-stepper-content class="stepper__content scrollbar" step="2">
                 <div class="stepper__content__lh-configs">
                     <!-- Todo: Find a way to disable hover effect of switch button (it's very ugly!) -->
                     <v-switch v-model="auditForm.interactive" label="Interactive Mode"/>
@@ -113,25 +113,16 @@
             </div>
         </v-stepper>
         <v-bottom-sheet v-model="reportSheet" scrollable inset>
-            <div class="report">
-                <div class="report-content">
-                    <h3>Test Report</h3>
-                    <hr>
-                    <AuditItem v-for="audit in audits" :key="audit.id" :audit="audit" />
-                </div>
-            </div>
+            <Report :audits="audits"/>
         </v-bottom-sheet>
     </div>
 </template>
 
 <script>
-import AuditItem from './AuditItem/AuditItem.vue';
+import Report from './Report/Report.vue';
 const { ipcRenderer } = require('electron');
 export default {
-    components: { AuditItem },
-    comments: {
-        AuditItem
-    },
+    components: { Report },
     data() {
         return {
             auditForm: {
