@@ -41,7 +41,7 @@
                     <v-switch v-model="auditForm.interactive" label="Interactive Mode"/>
                     <v-switch label="Use the preset configuration?" v-model="auditForm.isCustom"/>
                     <v-expansion-panels class="expansion-panels">
-                        <TestConfig
+                        <ConfigAudit
                             v-for="configAudit in configAudits"
                             :key="configAudit.id"
                             :audit="configAudit"
@@ -76,11 +76,11 @@
 
 <script>
 import Report from './Report/Report.vue';
-import TestConfig from './Configs/ConfigAudit.vue';
+import ConfigAudit from './Configs/ConfigAudit.vue';
 const { audits: configAudits } = require('../../data/data.json');
 const { ipcRenderer } = require('electron');
 export default {
-    components: { Report, TestConfig },
+    components: { Report, ConfigAudit },
     data() {
         return {
             auditForm: {

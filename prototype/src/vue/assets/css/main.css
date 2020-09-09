@@ -58,3 +58,7 @@ input[type=number] {
     background-color: var(--first-color);
 }
 /* --------------------------------------------- */
+
+/* Fix Vuetify Bug: FAB-Btn stays focuses */
+.btn-fix:focus::before { opacity: 0 !important; }
+.btn-fix:hover::before { opacity: 0.08 !important; }

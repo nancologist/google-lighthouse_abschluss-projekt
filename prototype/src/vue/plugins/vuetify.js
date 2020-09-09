@@ -12,7 +12,8 @@ const options = {
                 primary: '#FEFFFF',
                 secondary: '#3AAFA9',
                 secondaryDark: '#2B7A78',
-                secondaryDarker: '#17252A'
+                secondaryDarker: '#17252A',
+                error: '#AF3A40' // Complementary of #3AAFA9
                 // accent: '#17252A'
                 // error: '#ff0000'
             }

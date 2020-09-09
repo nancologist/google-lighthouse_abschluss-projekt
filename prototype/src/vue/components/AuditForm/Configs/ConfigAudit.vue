@@ -22,18 +22,29 @@
                     append-icon="mdi-timer-outline"
                     class="config-panel__control__input"
                     color="secondary"
+                    :disabled="inputDisabled"
                     label="Reference Time (ms)"
                     outlined
                     v-model="refTime"
                 />
                 <v-btn
+                    v-if="!added"
                     :disabled="!refTime"
-                    class="mx-2"
+                    class="mx-2 btn-fix"
                     fab
                     color="secondary"
-                    @click="handleClick"
+                    @click="addConfig"
                 >
                     <v-icon>mdi-plus</v-icon>
+                </v-btn>
+                <v-btn
+                    v-else
+                    class="mx-2 btn-fix"
+                    fab
+                    color="error"
+                    @click="removeConfig"
+                >
+                    <v-icon>mdi-minus</v-icon>
                 </v-btn>
             </div>
         </v-expansion-panel-content>
@@ -45,6 +56,8 @@ export default {
     data() {
         return {
             refTime: '',
+            inputDisabled: false,
+            added: false,
         };
     },
     props: ['audit'],
@@ -55,17 +68,25 @@ export default {
             require('electron').shell.openExternal(url);
         },
 
-        handleClick() {
+        addConfig() {
+            this.inputDisabled = true;
+            this.added = true;
             const newAudit = {
                 id: this.audit.id,
                 refTime: this.refTime
             };
             this.$emit('addAudit', newAudit);
+        },
+
+        removeConfig() {
+            this.inputDisabled = false;
+            this.refTime = '';
+            this.added = false;
+            // Emit removeAudit to parent cmp ...
         }
     },
 };
 </script>
 
 <style scoped>
-
 </style>
