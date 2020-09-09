@@ -19,7 +19,7 @@ export default {
 <style scoped>
 /*Report*/
 .report {
-    background-color: var(--fourth-color);
+    background-color: #eee;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     color: var(--first-color);

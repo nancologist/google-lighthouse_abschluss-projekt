@@ -41,11 +41,19 @@ ipcMain.on('RUN_TEST', (event, auditForm) => {
 });
 
 // Write Lighthouse's test report in a html file.
-async function testWebsiteAndCreateReport({ url, filePath, reportFormat, isCustom, interactive }) {
+async function testWebsiteAndCreateReport(auditForm) {
+    const {
+        url,
+        filePath,
+        reportFormat,
+        isCustom,
+        interactive,
+        configs
+    } = auditForm;
     const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
     // output: json, html, csv
     const options = {
-        // logLevel: 'info',
+        logLevel: 'info', // Todo: Change for production
         output: reportFormat,
         // onlyCategories: ['performance'],
         port: chrome.port
@@ -53,6 +61,8 @@ async function testWebsiteAndCreateReport({ url, filePath, reportFormat, isCusto
 
     let runnerResult;
     if (isCustom) {
+        const customAudits = configs.audits.map((audit) => audit.id);
+        customConfig.settings.onlyAudits = customAudits;
         runnerResult = await lighthouse(url, options, customConfig);
     } else {
         runnerResult = await lighthouse(url, options);

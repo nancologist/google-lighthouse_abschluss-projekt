@@ -39,8 +39,8 @@
                 <div class="stepper__content__lh-configs">
                     <!-- Todo: Find a way to disable hover effect of switch button (it's very ugly!) -->
                     <v-switch v-model="auditForm.interactive" label="Interactive Mode"/>
-                    <v-switch label="Use the preset configuration?" v-model="auditForm.isCustom"/>
-                    <v-expansion-panels class="expansion-panels">
+                    <v-switch label="Custom Configs" v-model="auditForm.isCustom"/>
+                    <v-expansion-panels class="expansion-panels" :disabled="!auditForm.isCustom">
                         <ConfigAudit
                             v-for="configAudit in configAudits"
                             :key="configAudit.id"
@@ -85,7 +85,7 @@ export default {
     data() {
         return {
             auditForm: {
-                isCustom: '',
+                isCustom: false,
                 reportFormat: 'json',
                 url: '',
                 interactive: false,
