@@ -2,8 +2,11 @@
     <v-expansion-panel
         class="expansion-panels__panel"
     >
-        <v-expansion-panel-header>
+        <v-expansion-panel-header :disable-icon-rotate="added">
             <h3>{{ audit.title }}</h3>
+            <template v-slot:actions v-if="added">
+                <v-icon color="secondaryDark">mdi-check-bold</v-icon>
+            </template>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
             <div class="config-panel__info">
