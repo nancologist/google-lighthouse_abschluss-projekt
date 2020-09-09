@@ -73,13 +73,8 @@
         </v-stepper>
 
         <v-bottom-sheet v-model="reportSheetOpen" scrollable inset>
-            <Report v-if="!isPowertest" :audits="resultAudits"/>
-            <template v-else>
-                <div v-for="audits in resultReports" :key="audits.url">
-                    <h3>{{audits.url}}</h3>
-                    <Report :audits="audits" />
-                </div>
-            </template>
+            <Report v-if="isPowertest" :reports="resultReports" />
+            <Report v-else :audits="resultAudits"/>
         </v-bottom-sheet>
     </div>
 </template>
