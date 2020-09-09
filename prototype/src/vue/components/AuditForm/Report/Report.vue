@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import AuditItem from '../AuditItem/AuditItem.vue';
+import AuditItem from './AuditItem/AuditItem.vue';
 export default {
     components: { AuditItem },
     props: ['audits']
