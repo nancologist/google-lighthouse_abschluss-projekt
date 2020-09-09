@@ -76,7 +76,7 @@
 
 <script>
 import Report from './Report/Report.vue';
-import TestConfig from './Configs/TestConfig.vue';
+import TestConfig from './Configs/ConfigAudit.vue';
 const { audits: configAudits } = require('../../data/data.json');
 const { ipcRenderer } = require('electron');
 export default {
