@@ -12,7 +12,7 @@
 import AuditItem from './AuditItem/AuditItem.vue';
 export default {
     components: { AuditItem },
-    props: ['audits']
+    props: ['audits', 'isPowertest']
 };
 </script>
 
