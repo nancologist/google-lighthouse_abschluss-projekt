@@ -6,7 +6,7 @@ const { throttling: { desktopDense4G } } = require('lighthouse/lighthouse-core/c
 const chromeLauncher = require('chrome-launcher');
 const xml2js = require('xml2js');
 
-const ROOT_DIR = path.join(__dirname, '..'); // => prototype/
+// __dirname => electron_dist/
 
 ipcMain.on('RUN_TEST', (event, auditForm) => {
     const { reportFormat, interactive } = auditForm;
@@ -41,13 +41,28 @@ ipcMain.on('RUN_TEST', (event, auditForm) => {
     }
 });
 
-ipcMain.on('RUN_POWERTEST', (event, auditForm) => {
+ipcMain.on('RUN_POWERTEST', async (event, auditForm) => {
     // Mimic recieving sitemap file from Vue:
     auditForm.sitemapPath = path.join(
         __dirname, '..', '..', 'samples', 'sitemaps', 'sample1.xml'
     );
 
-    getAllSitemapUrls(auditForm.sitemapPath).then(x => console.log(x));
+    let urls = [];
+    const reports = [];
+    try {
+        urls = await getAllSitemapUrls(auditForm.sitemapPath);
+        for (url of urls) {
+            auditForm.url = url
+            let report = await testWebsiteAndCreateReport(auditForm)
+            report = JSON.parse(report);
+            report.audits.url = url;
+            reports.push(report.audits)
+        }
+    } catch (err) {
+        console.log(err);
+    }
+
+    event.reply('REPORT_CREATED', reports);
 })
 
 const customConfig = {
