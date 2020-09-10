@@ -1,8 +1,17 @@
 <template>
     <div class="report scrollbar">
-        <div class="report-content">
+        <div class="report__header">
             <h2>Test Report</h2>
+            <v-btn
+                class="report__header__close-btn"
+                @click="$emit('close')"
+                icon
+            >
+                <v-icon color="danger">mdi-close-circle</v-icon>
+            </v-btn>
             <hr>
+        </div>
+        <div class="report__content">
             <!-- If isPowertest = true, "reports" are an array of "audits" for multiple URLs -->
             <template v-if="isPowertest">
                 <div
@@ -37,7 +46,6 @@ export default {
 </script>
 
 <style scoped>
-/*Report*/
 .report {
     background-color: #eee;
     border-top-left-radius: 5px;
@@ -45,10 +53,20 @@ export default {
     color: var(--first-color);
     overflow: scroll;
     text-align: center;
-}
-
-.report-content {
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+.report__header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: inherit;
+}
+
+.report__header__close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 </style>
