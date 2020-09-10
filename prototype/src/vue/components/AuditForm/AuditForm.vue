@@ -37,7 +37,6 @@
 
             <v-stepper-content class="stepper__content scrollbar" step="2">
                 <div class="stepper__content__lh-configs">
-                    <!-- Todo: Find a way to disable hover effect of switch button (it's very ugly!) -->
                     <v-switch v-model="auditForm.interactive" label="Interactive Mode"/>
                     <v-switch label="Custom Configs" v-model="auditForm.isCustom"/>
                     <v-expansion-panels class="expansion-panels" :disabled="!auditForm.isCustom">
