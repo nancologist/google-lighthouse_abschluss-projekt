@@ -2,7 +2,18 @@
     <v-app>
         <div class="layout"> <!-- Todo: Maybe add a Layout cmp ? (but for now it's very thin and ok here) -->
             <div class="main-window">
-                <v-btn v-if="!appStarted" @click="appStarted = true" >Start App</v-btn>
+                <template v-if="!appStarted">
+                    <v-btn @click="appStarted = true" >Start App</v-btn>
+                    <div class="powered-by">
+                        <span style="display: block; margin-bottom: 10px">_____ Powered By _____</span>
+                        <v-icon color="white">mdi-electron-framework</v-icon>
+                        <v-icon color="white">mdi-vuejs</v-icon>
+                        <v-icon color="white">mdi-google-chrome</v-icon>
+                        <v-icon color="white">mdi-vuetify</v-icon>
+                        <v-icon color="white">mdi-lighthouse</v-icon>
+                        <v-icon color="white">mdi-nodejs</v-icon>
+                    </div>
+                </template>
                 <AuditForm v-else />
             </div>
         </div>
@@ -28,5 +39,14 @@ export default {
         margin: auto;
         text-align: center;
         width: 100%;
+    }
+
+    .powered-by {
+        bottom: 2%;
+        color: white;
+        left: 0;
+        margin-bottom: 5px;
+        position: absolute;
+        right: 0;
     }
 </style>
