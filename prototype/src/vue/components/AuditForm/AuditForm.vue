@@ -76,9 +76,8 @@
             </div>
         </v-stepper>
 
-        <v-bottom-sheet v-model="reportSheetOpen" scrollable inset>
-            <Report v-if="isPowertest" :reports="resultReports" />
-            <Report v-else :audits="resultAudits"/>
+        <v-bottom-sheet v-model="sheetOpen" scrollable persistent>
+            <Report :isPowertest="isPowertest" :reports="testResult" />
         </v-bottom-sheet>
     </div>
 </template>
@@ -101,8 +100,7 @@ export default {
                     audits: []
                 }
             },
-            resultAudits: {},
-            resultReports: [],
+            testResult: null,
             configAudits,
             formats: [
                 { text: 'HTML', value: 'html' },
@@ -111,7 +109,7 @@ export default {
             currentStep: 1,
             loading: false,
             loading2: false,
-            reportSheetOpen: false,
+            sheetOpen: false,
             isPowertest: false,
         };
     },
@@ -152,13 +150,9 @@ export default {
         ipcRenderer.on('REPORT_CREATED', (event, res) => {
             this.loading = false;
             this.loading2 = false;
+            this.testResult = res;
             this.isPowertest = Array.isArray(res);
-            if (this.isPowertest) {
-                this.resultReports = res;
-            } else {
-                this.resultAudits = res;
-            }
-            this.reportSheetOpen = true;
+            this.sheetOpen = true;
         });
     }
 };

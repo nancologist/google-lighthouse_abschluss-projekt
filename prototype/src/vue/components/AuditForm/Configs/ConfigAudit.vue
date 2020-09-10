@@ -87,6 +87,7 @@ export default {
             this.inputDisabled = false;
             this.refTime = '';
             this.added = false;
+            this.$refs.panel.click();
 
             this.$emit('removeAudit', this.audit.id);
         }

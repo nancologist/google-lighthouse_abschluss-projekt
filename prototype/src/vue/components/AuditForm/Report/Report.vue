@@ -3,7 +3,8 @@
         <div class="report-content">
             <h2>Test Report</h2>
             <hr>
-            <template v-if="reports.length > 0">
+            <!-- If isPowertest = true, "reports" are an array of "audits" for multiple URLs -->
+            <template v-if="isPowertest">
                 <div
                     v-for="audits in reports"
                     :key="audits.url"
@@ -16,9 +17,10 @@
                     />
                 </div>
             </template>
+            <!-- If isPowertest = false, actually "reports" are "audits" of a single URL -->
             <AuditItem
                 v-else
-                v-for="audit in audits"
+                v-for="audit in reports"
                 :key="audit.id"
                 :audit="audit"
             />
@@ -30,7 +32,7 @@
 import AuditItem from './AuditItem/AuditItem.vue';
 export default {
     components: { AuditItem },
-    props: ['audits', 'reports']
+    props: ['audits', 'reports', 'isPowertest']
 };
 </script>
 
