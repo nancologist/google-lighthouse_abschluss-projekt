@@ -14,17 +14,22 @@
         <div class="report__content">
             <!-- If isPowertest = true, "reports" are an array of "audits" for multiple URLs -->
             <template v-if="isPowertest">
-                <div
-                    v-for="audits in reports"
-                    :key="audits.url"
+                <v-tabs
+                    active-class="active-tab"
                 >
-                    <h3 style="color: var(--second-color)">{{ audits.url }}</h3>
-                    <AuditItem
-                        v-for="audit in audits"
-                        :key="audit.id"
-                        :audit="audit"
-                    />
-                </div>
+                    <v-tabs-slider color="secondary"/>
+                    <v-tab v-for="(_, count) in reports" :key="count">
+                        URL {{ count }}
+                    </v-tab>
+                    <v-tab-item v-for="audits in reports" :key="audits.url">
+                        <h3 style="color: var(--second-color)">{{ audits.url }}</h3>
+                        <AuditItem
+                            v-for="audit in audits"
+                            :key="audit.id"
+                            :audit="audit"
+                        />
+                    </v-tab-item>
+                </v-tabs>
             </template>
             <!-- If isPowertest = false, actually "reports" are "audits" of a single URL -->
             <AuditItem
@@ -68,5 +73,10 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
+}
+
+.active-tab {
+    /*background-color: var(--third-color);*/
+    color: var(--third-color) !important;
 }
 </style>

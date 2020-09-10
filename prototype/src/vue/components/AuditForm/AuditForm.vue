@@ -108,7 +108,7 @@ export default {
             currentStep: 1,
             loading: false,
             loading2: false,
-            sheetOpen: false,
+            sheetOpen: true,
             isPowertest: false,
         };
     },
