@@ -63,3 +63,13 @@ input[type=number] {
 /* Fix Vuetify Bug: FAB-Btn stays focuses */
 .btn-fix:focus::before { opacity: 0 !important; }
 .btn-fix:hover::before { opacity: 0.08 !important; }
+
+/* Fix Vuetify Tabs Bar */
+.fixed-tabs-bar .v-tabs-bar {
+    position: fixed;
+    bottom: 0;
+    /*position: -webkit-sticky;*/
+    /*position: sticky;*/
+    z-index: 2;
+    width: 100%;
+}

@@ -75,7 +75,7 @@
             </div>
         </v-stepper>
 
-        <v-bottom-sheet v-model="sheetOpen" scrollable persistent>
+        <v-bottom-sheet v-model="sheetOpen" scrollable :persistent="isPowertest">
             <Report :isPowertest="isPowertest" :reports="testResult" @close="sheetOpen = false" />
         </v-bottom-sheet>
     </div>
