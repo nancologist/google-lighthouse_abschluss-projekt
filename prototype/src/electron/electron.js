@@ -35,7 +35,7 @@ function createWindow() {
             nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
         }
     });
-    mainWindow.name = 'MAIN_WINDOW'
+    mainWindow.name = 'MAIN_WINDOW';
 
     if (isDev) mainWindow.webContents.openDevTools();
 

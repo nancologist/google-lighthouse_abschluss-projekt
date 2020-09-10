@@ -12,36 +12,36 @@ ipcMain.on('RUN_TEST', (event, auditForm) => {
     const { reportFormat, interactive } = auditForm;
     // To attach the dialog to its parent window:
     const parentWin = BrowserWindow.getAllWindows()
-        .find(win => win.name === 'MAIN_WINDOW');
+        .find((win) => win.name === 'MAIN_WINDOW');
 
     if (interactive) {
-        testWebsiteAndCreateReport(auditForm).then(report => {
+        testWebsiteAndCreateReport(auditForm).then((report) => {
             report = JSON.parse(report);
             if (report.audits) {
                 event.reply('REPORT_CREATED', report.audits);
             } else {
                 console.log('Report not found!!!');
             }
-        })
+        });
     } else {
         dialog.showSaveDialog(parentWin, {
             message: 'Choose a directory to store report.',
             filters: [{ name: 'Report', extensions: [reportFormat] }]
         })
-        .then(({ canceled, filePath }) => {
-            if (!canceled && !!filePath) {
-                testWebsiteAndCreateReport(auditForm).catch((err) => {
-                    console.log(err);
-                });
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+            .then(({ canceled, filePath }) => {
+                if (!canceled && !!filePath) {
+                    testWebsiteAndCreateReport(auditForm).catch((err) => {
+                        console.log(err);
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 });
 
-ipcMain.on('RUN_POWERTEST', async (event, auditForm) => {
+ipcMain.on('RUN_POWERTEST', async(event, auditForm) => {
     // Mimic recieving sitemap file from Vue:
     auditForm.sitemapPath = path.join(
         __dirname, '..', '..', 'samples', 'sitemaps', 'sample1.xml'
@@ -52,18 +52,18 @@ ipcMain.on('RUN_POWERTEST', async (event, auditForm) => {
     try {
         urls = await getAllSitemapUrls(auditForm.sitemapPath);
         for (url of urls) {
-            auditForm.url = url
-            let report = await testWebsiteAndCreateReport(auditForm)
+            auditForm.url = url;
+            let report = await testWebsiteAndCreateReport(auditForm);
             report = JSON.parse(report);
             report.audits.url = url;
-            reports.push(report.audits)
+            reports.push(report.audits);
         }
     } catch (err) {
         console.log(err);
     }
 
     event.reply('REPORT_CREATED', reports);
-})
+});
 
 const customConfig = {
     extends: 'lighthouse:default',
@@ -134,9 +134,9 @@ function getAllSitemapUrls(xmlPath) {
             if (err) reject(err);
             parser.parseString(data, (err, xmlDoc) => {
                 if (err) reject(err);
-                urls = xmlDoc.urlset.url.map(el => el.loc[0]);
+                urls = xmlDoc.urlset.url.map((el) => el.loc[0]);
                 resolve(urls);
             });
         });
-    })
+    });
 }
