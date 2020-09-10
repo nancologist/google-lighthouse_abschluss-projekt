@@ -67,8 +67,12 @@
                 </div>
             </v-stepper-content>
             <div class="stepper__buttons">
-                <v-btn class="stepper__buttons__prev" @click="currentStep--" :disabled="currentStep <= 1">Back</v-btn>
-                <v-btn class="stepper__buttons__next" @click="currentStep++" :disabled="currentStep >= 3">Next</v-btn>
+                <v-btn class="stepper__buttons__prev" @click="currentStep--" :disabled="currentStep <= 1">
+                    <v-icon color="secondaryDarker" left>mdi-chevron-left</v-icon> Back
+                </v-btn>
+                <v-btn class="stepper__buttons__next" @click="currentStep++" :disabled="currentStep >= 3">
+                    Next <v-icon color="secondaryDarker" right>mdi-chevron-right</v-icon>
+                </v-btn>
             </div>
         </v-stepper>
 
