@@ -86,6 +86,6 @@ export default {
 
 .active-tab {
     /*background-color: var(--third-color);*/
-    color: var(--fourth-color) !important;
+    color: white !important;
 }
 </style>
