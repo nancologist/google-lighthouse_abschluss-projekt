@@ -63,7 +63,18 @@
                     <v-btn @click="runPowertest" style="color: var(--danger)" :loading="loading2" :disabled="loading">
                         <v-icon color="error" left>mdi-radioactive</v-icon> POWER-TEST
                     </v-btn>
-                    <v-btn @click="sheetOpen = !sheetOpen">Show Results</v-btn>
+                    <v-btn
+                        @click="sheetOpen = true"
+                        class="step-three__open-report-btn"
+                        color="secondaryDarker"
+                        depressed
+                        :disabled="loading || loading2 || !testResult"
+                        v-if="auditForm.interactive"
+                        fab
+                        small
+                    >
+                        <v-icon color="white" small>mdi-newspaper-variant-outline</v-icon>
+                    </v-btn>
                 </div>
             </v-stepper-content>
             <div class="stepper__buttons">
@@ -76,7 +87,7 @@
             </div>
         </v-stepper>
 
-        <v-bottom-sheet open-on-hover v-model="sheetOpen" scrollable :persistent="isPowertest">
+        <v-bottom-sheet v-model="sheetOpen" scrollable :persistent="isPowertest">
             <Report :isPowertest="isPowertest" :reports="testResult" @close="sheetOpen = false" />
         </v-bottom-sheet>
     </div>
