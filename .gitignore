@@ -103,5 +103,5 @@ Temporary Items
 **/node_modules
 **/dist
 **/build
-prototype/src/vue/components/playground
+app/src/vue/components/playground
 test-frameworks
