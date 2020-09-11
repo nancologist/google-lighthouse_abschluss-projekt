@@ -23,22 +23,23 @@
                         Route {{ count + 1 }}
                     </v-tab>
                     <v-tab-item v-for="audits in reports" :key="audits.url">
-                        <h3 style="color: var(--second-color); position: fixed; right: 15px">{{ audits.url }}</h3>
+                        <div class="tab__header">
+                            <v-btn
+                                @click="$emit('close')"
+                                class="tab__header__close-btn"
+                                color="danger"
+                                icon
+                            >
+                                <v-icon color="danger">mdi-close-circle</v-icon>
+                            </v-btn>
+                            <h3>{{ audits.url }}</h3>
+                        </div>
                         <AuditItem
                             v-for="audit in audits"
                             :key="audit.id"
                             :audit="audit"
                         />
                     </v-tab-item>
-                    <v-btn
-                        class="report__header__close-btn"
-                        @click="$emit('close')"
-                        color="danger"
-                        fab
-                        x-small
-                    >
-                        <v-icon color="white">mdi-close</v-icon>
-                    </v-btn>
                 </v-tabs>
             </template>
             <!-- If isPowertest = false, actually "reports" are "audits" of a single URL -->
@@ -72,11 +73,15 @@ export default {
     margin-bottom: 25px;
 }
 
-.report__header__close-btn {
-    color: white !important;
-    position: absolute;
-    right: 1%;
-    top: 15%;
+.tab__header {
+    color: var(--second-color);
+    position: fixed;
+    right: 15px;
+}
+
+.tab__header__close-btn {
+    position: relative;
+    left: 45%;
 }
 
 .active-tab {
