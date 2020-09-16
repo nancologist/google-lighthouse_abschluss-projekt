@@ -63,6 +63,12 @@
                     <v-btn @click="runPowertest" style="color: var(--danger)" :loading="loading2" :disabled="loading">
                         <v-icon color="error" left>mdi-radioactive</v-icon> POWER-TEST
                     </v-btn>
+                    <v-progress-linear
+                        :active="loading || loading2"
+                        height="7"
+                        indeterminate
+                        style="margin: 10px auto 0 auto; width: 70%;"
+                    />
                     <v-tooltip left>
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
@@ -109,6 +115,7 @@ export default {
     components: { Report, ConfigAudit },
     data() {
         return {
+            x: 20,
             auditForm: {
                 isCustom: false,
                 reportFormat: 'json',
