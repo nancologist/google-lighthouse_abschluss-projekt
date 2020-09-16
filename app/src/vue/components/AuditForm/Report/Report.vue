@@ -25,15 +25,25 @@
                     </v-tab>
                     <v-tab-item v-for="audits in reports" :key="audits.url">
                         <div class="tab__header">
+                            <v-tooltip bottom>
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-icon
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        color="secondaryDark"
+                                    >
+                                        mdi-routes
+                                    </v-icon>
+                                </template>
+                                <span>{{ audits.url }}</span>
+                            </v-tooltip>
                             <v-btn
                                 @click="$emit('close')"
-                                class="tab__header__close-btn"
                                 color="danger"
                                 icon
                             >
                                 <v-icon color="danger">mdi-close-circle</v-icon>
                             </v-btn>
-                            <h3>{{ audits.url }}</h3>
                         </div>
                         <AuditItem
                             v-for="audit in audits"
@@ -80,10 +90,14 @@ export default {
     right: 15px;
 }
 
-.tab__header__close-btn {
-    position: relative;
-    left: 45%;
+.tab__header > *:first-child {
+    margin-right: 10px;
 }
+
+/*.tab__header__close-btn {*/
+/*    position: relative;*/
+/*    left: 45%;*/
+/*}*/
 
 .active-tab {
     /*background-color: var(--third-color);*/
