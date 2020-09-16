@@ -19,8 +19,9 @@
                     class="fixed-tabs-bar"
                     background-color="secondary"
                 >
+                    <span style="align-self: center; margin-left: 5px;">Routes:</span>
                     <v-tab v-for="(_, count) in reports" :key="count">
-                        Route {{ count + 1 }}
+                        {{ count + 1 }}
                     </v-tab>
                     <v-tab-item v-for="audits in reports" :key="audits.url">
                         <div class="tab__header">
