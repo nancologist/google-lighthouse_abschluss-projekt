@@ -54,19 +54,22 @@
             <v-stepper-content class="stepper__content" step="3">
                 <div class="step-three">
                     <p>THE PREVIEW OF SET CONFIG WILL BE SHOWN HERE...</p>
-                    <v-btn @click.prevent="runTest" :disabled="loading2" :loading="loading" v-if="auditForm.interactive">
+                    <v-btn @click.prevent="runTest" :disabled="powertestLoading" :loading="loading" v-if="auditForm.interactive">
                         <v-icon color="secondaryDarker" left>mdi-test-tube</v-icon> Run Test
                     </v-btn>
-                    <v-btn @click.prevent="runTest" v-else :disabled="loading2">
+                    <v-btn @click.prevent="runTest" v-else :disabled="powertestLoading">
                         <v-icon color="secondaryDarker" left>mdi-text-box-multiple</v-icon> Export Report
                     </v-btn>
-                    <v-btn @click="runPowertest" style="color: var(--danger)" :loading="loading2" :disabled="loading">
+                    <v-btn @click="runPowertest" style="color: var(--danger)" :loading="powertestLoading" :disabled="loading">
                         <v-icon color="error" left>mdi-radioactive</v-icon> POWER-TEST
                     </v-btn>
                     <v-progress-linear
-                        :active="loading || loading2"
-                        height="7"
-                        indeterminate
+                        :active="loading || powertestLoading"
+                        background-color="primary"
+                        color="secondaryDark"
+                        height="10"
+                        rounded
+                        v-model="progress"
                         style="margin: 10px auto 0 auto; width: 70%;"
                     />
                     <v-tooltip left>
@@ -76,7 +79,7 @@
                                 class="step-three__open-report-btn"
                                 color="secondaryDarker"
                                 depressed
-                                :disabled="loading || loading2 || !testResult"
+                                :disabled="loading || powertestLoading || !testResult"
                                 v-if="auditForm.interactive"
                                 fab
                                 small
@@ -115,7 +118,6 @@ export default {
     components: { Report, ConfigAudit },
     data() {
         return {
-            x: 20,
             auditForm: {
                 isCustom: false,
                 reportFormat: 'json',
@@ -133,9 +135,10 @@ export default {
             ],
             currentStep: 1,
             loading: false,
-            loading2: false,
+            powertestLoading: false,
             sheetOpen: false,
             isPowertest: false,
+            progress: 0,
         };
     },
     methods: {
@@ -145,7 +148,7 @@ export default {
         },
 
         runPowertest() {
-            this.loading2 = true;
+            this.powertestLoading = true;
             ipcRenderer.send('RUN_POWERTEST', this.auditForm);
         },
 
@@ -174,10 +177,14 @@ export default {
     created() {
         ipcRenderer.on('REPORT_CREATED', (event, res) => {
             this.loading = false;
-            this.loading2 = false;
+            this.powertestLoading = false;
             this.testResult = res;
             this.isPowertest = Array.isArray(res);
             this.sheetOpen = true;
+        });
+
+        ipcRenderer.on('PROGRESS', (event, progress) => {
+            this.progress += 100 * progress;
         });
     }
 };

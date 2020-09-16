@@ -57,6 +57,7 @@ ipcMain.on('RUN_POWERTEST', async(event, auditForm) => {
             report = JSON.parse(report);
             report.audits.url = url;
             reports.push(report.audits);
+            event.reply('PROGRESS', 1 / urls.length);
         }
     } catch (err) {
         console.log(err);
