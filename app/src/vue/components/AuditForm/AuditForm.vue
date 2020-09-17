@@ -47,6 +47,7 @@
                     <v-divider vertical/>
                     <v-col align-self="center">
                         <v-select
+                            @change="handleTestModeChange"
                             outlined
                             item-color="secondary"
                             label="Select the test mode."
@@ -213,7 +214,15 @@ export default {
             const { files } = event.target;
             if (files.length > 0) {
                 this.auditForm.sitemapPath = files[0].path;
-                console.log(this.auditForm.sitemapPath);
+            }
+        },
+
+        handleTestModeChange(eventVal) {
+            if (eventVal === 'enterUrl') {
+                this.auditForm.url = '';
+            }
+            if (eventVal !== 'localSitemap') {
+                this.auditForm.sitemapPath = '';
             }
         }
     },
