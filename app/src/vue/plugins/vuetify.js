@@ -15,6 +15,7 @@ const options = {
                 secondaryDarker: '#17252A',
                 error: '#AF3A40', // Complementary of #3AAFA9
                 danger: '#AF3A40', // Complementary of #3AAFA9
+                warning: '#AF6F3A',
                 // accent: '#17252A'
                 // error: '#ff0000'
             }
