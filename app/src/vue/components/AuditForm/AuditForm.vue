@@ -30,7 +30,6 @@
 
             <v-stepper-content class="stepper__content scrollbar" step="2">
                 <div class="stepper__content__lh-configs">
-<!--                    <v-switch v-model="auditForm.interactive" label="Interactive Mode"/>-->
                     <v-switch label="Custom Configs" v-model="auditForm.isCustom"/>
                     <v-expansion-panels class="expansion-panels" :disabled="!auditForm.isCustom">
                         <ConfigAudit
@@ -47,13 +46,19 @@
             <v-stepper-content class="stepper__content" step="3">
                 <div class="step-three">
                     <p>THE PREVIEW OF SET CONFIG WILL BE SHOWN HERE...</p>
-                    <v-btn @click.prevent="runTest" :disabled="powertestLoading" :loading="loading">
+                    <v-btn
+                        @click.prevent="runTest"
+                        :disabled="powertestLoading"
+                        :loading="loading"
+                    >
                         <v-icon color="secondaryDarker" left>mdi-test-tube</v-icon> Run Test
                     </v-btn>
-                    <!--<v-btn @click.prevent="runTest" :disabled="powertestLoading">
-                        <v-icon color="secondaryDarker" left>mdi-text-box-multiple</v-icon> Export Report
-                    </v-btn>-->
-                    <v-btn @click="runPowertest" style="color: var(--danger)" :loading="powertestLoading" :disabled="loading">
+                    <v-btn
+                        @click="runPowertest"
+                        style="color: var(--danger)"
+                        :loading="powertestLoading"
+                        :disabled="loading"
+                    >
                         <v-icon color="error" left>mdi-radioactive</v-icon> POWER-TEST
                     </v-btn>
                     <v-progress-linear
@@ -85,6 +90,7 @@
                     </v-tooltip>
                 </div>
             </v-stepper-content>
+
             <div class="stepper__buttons">
                 <v-btn class="stepper__buttons__prev" @click="currentStep--" :disabled="currentStep <= 1">
                     <v-icon color="secondaryDarker" left>mdi-chevron-left</v-icon> Back
@@ -113,7 +119,6 @@ export default {
             auditForm: {
                 isCustom: false,
                 url: '',
-                // interactive: true,
                 configs: {
                     audits: []
                 }
