@@ -3,26 +3,33 @@
         <v-stepper class="stepper" v-model="currentStep">
             <v-stepper-header class="stepper__header">
                 <v-stepper-step color="secondaryDarker" :complete="currentStep > 1" step="1" editable>
-                    <span>Select URL</span>
+                    <span>Test Mode</span>
                 </v-stepper-step>
                 <v-divider/>
 
                 <v-stepper-step color="secondaryDarker" :complete="currentStep > 2" step="2" editable>
-                    Setup configuration
+                    Configuration
                 </v-stepper-step>
                 <v-divider/>
 
                 <v-stepper-step color="secondaryDarker" step="3" editable>
-                    Confirm setup
+                    Preview
                 </v-stepper-step>
             </v-stepper-header>
 
             <v-stepper-content class="stepper__content" step="1">
+                <v-select
+                    filled
+                    item-color="secondary"
+                    label="Select the test mode."
+                    v-model="testMode"
+                    :items="testModes"
+                />
                 <v-text-field
                     append-icon="mdi-web"
-                    @focus="initUrlField"
                     @blur="resetUrlField"
-                    filled
+                    :disabled="testMode !== 'enterUrl'"
+                    @focus="initUrlField"
                     label="URL"
                     v-model.lazy="auditForm.url"
                 />
@@ -123,6 +130,12 @@ export default {
                     audits: []
                 }
             },
+            testMode: '',
+            testModes: [
+                { text: 'Local Sitemap', value: 'localSitemap' },
+                { text: 'Remote Sitemap', value: 'remoteSitemap' },
+                { text: 'Enter URL', value: 'enterUrl' }
+            ],
             testResult: null,
             configAudits,
             currentStep: 1,
