@@ -3,7 +3,10 @@
         class="report scrollbar"
         :class="{ 'report--have-tabs': isPowertest}"
     >
-        <div class="bottom-sheet__header">
+        <div class="bottom-sheet__header" v-if="!isPowertest">
+            <v-btn icon>
+                <v-icon>mdi-export-variant</v-icon>
+            </v-btn>
             <v-btn
                 @click="$emit('close')"
                 color="danger"
@@ -28,7 +31,14 @@
                     </v-tab>
                     <v-tab-item v-for="audits in reports" :key="audits.url">
                         <div class="bottom-sheet__header">
-                            <v-tooltip bottom>
+                            <v-btn icon>
+                                <v-icon>mdi-export-variant</v-icon>
+                            </v-btn>
+                            <v-tooltip
+                                bottom
+                                close-delay="600"
+                                transition="slide-x-reverse-transition"
+                            >
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-icon
                                         v-bind="attrs"
@@ -96,7 +106,7 @@ export default {
     right: 15px;
 }
 
-.bottom-sheet__header > *:first-child {
+.bottom-sheet__header > *:not(:last-child) {
     margin-right: 10px;
 }
 
