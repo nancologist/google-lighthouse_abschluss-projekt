@@ -22,7 +22,10 @@ ipcMain.on('RUN_TEST', (event, auditForm) => {
                 console.log('Report not found!!!');
             }
         })
-        .catch((err) => { console.log(err); });
+        .catch((err) => {
+            // TODO: 'event.reply('ON_ERROR')'
+            console.log(err);
+        });
     // else {
     //     dialog.showSaveDialog(parentWin, {
     //         message: 'Choose a directory to store report.',
@@ -42,11 +45,6 @@ ipcMain.on('RUN_TEST', (event, auditForm) => {
 });
 
 ipcMain.on('RUN_POWERTEST', async(event, auditForm) => {
-    // Mimic recieving sitemap file from Vue:
-    auditForm.sitemapPath = path.join(
-        __dirname, '..', '..', 'samples', 'sitemaps', 'sample1.xml'
-    );
-
     let urls = [];
     const reports = [];
     try {
@@ -60,6 +58,7 @@ ipcMain.on('RUN_POWERTEST', async(event, auditForm) => {
             event.reply('PROGRESS', 1 / urls.length);
         }
     } catch (err) {
+        // TODO: 'event.reply('ON_ERROR')'
         console.log(err);
     }
 

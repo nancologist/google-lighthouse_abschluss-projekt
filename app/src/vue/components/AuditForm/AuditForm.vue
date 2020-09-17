@@ -28,13 +28,21 @@
                             label="URL"
                             v-model.lazy="auditForm.url"
                         />
-                        <v-file-input
+                        <v-text-field
                             append-icon="mdi-paperclip"
-                            @change="previewFile"
+                            @click="callFileInput"
                             :disabled="testMode !== 'localSitemap'"
-                            label="Open sitemap file"
-                            prepend-icon=""
+                            label="Sitemap file"
+                            readonly
+                            v-model="auditForm.sitemapPath"
                         />
+                        <input
+                            accept=".xml"
+                            @change="previewFile"
+                            hidden
+                            ref="fileInput"
+                            type="file"
+                        >
                     </v-col>
                     <v-divider vertical/>
                     <v-col align-self="center">
@@ -69,21 +77,20 @@
                     <p>THE PREVIEW OF SET CONFIG WILL BE SHOWN HERE...</p>
                     <v-btn
                         @click.prevent="runTest"
-                        :disabled="powertestLoading"
                         :loading="loading"
                     >
                         <v-icon color="secondaryDarker" left>mdi-test-tube</v-icon> Run Test
                     </v-btn>
-                    <v-btn
+                    <!--<v-btn
                         @click="runPowertest"
                         style="color: var(--danger)"
                         :loading="powertestLoading"
                         :disabled="loading"
                     >
                         <v-icon color="error" left>mdi-radioactive</v-icon> POWER-TEST
-                    </v-btn>
+                    </v-btn>-->
                     <v-progress-linear
-                        :active="powertestLoading"
+                        :active="loading"
                         background-color="primary"
                         color="secondaryDark"
                         height="10"
@@ -98,7 +105,7 @@
                                 class="step-three__open-report-btn"
                                 color="secondaryDarker"
                                 depressed
-                                :disabled="loading || powertestLoading || !testResult"
+                                :disabled="loading || !testResult"
                                 fab
                                 small
                                 v-bind="attrs"
@@ -140,11 +147,12 @@ export default {
             auditForm: {
                 isCustom: false,
                 url: '',
+                sitemapPath: '',
                 configs: {
                     audits: []
                 }
             },
-            testMode: 'localSitemap',
+            testMode: '',
             testModes: [
                 { text: 'Local Sitemap', value: 'localSitemap' },
                 { text: 'Remote Sitemap', value: 'remoteSitemap' },
@@ -154,7 +162,7 @@ export default {
             configAudits,
             currentStep: 1,
             loading: false,
-            powertestLoading: false,
+            // powertestLoading: false,
             sheetOpen: false,
             isPowertest: false,
             progress: 0,
@@ -163,13 +171,17 @@ export default {
     methods: {
         runTest() {
             this.loading = true;
-            ipcRenderer.send('RUN_TEST', this.auditForm);
+            if (this.auditForm.sitemapPath) {
+                ipcRenderer.send('RUN_POWERTEST', this.auditForm);
+            } else {
+                ipcRenderer.send('RUN_TEST', this.auditForm);
+            }
         },
 
-        runPowertest() {
-            this.powertestLoading = true;
-            ipcRenderer.send('RUN_POWERTEST', this.auditForm);
-        },
+        // runPowertest() {
+        //     this.powertestLoading = true;
+        //     ipcRenderer.send('RUN_POWERTEST', this.auditForm);
+        // },
 
         initUrlField() {
             if (!this.auditForm.url) {
@@ -193,8 +205,16 @@ export default {
             this.auditForm.configs.audits = this.auditForm.configs.audits.filter((audit) => audit.id !== auditId);
         },
 
+        callFileInput() {
+            this.$refs.fileInput.click();
+        },
+
         previewFile(event) {
-            console.log(event.path);
+            const { files } = event.target;
+            if (files.length > 0) {
+                this.auditForm.sitemapPath = files[0].path;
+                console.log(this.auditForm.sitemapPath);
+            }
         }
     },
     created() {
