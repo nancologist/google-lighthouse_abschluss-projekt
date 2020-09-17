@@ -8,6 +8,14 @@ const xml2js = require('xml2js');
 
 // __dirname => electron_dist/
 
+const customConfig = {
+    extends: 'lighthouse:default',
+    settings: {
+        // onlyCategories: ['performance'],
+        onlyAudits: [],
+    }
+};
+
 ipcMain.on('RUN_TEST', (event, auditForm) => {
     // To attach the dialog to its parent window:
     const parentWin = BrowserWindow.getAllWindows()
@@ -64,14 +72,6 @@ ipcMain.on('RUN_POWERTEST', async(event, auditForm) => {
 
     event.reply('REPORT_CREATED', reports);
 });
-
-const customConfig = {
-    extends: 'lighthouse:default',
-    settings: {
-        // onlyCategories: ['performance'],
-        onlyAudits: [],
-    }
-};
 
 // Write Lighthouse's test report in a html file.
 async function testWebsiteAndCreateReport(auditForm, filePath = '') {
