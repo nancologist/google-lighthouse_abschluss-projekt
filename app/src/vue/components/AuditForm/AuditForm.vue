@@ -163,8 +163,11 @@ export default {
     },
     created() {
         ipcRenderer.on('REPORT_CREATED', (event, res) => {
+            // Reset states:
             this.loading = false;
             this.powertestLoading = false;
+            setTimeout(() => { this.progress = 0; }, 500);
+
             this.testResult = res;
             this.isPowertest = Array.isArray(res);
             this.sheetOpen = true;

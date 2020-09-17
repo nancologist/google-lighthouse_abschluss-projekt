@@ -1,5 +1,8 @@
 <template>
-    <div class="report scrollbar">
+    <div
+        class="report scrollbar"
+        :class="{ 'report--have-tabs': isPowertest}"
+    >
         <div class="bottom-sheet__header">
             <v-btn
                 @click="$emit('close')"
@@ -81,6 +84,9 @@ export default {
     overflow: scroll;
     text-align: center;
     padding-top: 10px;
+}
+
+.report--have-tabs {
     margin-bottom: 25px;
 }
 
@@ -94,7 +100,6 @@ export default {
     margin-right: 10px;
 }
 
-/* In IntelliJ it looks like unused, but that's bullshit! */
 .active-tab {
     color: white !important;
 }
