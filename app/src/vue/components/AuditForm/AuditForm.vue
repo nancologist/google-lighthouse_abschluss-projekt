@@ -18,21 +18,28 @@
             </v-stepper-header>
 
             <v-stepper-content class="stepper__content" step="1">
-                <v-select
-                    filled
-                    item-color="secondary"
-                    label="Select the test mode."
-                    v-model="testMode"
-                    :items="testModes"
-                />
-                <v-text-field
-                    append-icon="mdi-web"
-                    @blur="resetUrlField"
-                    :disabled="testMode !== 'enterUrl'"
-                    @focus="initUrlField"
-                    label="URL"
-                    v-model.lazy="auditForm.url"
-                />
+                <v-row>
+                    <v-col>
+                        <v-text-field
+                            append-icon="mdi-web"
+                            @blur="resetUrlField"
+                            :disabled="testMode !== 'enterUrl'"
+                            @focus="initUrlField"
+                            label="URL"
+                            v-model.lazy="auditForm.url"
+                        />
+                    </v-col>
+                    <v-divider vertical/>
+                    <v-col align-self="center">
+                        <v-select
+                            outlined
+                            item-color="secondary"
+                            label="Select the test mode."
+                            v-model="testMode"
+                            :items="testModes"
+                        />
+                    </v-col>
+                </v-row>
             </v-stepper-content>
 
             <v-stepper-content class="stepper__content scrollbar" step="2">
