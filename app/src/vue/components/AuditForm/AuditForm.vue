@@ -21,20 +21,20 @@
                 <v-row>
                     <v-col>
                         <v-text-field
-                            append-icon="mdi-web"
-                            @blur="resetUrlField"
-                            :disabled="testMode !== 'enterUrl'"
-                            @focus="initUrlField"
-                            label="URL"
-                            v-model.lazy="auditForm.url"
-                        />
-                        <v-text-field
                             append-icon="mdi-paperclip"
                             @click="callFileInput"
                             :disabled="testMode !== 'localSitemap'"
                             label="Sitemap file"
                             readonly
                             v-model="auditForm.sitemapPath"
+                        />
+                        <v-text-field
+                            append-icon="mdi-web"
+                            @blur="resetUrlField"
+                            :disabled="testMode !== 'enterUrl'"
+                            @focus="initUrlField"
+                            label="URL"
+                            v-model.lazy="auditForm.url"
                         />
                         <input
                             accept=".xml"
@@ -82,14 +82,6 @@
                     >
                         <v-icon color="secondaryDarker" left>mdi-test-tube</v-icon> Run Test
                     </v-btn>
-                    <!--<v-btn
-                        @click="runPowertest"
-                        style="color: var(--danger)"
-                        :loading="powertestLoading"
-                        :disabled="loading"
-                    >
-                        <v-icon color="error" left>mdi-radioactive</v-icon> POWER-TEST
-                    </v-btn>-->
                     <v-progress-linear
                         :active="loading"
                         background-color="primary"
