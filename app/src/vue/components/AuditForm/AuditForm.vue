@@ -30,7 +30,7 @@
 
             <v-stepper-content class="stepper__content scrollbar" step="2">
                 <div class="stepper__content__lh-configs">
-                    <v-switch v-model="auditForm.interactive" label="Interactive Mode"/>
+<!--                    <v-switch v-model="auditForm.interactive" label="Interactive Mode"/>-->
                     <v-switch label="Custom Configs" v-model="auditForm.isCustom"/>
                     <v-expansion-panels class="expansion-panels" :disabled="!auditForm.isCustom">
                         <ConfigAudit
@@ -47,12 +47,12 @@
             <v-stepper-content class="stepper__content" step="3">
                 <div class="step-three">
                     <p>THE PREVIEW OF SET CONFIG WILL BE SHOWN HERE...</p>
-                    <v-btn @click.prevent="runTest" :disabled="powertestLoading" :loading="loading" v-if="auditForm.interactive">
+                    <v-btn @click.prevent="runTest" :disabled="powertestLoading" :loading="loading">
                         <v-icon color="secondaryDarker" left>mdi-test-tube</v-icon> Run Test
                     </v-btn>
-                    <v-btn @click.prevent="runTest" v-else :disabled="powertestLoading">
+                    <!--<v-btn @click.prevent="runTest" :disabled="powertestLoading">
                         <v-icon color="secondaryDarker" left>mdi-text-box-multiple</v-icon> Export Report
-                    </v-btn>
+                    </v-btn>-->
                     <v-btn @click="runPowertest" style="color: var(--danger)" :loading="powertestLoading" :disabled="loading">
                         <v-icon color="error" left>mdi-radioactive</v-icon> POWER-TEST
                     </v-btn>
@@ -73,7 +73,6 @@
                                 color="secondaryDarker"
                                 depressed
                                 :disabled="loading || powertestLoading || !testResult"
-                                v-if="auditForm.interactive"
                                 fab
                                 small
                                 v-bind="attrs"
@@ -114,7 +113,7 @@ export default {
             auditForm: {
                 isCustom: false,
                 url: '',
-                interactive: true,
+                // interactive: true,
                 configs: {
                     audits: []
                 }
@@ -131,7 +130,7 @@ export default {
     },
     methods: {
         runTest() {
-            if (this.auditForm.interactive) this.loading = true;
+            this.loading = true;
             ipcRenderer.send('RUN_TEST', this.auditForm);
         },
 

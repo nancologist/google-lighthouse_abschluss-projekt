@@ -1,14 +1,5 @@
 <template>
     <div class="report scrollbar">
-        <!--<div class="report__header">
-            <v-btn
-                class="report__header__close-btn"
-                @click="$emit('close')"
-                icon
-            >
-                <v-icon color="danger">mdi-close-circle</v-icon>
-            </v-btn>
-        </div>-->
         <div class="report__content">
             <!-- If isPowertest = true, "reports" are an array of "audits" for multiple URLs -->
             <template v-if="isPowertest">

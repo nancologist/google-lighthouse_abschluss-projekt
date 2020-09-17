@@ -13,31 +13,32 @@ ipcMain.on('RUN_TEST', (event, auditForm) => {
     const parentWin = BrowserWindow.getAllWindows()
         .find((win) => win.name === 'MAIN_WINDOW');
 
-    if (auditForm.interactive) {
-        testWebsiteAndCreateReport(auditForm).then((report) => {
+    testWebsiteAndCreateReport(auditForm)
+        .then((report) => {
             report = JSON.parse(report);
             if (report.audits) {
                 event.reply('REPORT_CREATED', report.audits);
             } else {
                 console.log('Report not found!!!');
             }
-        });
-    } else {
-        dialog.showSaveDialog(parentWin, {
-            message: 'Choose a directory to store report.',
-            filters: [{ name: 'Report', extensions: ['html'] }]
         })
-            .then(({ canceled, filePath }) => {
-                if (!canceled && !!filePath) {
-                    testWebsiteAndCreateReport(auditForm, filePath).catch((err) => {
-                        console.log(err);
-                    });
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }
+        .catch((err) => { console.log(err); });
+    // else {
+    //     dialog.showSaveDialog(parentWin, {
+    //         message: 'Choose a directory to store report.',
+    //         filters: [{ name: 'Report', extensions: ['html'] }]
+    //     })
+    //         .then(({ canceled, filePath }) => {
+    //             if (!canceled && !!filePath) {
+    //                 testWebsiteAndCreateReport(auditForm, filePath).catch((err) => {
+    //                     console.log(err);
+    //                 });
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // }
 });
 
 ipcMain.on('RUN_POWERTEST', async(event, auditForm) => {
@@ -78,15 +79,13 @@ async function testWebsiteAndCreateReport(auditForm, filePath = '') {
     const {
         url,
         isCustom,
-        interactive,
         configs
     } = auditForm;
     const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
 
-    const reportFormat = interactive ? 'json':'html';
     const options = {
         logLevel: 'info', // Todo: Change for production
-        output: reportFormat,
+        output: 'json',
         // onlyCategories: ['performance'],
         port: chrome.port
     };
@@ -100,25 +99,11 @@ async function testWebsiteAndCreateReport(auditForm, filePath = '') {
         runnerResult = await lighthouse(url, options);
     }
 
-    // `.report` is the HTML report as a string
-    const report = runnerResult.report;
+    await chrome.kill();
+    return runnerResult.report;
 
-    // todo: Interesting Props of runnerResult.lhr: "requestedUrl", "finalUrl",
-    //  "runWarnings",
-    //  "userAgent", "benchmarkIndex"
-    //      Maybe Use Them In The Report... ("more"-btn)
-    // console.log(runnerResult.lhr);
-
-    if (interactive) {
-        await chrome.kill();
-        return report;
-    } else {
-        fs.writeFileSync(filePath, report);
-    }
-
-    // `.lhr` is the Lighthouse Result as a JS object
-    // console.log('Report is done for', runnerResult.lhr.finalUrl);
-    // console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
+    // Export
+    // fs.writeFileSync(filePath, report);
 
     await chrome.kill();
 }
