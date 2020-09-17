@@ -13,7 +13,7 @@
                 <v-divider/>
 
                 <v-stepper-step color="secondaryDarker" step="3" editable>
-                    Preview
+                    Preview & Run
                 </v-stepper-step>
             </v-stepper-header>
 
