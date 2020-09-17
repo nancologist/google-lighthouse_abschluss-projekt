@@ -45,7 +45,7 @@
                         >
                     </v-col>
                     <v-divider vertical/>
-                    <v-col align-self="center">
+                    <v-col>
                         <v-select
                             @change="handleTestModeChange"
                             outlined
@@ -54,6 +54,13 @@
                             v-model="testMode"
                             :items="testModes"
                         />
+                        <div>
+                            <h3>PLACEHOLDER FOR SITEMAP FILE ANALYSE!</h3>
+                            <p>
+                                We want go all the URLS from the sitemap file before running test. After that we render the routes in a tree view using Vuetify TreeView
+                                and allowing the user to uncheck (exclude) some of these routes.
+                            </p>
+                        </div>
                     </v-col>
                 </v-row>
             </v-stepper-content>
