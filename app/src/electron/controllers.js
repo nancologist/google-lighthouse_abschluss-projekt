@@ -34,22 +34,6 @@ ipcMain.on('RUN_TEST', (event, auditForm) => {
             // TODO: 'event.reply('ON_ERROR')'
             console.log(err);
         });
-    // else {
-    //     dialog.showSaveDialog(parentWin, {
-    //         message: 'Choose a directory to store report.',
-    //         filters: [{ name: 'Report', extensions: ['html'] }]
-    //     })
-    //         .then(({ canceled, filePath }) => {
-    //             if (!canceled && !!filePath) {
-    //                 testWebsiteAndCreateReport(auditForm, filePath).catch((err) => {
-    //                     console.log(err);
-    //                 });
-    //             }
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });
-    // }
 });
 
 ipcMain.on('RUN_POWERTEST', async(event, auditForm) => {
@@ -100,11 +84,6 @@ async function testWebsiteAndCreateReport(auditForm, filePath = '') {
 
     await chrome.kill();
     return runnerResult.report;
-
-    // Export
-    // fs.writeFileSync(filePath, report);
-
-    await chrome.kill();
 }
 
 // XML -> POJO
