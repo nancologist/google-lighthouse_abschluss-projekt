@@ -85,13 +85,8 @@ export default {
     margin-right: 10px;
 }
 
-/*.tab__header__close-btn {*/
-/*    position: relative;*/
-/*    left: 45%;*/
-/*}*/
-
+/* In IntelliJ it looks like unused, but that's bullshit! */
 .active-tab {
-    /*background-color: var(--third-color);*/
     color: white !important;
 }
 </style>
