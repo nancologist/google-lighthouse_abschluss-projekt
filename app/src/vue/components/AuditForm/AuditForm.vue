@@ -28,6 +28,13 @@
                             label="URL"
                             v-model.lazy="auditForm.url"
                         />
+                        <v-file-input
+                            append-icon="mdi-paperclip"
+                            @change="previewFile"
+                            :disabled="testMode !== 'localSitemap'"
+                            label="Open sitemap file"
+                            prepend-icon=""
+                        />
                     </v-col>
                     <v-divider vertical/>
                     <v-col align-self="center">
@@ -137,7 +144,7 @@ export default {
                     audits: []
                 }
             },
-            testMode: '',
+            testMode: 'localSitemap',
             testModes: [
                 { text: 'Local Sitemap', value: 'localSitemap' },
                 { text: 'Remote Sitemap', value: 'remoteSitemap' },
@@ -184,6 +191,10 @@ export default {
 
         removeConfigAudit(auditId) {
             this.auditForm.configs.audits = this.auditForm.configs.audits.filter((audit) => audit.id !== auditId);
+        },
+
+        previewFile(event) {
+            console.log(event.path);
         }
     },
     created() {
