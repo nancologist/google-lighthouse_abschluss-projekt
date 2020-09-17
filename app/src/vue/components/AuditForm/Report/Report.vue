@@ -1,5 +1,14 @@
 <template>
     <div class="report scrollbar">
+        <div class="bottom-sheet__header">
+            <v-btn
+                @click="$emit('close')"
+                color="danger"
+                icon
+            >
+                <v-icon color="danger">mdi-close-circle</v-icon>
+            </v-btn>
+        </div>
         <div class="report__content">
             <!-- If isPowertest = true, "reports" are an array of "audits" for multiple URLs -->
             <template v-if="isPowertest">
@@ -15,7 +24,7 @@
                         {{ count + 1 }}
                     </v-tab>
                     <v-tab-item v-for="audits in reports" :key="audits.url">
-                        <div class="tab__header">
+                        <div class="bottom-sheet__header">
                             <v-tooltip bottom>
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-icon
@@ -75,13 +84,13 @@ export default {
     margin-bottom: 25px;
 }
 
-.tab__header {
+.bottom-sheet__header {
     color: var(--second-color);
     position: fixed;
     right: 15px;
 }
 
-.tab__header > *:first-child {
+.bottom-sheet__header > *:first-child {
     margin-right: 10px;
 }
 
