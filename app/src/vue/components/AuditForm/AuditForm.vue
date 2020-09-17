@@ -26,13 +26,6 @@
                     label="URL"
                     v-model.lazy="auditForm.url"
                 />
-                <v-select
-                    filled
-                    item-color="secondary"
-                    label="Select report format"
-                    v-model="auditForm.reportFormat"
-                    :items="formats"
-                />
             </v-stepper-content>
 
             <v-stepper-content class="stepper__content scrollbar" step="2">
@@ -64,7 +57,7 @@
                         <v-icon color="error" left>mdi-radioactive</v-icon> POWER-TEST
                     </v-btn>
                     <v-progress-linear
-                        :active="loading || powertestLoading"
+                        :active="powertestLoading"
                         background-color="primary"
                         color="secondaryDark"
                         height="10"
@@ -120,7 +113,6 @@ export default {
         return {
             auditForm: {
                 isCustom: false,
-                reportFormat: 'json',
                 url: '',
                 interactive: true,
                 configs: {
@@ -129,10 +121,6 @@ export default {
             },
             testResult: null,
             configAudits,
-            formats: [
-                { text: 'HTML', value: 'html' },
-                { text: 'JSON', value: 'json' }
-            ],
             currentStep: 1,
             loading: false,
             powertestLoading: false,

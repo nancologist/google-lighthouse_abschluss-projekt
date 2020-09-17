@@ -9,12 +9,11 @@ const xml2js = require('xml2js');
 // __dirname => electron_dist/
 
 ipcMain.on('RUN_TEST', (event, auditForm) => {
-    const { reportFormat, interactive } = auditForm;
     // To attach the dialog to its parent window:
     const parentWin = BrowserWindow.getAllWindows()
         .find((win) => win.name === 'MAIN_WINDOW');
 
-    if (interactive) {
+    if (auditForm.interactive) {
         testWebsiteAndCreateReport(auditForm).then((report) => {
             report = JSON.parse(report);
             if (report.audits) {
@@ -26,11 +25,11 @@ ipcMain.on('RUN_TEST', (event, auditForm) => {
     } else {
         dialog.showSaveDialog(parentWin, {
             message: 'Choose a directory to store report.',
-            filters: [{ name: 'Report', extensions: [reportFormat] }]
+            filters: [{ name: 'Report', extensions: ['html'] }]
         })
             .then(({ canceled, filePath }) => {
                 if (!canceled && !!filePath) {
-                    testWebsiteAndCreateReport(auditForm).catch((err) => {
+                    testWebsiteAndCreateReport(auditForm, filePath).catch((err) => {
                         console.log(err);
                     });
                 }
@@ -75,18 +74,16 @@ const customConfig = {
 };
 
 // Write Lighthouse's test report in a html file.
-async function testWebsiteAndCreateReport(auditForm) {
+async function testWebsiteAndCreateReport(auditForm, filePath = '') {
     const {
         url,
-        filePath,
-        reportFormat,
         isCustom,
         interactive,
         configs
     } = auditForm;
     const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
 
-    // output: json, html, csv
+    const reportFormat = interactive ? 'json':'html';
     const options = {
         logLevel: 'info', // Todo: Change for production
         output: reportFormat,
