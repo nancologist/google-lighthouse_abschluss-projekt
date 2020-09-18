@@ -1,14 +1,24 @@
 <template>
     <v-row>
         <v-col>
-            <v-text-field
-                append-icon="mdi-paperclip"
-                @click="callFileInput"
-                :disabled="testMode !== 'localSitemap'"
-                label="Sitemap file"
-                readonly
-                v-model="sitemapPath"
-            />
+            <div class="input-file-container">
+                <v-text-field
+                    append-icon="mdi-paperclip"
+                    @click="callFileInput"
+                    :disabled="testMode !== 'localSitemap'"
+                    label="Sitemap file"
+                    readonly
+                    v-model="sitemapPath"
+                />
+                <v-icon
+                    class="clean-btn"
+                    color="white"
+                    @click="cleanSitemapPath"
+                    v-if="sitemapPath"
+                >
+                    mdi-delete
+                </v-icon>
+            </div>
             <v-text-field
                 append-icon="mdi-web"
                 @blur="resetUrlField"
@@ -93,6 +103,10 @@ export default {
                 this.analyseLoading = true;
                 ipcRenderer.send('ANALYSE_SITEMAP', this.sitemapPath);
             }
+        },
+
+        cleanSitemapPath() {
+            this.sitemapPath = '';
         }
     },
     created() {
@@ -105,5 +119,14 @@ export default {
 </script>
 
 <style scoped>
+.input-file-container {
+    position: relative;
+}
 
+.clean-btn {
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+}
 </style>
