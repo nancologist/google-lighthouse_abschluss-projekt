@@ -41,7 +41,7 @@
             <v-select
                 outlined
                 item-color="secondary"
-                label="Select the test mode."
+                label="Select a test mode."
                 v-model="testMode"
                 :items="testModes"
             />

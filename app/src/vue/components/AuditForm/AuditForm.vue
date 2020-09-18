@@ -83,6 +83,7 @@
         <v-bottom-sheet v-model="sheetOpen" scrollable persistent>
             <Report :isPowertest="isPowertest" :reports="testResult" @close="sheetOpen = false" />
         </v-bottom-sheet>
+        <Error :showDialog.sync="hasError" :error="error"/>
     </div>
 </template>
 
@@ -90,9 +91,10 @@
 import Report from './Report/Report.vue';
 import TestMode from './Steps/Step1/TestMode.vue';
 import Configs from './Steps/Step2/Configs.vue';
+import Error from '../Error/Error.vue';
 const { ipcRenderer } = require('electron');
 export default {
-    components: { Report, TestMode, Configs },
+    components: { Report, TestMode, Configs, Error },
     data() {
         return {
             auditForm: {
@@ -111,6 +113,8 @@ export default {
             sheetOpen: false,
             isPowertest: false,
             progress: 0,
+            hasError: false,
+            error: {}
         };
     },
     methods: {
@@ -154,6 +158,15 @@ export default {
 
         ipcRenderer.on('PROGRESS', (event, progress) => {
             this.progress += 100 * progress;
+        });
+
+        ipcRenderer.on('ON_ERROR', (event, err) => {
+            this.hasError = true;
+            this.loading = false;
+            if (err.code === 'INVALID_URL') {
+                err.title = 'Invalid URL';
+            }
+            this.error = err;
         });
     }
 };

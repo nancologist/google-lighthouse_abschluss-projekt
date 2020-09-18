@@ -25,7 +25,8 @@ input[type=number] {
     --fourth-color: #DEF2F1;
     --fifth-color: #FEFFFF;
     --danger: #AF3A40;
-    --warning: #AF6F3A
+    --error: #AF3A40;
+    --warning: #AF6F3A;
 }
 
 .layout {
