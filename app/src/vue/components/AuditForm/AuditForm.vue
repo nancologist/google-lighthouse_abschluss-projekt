@@ -134,16 +134,11 @@ export default {
             if (!shouldAdd) {
                 arr.splice(arr.indexOf(url), 1);
             }
-            console.log(this.auditForm.urls.fromSitemap);
         },
 
         runTest() {
             this.loading = true;
-            if (this.auditForm.sitemapPath) {
-                ipcRenderer.send('RUN_POWERTEST', this.auditForm);
-            } else {
-                ipcRenderer.send('RUN_TEST', this.auditForm);
-            }
+            ipcRenderer.send('RUN_TEST', this.auditForm);
         },
 
         addConfigAudit(newConfigAudit) {

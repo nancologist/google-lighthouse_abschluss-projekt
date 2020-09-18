@@ -29,7 +29,6 @@
         <v-divider vertical/>
         <v-col>
             <v-select
-                @change="handleTestModeChange"
                 outlined
                 item-color="secondary"
                 label="Select the test mode."
@@ -93,15 +92,6 @@ export default {
                 this.sitemapPath = files[0].path;
                 this.analyseLoading = true;
                 ipcRenderer.send('ANALYSE_SITEMAP', this.sitemapPath);
-            }
-        },
-
-        handleTestModeChange(testMode) {
-            if (testMode === 'enterUrl') {
-                this.inputUrl = '';
-            }
-            if (testMode !== 'localSitemap') {
-                this.sitemapPath = '';
             }
         }
     },

@@ -16,32 +16,14 @@ const customConfig = {
     }
 };
 
-ipcMain.on('RUN_TEST', (event, auditForm) => {
+ipcMain.on('RUN_TEST', async(event, auditForm) => {
     // To attach the dialog to its parent window:
-    const parentWin = BrowserWindow.getAllWindows()
-        .find((win) => win.name === 'MAIN_WINDOW');
-
-    testWebsiteAndCreateReport(auditForm)
-        .then((report) => {
-            report = JSON.parse(report);
-            if (report.audits) {
-                event.reply('REPORT_CREATED', report.audits);
-            } else {
-                // TODO: 'event.reply('ON_ERROR')'
-                console.log('Report not found!!!');
-            }
-        })
-        .catch((err) => {
-            // TODO: 'event.reply('ON_ERROR')'
-            console.log(err);
-        });
-});
-
-ipcMain.on('RUN_POWERTEST', async(event, auditForm) => {
-    let urls = [];
+    // const parentWin = BrowserWindow.getAllWindows()
+    // .find((win) => win.name === 'MAIN_WINDOW');
+    let urls = [auditForm.urls.fromInput, ...auditForm.urls.fromSitemap];
+    console.log(urls);
     const reports = [];
     try {
-        urls = await getAllSitemapUrls(auditForm.sitemapPath);
         for (url of urls) {
             auditForm.url = url;
             let report = await testWebsiteAndCreateReport(auditForm);
