@@ -25,18 +25,11 @@
             </v-stepper-content>
 
             <v-stepper-content class="stepper__content scrollbar" step="2">
-                <div class="stepper__content__lh-configs">
-                    <v-switch label="Custom Configs" v-model="auditForm.isCustom"/>
-                    <v-expansion-panels class="expansion-panels" :disabled="!auditForm.isCustom">
-                        <ConfigAudit
-                            v-for="configAudit in configAudits"
-                            :key="configAudit.id"
-                            :audit="configAudit"
-                            @addAudit="addConfigAudit"
-                            @removeAudit="removeConfigAudit"
-                        />
-                    </v-expansion-panels>
-                </div>
+                <Configs
+                    :isCustom.sync="auditForm.isCustom"
+                    @addAudit="addConfigAudit"
+                    @removeAudit="removeConfigAudit"
+                />
             </v-stepper-content>
 
             <v-stepper-content class="stepper__content" step="3">
@@ -96,12 +89,11 @@
 
 <script>
 import Report from './Report/Report.vue';
-import ConfigAudit from './Configs/ConfigAudit.vue';
-import TestMode from './Steps/Step1-TestMode.vue';
-const { audits: configAudits } = require('../../data/data.json');
+import TestMode from './Steps/Step1/TestMode.vue';
+import Configs from './Steps/Step2/Configs.vue';
 const { ipcRenderer } = require('electron');
 export default {
-    components: { Report, ConfigAudit, TestMode },
+    components: { Report, TestMode, Configs },
     data() {
         return {
             auditForm: {
@@ -116,7 +108,6 @@ export default {
                 }
             },
             testResult: null,
-            configAudits,
             currentStep: 1,
             loading: false,
             sheetOpen: false,
@@ -136,19 +127,24 @@ export default {
             }
         },
 
-        runTest() {
-            this.loading = true;
-            ipcRenderer.send('RUN_TEST', this.auditForm);
-        },
-
         addConfigAudit(newConfigAudit) {
-            const alreadyAdded = this.auditForm.configs.audits
-                .findIndex((configAudit) => configAudit.id === newConfigAudit.id) > -1;
-            if (!alreadyAdded) this.auditForm.configs.audits.push(newConfigAudit);
+            const arr = this.auditForm.configs.audits;
+            const alreadyAdded = arr.findIndex((configAudit) => configAudit.id === newConfigAudit.id) > -1;
+            if (!alreadyAdded) {
+                arr.push(newConfigAudit);
+            }
+            console.log(this.auditForm.configs.audits);
         },
 
         removeConfigAudit(auditId) {
-            this.auditForm.configs.audits = this.auditForm.configs.audits.filter((audit) => audit.id !== auditId);
+            this.auditForm.configs.audits = this.auditForm.configs.audits
+                .filter((audit) => audit.id !== auditId);
+            console.log(this.auditForm.configs.audits);
+        },
+
+        runTest() {
+            this.loading = true;
+            ipcRenderer.send('RUN_TEST', this.auditForm);
         },
     },
     created() {

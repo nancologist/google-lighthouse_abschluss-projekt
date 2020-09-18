@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import Spinner from '../../UI/spinners/Spinner1.vue';
+import Spinner from '../../../UI/spinners/Spinner1.vue';
 const { ipcRenderer } = require('electron');
 export default {
     components: { Spinner },
