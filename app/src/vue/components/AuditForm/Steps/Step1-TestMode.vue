@@ -16,7 +16,7 @@
                 @focus="initUrlField"
                 label="URL"
                 :value="inputUrl"
-                @input="$emit('update:inputUrl', $event)"
+                @change="$emit('update:inputUrl', $event)"
             />
             <input
                 accept=".xml"
@@ -89,11 +89,11 @@ export default {
             }
         },
 
-        handleTestModeChange(eventVal) {
-            if (eventVal === 'enterUrl') {
+        handleTestModeChange(testMode) {
+            if (testMode === 'enterUrl') {
                 this.inputUrl = '';
             }
-            if (eventVal !== 'localSitemap') {
+            if (testMode !== 'localSitemap') {
                 this.sitemapPath = '';
             }
         }

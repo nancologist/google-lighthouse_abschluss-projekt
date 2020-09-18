@@ -19,7 +19,7 @@
 
             <v-stepper-content class="stepper__content" step="1">
                 <TestMode
-                    :inputUrl.sync="auditForm.url"
+                    :inputUrl.sync="auditForm.urls.fromInput"
                 />
             </v-stepper-content>
 
@@ -105,7 +105,10 @@ export default {
         return {
             auditForm: {
                 isCustom: false,
-                url: '',
+                urls: {
+                    fromInput: '',
+                    fromSitemap: []
+                },
                 sitemapPath: '',
                 configs: {
                     audits: []
