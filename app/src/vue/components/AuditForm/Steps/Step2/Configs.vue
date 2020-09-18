@@ -2,8 +2,7 @@
     <div class="stepper__content__lh-configs">
         <v-switch
             label="Custom Configs"
-            :value="isCustom"
-            @change="$emit('update:isCustom', $event)"
+            v-model="isCustom"
         />
         <v-expansion-panels class="expansion-panels" :disabled="!isCustom">
             <ConfigAudit
@@ -21,10 +20,10 @@
 import ConfigAudit from './ConfigAudit/ConfigAudit.vue';
 const { audits: configAudits } = require('../../../../data/data.json');
 export default {
-    props: ['isCustom'],
     components: { ConfigAudit },
     data: () => ({
         configAudits,
+        isCustom: false,
     }),
 };
 </script>

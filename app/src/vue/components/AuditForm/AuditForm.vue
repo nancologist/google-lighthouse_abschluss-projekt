@@ -26,7 +26,6 @@
 
             <v-stepper-content class="stepper__content scrollbar" step="2">
                 <Configs
-                    :isCustom.sync="auditForm.isCustom"
                     @addAudit="addConfigAudit"
                     @removeAudit="removeConfigAudit"
                 />
@@ -97,7 +96,6 @@ export default {
     data() {
         return {
             auditForm: {
-                isCustom: false,
                 urls: {
                     fromInput: '',
                     fromSitemap: []
@@ -144,15 +142,9 @@ export default {
             this.loading = true;
             const inputUrl = this.auditForm.urls.fromInput;
             const sitemapUrls = this.auditForm.urls.fromSitemap;
-            if (inputUrl) {
-                this.auditForm.urls = [
-                    inputUrl,
-                    ...sitemapUrls
-                ];
-            } else {
-                this.auditForm.urls = [...sitemapUrls];
-            }
-            ipcRenderer.send('RUN_TEST', this.auditForm);
+            let urls = [...sitemapUrls];
+            if (inputUrl) urls = [inputUrl, ...urls];
+            ipcRenderer.send('RUN_TEST', this.auditForm, urls);
         },
     },
     created() {

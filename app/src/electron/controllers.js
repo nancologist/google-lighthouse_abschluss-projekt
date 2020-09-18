@@ -16,11 +16,10 @@ const customConfig = {
     }
 };
 
-ipcMain.on('RUN_TEST', async(event, auditForm) => {
+ipcMain.on('RUN_TEST', async(event, auditForm, urls) => {
     // To attach the dialog to its parent window:
     // const parentWin = BrowserWindow.getAllWindows()
     // .find((win) => win.name === 'MAIN_WINDOW');
-    const urls = auditForm.urls;
     const reports = [];
     try {
         for (url of urls) {
@@ -52,7 +51,6 @@ ipcMain.on('ANALYSE_SITEMAP', async (event, sitemapPath) => {
 // Write Lighthouse's test report in a html file.
 async function testWebsiteAndCreateReport(auditForm, url) {
     const {
-        isCustom,
         configs
     } = auditForm;
     const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
@@ -65,7 +63,7 @@ async function testWebsiteAndCreateReport(auditForm, url) {
     };
 
     let runnerResult;
-    if (isCustom) {
+    if (configs.audits.length > 0) {
         const customAudits = configs.audits.map((audit) => audit.id);
         customConfig.settings.onlyAudits = customAudits;
         runnerResult = await lighthouse(url, options, customConfig);
