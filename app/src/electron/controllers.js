@@ -20,13 +20,11 @@ ipcMain.on('RUN_TEST', async(event, auditForm) => {
     // To attach the dialog to its parent window:
     // const parentWin = BrowserWindow.getAllWindows()
     // .find((win) => win.name === 'MAIN_WINDOW');
-    let urls = [auditForm.urls.fromInput, ...auditForm.urls.fromSitemap];
-    console.log(urls);
+    const urls = auditForm.urls;
     const reports = [];
     try {
         for (url of urls) {
-            auditForm.url = url;
-            let report = await testWebsiteAndCreateReport(auditForm);
+            let report = await testWebsiteAndCreateReport(auditForm, url);
             report = JSON.parse(report);
             report.audits.url = url;
             reports.push(report.audits);
@@ -52,9 +50,8 @@ ipcMain.on('ANALYSE_SITEMAP', async (event, sitemapPath) => {
 })
 
 // Write Lighthouse's test report in a html file.
-async function testWebsiteAndCreateReport(auditForm, filePath = '') {
+async function testWebsiteAndCreateReport(auditForm, url) {
     const {
-        url,
         isCustom,
         configs
     } = auditForm;

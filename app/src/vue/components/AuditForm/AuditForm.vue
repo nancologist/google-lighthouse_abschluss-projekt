@@ -133,17 +133,25 @@ export default {
             if (!alreadyAdded) {
                 arr.push(newConfigAudit);
             }
-            console.log(this.auditForm.configs.audits);
         },
 
         removeConfigAudit(auditId) {
             this.auditForm.configs.audits = this.auditForm.configs.audits
                 .filter((audit) => audit.id !== auditId);
-            console.log(this.auditForm.configs.audits);
         },
 
         runTest() {
             this.loading = true;
+            const inputUrl = this.auditForm.urls.fromInput;
+            const sitemapUrls = this.auditForm.urls.fromSitemap;
+            if (inputUrl) {
+                this.auditForm.urls = [
+                    inputUrl,
+                    ...sitemapUrls
+                ];
+            } else {
+                this.auditForm.urls = [...sitemapUrls];
+            }
             ipcRenderer.send('RUN_TEST', this.auditForm);
         },
     },
