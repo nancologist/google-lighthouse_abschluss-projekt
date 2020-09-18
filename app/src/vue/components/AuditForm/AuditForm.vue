@@ -55,11 +55,10 @@
                             :items="testModes"
                         />
                         <div>
-                            <h3>PLACEHOLDER FOR SITEMAP FILE ANALYSE!</h3>
-                            <p>
-                                We want go all the URLS from the sitemap file before running test. After that we render the routes in a tree view using Vuetify TreeView
-                                and allowing the user to uncheck (exclude) some of these routes.
-                            </p>
+                            <Spinner v-if="analyseLoading"/>
+                            <ul v-if="analysedUrls.length > 0">
+                                <li v-for="(url, index) in analysedUrls" :key="index">{{url}}</li>
+                            </ul>
                         </div>
                     </v-col>
                 </v-row>
@@ -138,10 +137,11 @@
 <script>
 import Report from './Report/Report.vue';
 import ConfigAudit from './Configs/ConfigAudit.vue';
+import Spinner from '../spinners/Spinner1.vue';
 const { audits: configAudits } = require('../../data/data.json');
 const { ipcRenderer } = require('electron');
 export default {
-    components: { Report, ConfigAudit },
+    components: { Report, ConfigAudit, Spinner },
     data() {
         return {
             auditForm: {
@@ -162,10 +162,11 @@ export default {
             configAudits,
             currentStep: 1,
             loading: false,
-            // powertestLoading: false,
             sheetOpen: false,
             isPowertest: false,
             progress: 0,
+            analyseLoading: false,
+            analysedUrls: [],
         };
     },
     methods: {
@@ -177,11 +178,6 @@ export default {
                 ipcRenderer.send('RUN_TEST', this.auditForm);
             }
         },
-
-        // runPowertest() {
-        //     this.powertestLoading = true;
-        //     ipcRenderer.send('RUN_POWERTEST', this.auditForm);
-        // },
 
         initUrlField() {
             if (!this.auditForm.url) {
@@ -213,6 +209,8 @@ export default {
             const { files } = event.target;
             if (files.length > 0) {
                 this.auditForm.sitemapPath = files[0].path;
+                this.analyseLoading = true;
+                ipcRenderer.send('ANALYSE_SITEMAP', this.auditForm.sitemapPath);
             }
         },
 
@@ -239,6 +237,11 @@ export default {
 
         ipcRenderer.on('PROGRESS', (event, progress) => {
             this.progress += 100 * progress;
+        });
+
+        ipcRenderer.on('SITEMAP_ANALYSED', (event, urls) => {
+            this.analyseLoading = false;
+            this.analysedUrls = urls;
         });
     }
 };

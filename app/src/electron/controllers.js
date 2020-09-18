@@ -27,6 +27,7 @@ ipcMain.on('RUN_TEST', (event, auditForm) => {
             if (report.audits) {
                 event.reply('REPORT_CREATED', report.audits);
             } else {
+                // TODO: 'event.reply('ON_ERROR')'
                 console.log('Report not found!!!');
             }
         })
@@ -56,6 +57,17 @@ ipcMain.on('RUN_POWERTEST', async(event, auditForm) => {
 
     event.reply('REPORT_CREATED', reports);
 });
+
+ipcMain.on('ANALYSE_SITEMAP', async (event, sitemapPath) => {
+    getAllSitemapUrls(sitemapPath)
+        .then((urls) => {
+           event.reply('SITEMAP_ANALYSED', urls)
+        })
+        .catch((err) => {
+            // TODO: 'event.reply('ON_ERROR')'
+            console.log(err);
+        });
+})
 
 // Write Lighthouse's test report in a html file.
 async function testWebsiteAndCreateReport(auditForm, filePath = '') {
