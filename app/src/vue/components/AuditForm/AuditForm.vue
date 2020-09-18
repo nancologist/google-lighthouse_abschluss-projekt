@@ -18,50 +18,9 @@
             </v-stepper-header>
 
             <v-stepper-content class="stepper__content" step="1">
-                <v-row>
-                    <v-col>
-                        <v-text-field
-                            append-icon="mdi-paperclip"
-                            @click="callFileInput"
-                            :disabled="testMode !== 'localSitemap'"
-                            label="Sitemap file"
-                            readonly
-                            v-model="auditForm.sitemapPath"
-                        />
-                        <v-text-field
-                            append-icon="mdi-web"
-                            @blur="resetUrlField"
-                            :disabled="testMode !== 'enterUrl'"
-                            @focus="initUrlField"
-                            label="URL"
-                            v-model.lazy="auditForm.url"
-                        />
-                        <input
-                            accept=".xml"
-                            @change="previewFile"
-                            hidden
-                            ref="fileInput"
-                            type="file"
-                        >
-                    </v-col>
-                    <v-divider vertical/>
-                    <v-col>
-                        <v-select
-                            @change="handleTestModeChange"
-                            outlined
-                            item-color="secondary"
-                            label="Select the test mode."
-                            v-model="testMode"
-                            :items="testModes"
-                        />
-                        <div>
-                            <Spinner v-if="analyseLoading"/>
-                            <ul v-if="analysedUrls.length > 0">
-                                <li v-for="(url, index) in analysedUrls" :key="index">{{url}}</li>
-                            </ul>
-                        </div>
-                    </v-col>
-                </v-row>
+                <TestMode
+                    :inputUrl.sync="auditForm.url"
+                />
             </v-stepper-content>
 
             <v-stepper-content class="stepper__content scrollbar" step="2">
@@ -137,11 +96,11 @@
 <script>
 import Report from './Report/Report.vue';
 import ConfigAudit from './Configs/ConfigAudit.vue';
-import Spinner from '../spinners/Spinner1.vue';
+import TestMode from './Steps/Step1-TestMode.vue';
 const { audits: configAudits } = require('../../data/data.json');
 const { ipcRenderer } = require('electron');
 export default {
-    components: { Report, ConfigAudit, Spinner },
+    components: { Report, ConfigAudit, TestMode },
     data() {
         return {
             auditForm: {
@@ -152,12 +111,6 @@ export default {
                     audits: []
                 }
             },
-            testMode: '',
-            testModes: [
-                { text: 'Local Sitemap', value: 'localSitemap' },
-                { text: 'Remote Sitemap', value: 'remoteSitemap' },
-                { text: 'Enter URL', value: 'enterUrl' }
-            ],
             testResult: null,
             configAudits,
             currentStep: 1,
@@ -165,8 +118,6 @@ export default {
             sheetOpen: false,
             isPowertest: false,
             progress: 0,
-            analyseLoading: false,
-            analysedUrls: [],
         };
     },
     methods: {
@@ -179,18 +130,6 @@ export default {
             }
         },
 
-        initUrlField() {
-            if (!this.auditForm.url) {
-                this.auditForm.url = 'https://';
-            }
-        },
-
-        resetUrlField() {
-            if (this.auditForm.url === 'https://') {
-                this.auditForm.url = '';
-            }
-        },
-
         addConfigAudit(newConfigAudit) {
             const alreadyAdded = this.auditForm.configs.audits
                 .findIndex((configAudit) => configAudit.id === newConfigAudit.id) > -1;
@@ -200,28 +139,6 @@ export default {
         removeConfigAudit(auditId) {
             this.auditForm.configs.audits = this.auditForm.configs.audits.filter((audit) => audit.id !== auditId);
         },
-
-        callFileInput() {
-            this.$refs.fileInput.click();
-        },
-
-        previewFile(event) {
-            const { files } = event.target;
-            if (files.length > 0) {
-                this.auditForm.sitemapPath = files[0].path;
-                this.analyseLoading = true;
-                ipcRenderer.send('ANALYSE_SITEMAP', this.auditForm.sitemapPath);
-            }
-        },
-
-        handleTestModeChange(eventVal) {
-            if (eventVal === 'enterUrl') {
-                this.auditForm.url = '';
-            }
-            if (eventVal !== 'localSitemap') {
-                this.auditForm.sitemapPath = '';
-            }
-        }
     },
     created() {
         ipcRenderer.on('REPORT_CREATED', (event, res) => {
@@ -237,11 +154,6 @@ export default {
 
         ipcRenderer.on('PROGRESS', (event, progress) => {
             this.progress += 100 * progress;
-        });
-
-        ipcRenderer.on('SITEMAP_ANALYSED', (event, urls) => {
-            this.analyseLoading = false;
-            this.analysedUrls = urls;
         });
     }
 };

@@ -1,0 +1,112 @@
+<template>
+    <v-row>
+        <v-col>
+            <v-text-field
+                append-icon="mdi-paperclip"
+                @click="callFileInput"
+                :disabled="testMode !== 'localSitemap'"
+                label="Sitemap file"
+                readonly
+                v-model="sitemapPath"
+            />
+            <v-text-field
+                append-icon="mdi-web"
+                @blur="resetUrlField"
+                :disabled="testMode !== 'enterUrl'"
+                @focus="initUrlField"
+                label="URL"
+                :value="inputUrl"
+                @input="$emit('update:inputUrl', $event)"
+            />
+            <input
+                accept=".xml"
+                @change="previewFile"
+                hidden
+                ref="fileInput"
+                type="file"
+            >
+        </v-col>
+        <v-divider vertical/>
+        <v-col>
+            <v-select
+                @change="handleTestModeChange"
+                outlined
+                item-color="secondary"
+                label="Select the test mode."
+                v-model="testMode"
+                :items="testModes"
+            />
+            <div>
+                <Spinner v-if="analyseLoading"/>
+                <ul v-if="analysedUrls.length > 0">
+                    <li v-for="(url, index) in analysedUrls" :key="index">{{url}}</li>
+                </ul>
+            </div>
+        </v-col>
+    </v-row>
+</template>
+
+<script>
+import Spinner from '../../spinners/Spinner1.vue';
+const { ipcRenderer } = require('electron');
+export default {
+    components: { Spinner },
+    props: ['inputUrl'],
+    data: () => ({
+        analyseLoading: false,
+        analysedUrls: [],
+        sitemapPath: '',
+        testMode: '',
+        testModes: [
+            { text: 'Local Sitemap', value: 'localSitemap' },
+            { text: 'Remote Sitemap', value: 'remoteSitemap' },
+            { text: 'Enter URL', value: 'enterUrl' }
+        ],
+    }),
+    methods: {
+        initUrlField() {
+            if (!this.inputUrl) {
+                this.$emit('update:inputUrl', 'https://');
+            }
+        },
+
+        resetUrlField() {
+            if (this.inputUrl === 'https://') {
+                this.$emit('update:inputUrl', '');
+            }
+        },
+
+        callFileInput() {
+            this.$refs.fileInput.click();
+        },
+
+        previewFile(event) {
+            const { files } = event.target;
+            if (files.length > 0) {
+                this.sitemapPath = files[0].path;
+                this.analyseLoading = true;
+                ipcRenderer.send('ANALYSE_SITEMAP', this.sitemapPath);
+            }
+        },
+
+        handleTestModeChange(eventVal) {
+            if (eventVal === 'enterUrl') {
+                this.inputUrl = '';
+            }
+            if (eventVal !== 'localSitemap') {
+                this.sitemapPath = '';
+            }
+        }
+    },
+    created() {
+        ipcRenderer.on('SITEMAP_ANALYSED', (event, urls) => {
+            this.analyseLoading = false;
+            this.analysedUrls = urls;
+        });
+    }
+};
+</script>
+
+<style scoped>
+
+</style>
