@@ -38,16 +38,23 @@
             />
             <div>
                 <Spinner v-if="analyseLoading"/>
-                <ul v-if="analysedUrls.length > 0">
-                    <li v-for="(url, index) in analysedUrls" :key="index">{{url}}</li>
-                </ul>
+                <div v-if="analysedUrls.length > 0">
+                    <v-checkbox
+                        @change="$emit('updateSitemapUrls', $event, url)"
+                        :key="index"
+                        :label="url.split('//')[1]"
+                        v-for="(url, index) in analysedUrls"
+                    />
+                    <ul>
+                    </ul>
+                </div>
             </div>
         </v-col>
     </v-row>
 </template>
 
 <script>
-import Spinner from '../../spinners/Spinner1.vue';
+import Spinner from '../../UI/spinners/Spinner1.vue';
 const { ipcRenderer } = require('electron');
 export default {
     components: { Spinner },

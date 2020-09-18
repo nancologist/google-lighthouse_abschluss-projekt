@@ -20,6 +20,7 @@
             <v-stepper-content class="stepper__content" step="1">
                 <TestMode
                     :inputUrl.sync="auditForm.urls.fromInput"
+                    @updateSitemapUrls="updateSitemapUrls"
                 />
             </v-stepper-content>
 
@@ -124,6 +125,18 @@ export default {
         };
     },
     methods: {
+        updateSitemapUrls(shouldAdd, url) {
+            const arr = this.auditForm.urls.fromSitemap;
+            const alreadyAdded = arr.includes(url);
+            if (shouldAdd && !alreadyAdded) {
+                arr.push(url);
+            }
+            if (!shouldAdd) {
+                arr.splice(arr.indexOf(url), 1);
+            }
+            console.log(this.auditForm.urls.fromSitemap);
+        },
+
         runTest() {
             this.loading = true;
             if (this.auditForm.sitemapPath) {
