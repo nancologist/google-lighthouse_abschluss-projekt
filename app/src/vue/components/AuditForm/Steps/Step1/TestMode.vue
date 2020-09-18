@@ -47,10 +47,10 @@
             />
             <div>
                 <Spinner v-if="analyseLoading"/>
-                <div v-if="analysedUrls.length > 0">
+                <div v-if="sitemapUrls.length > 0">
                     <v-checkbox
                         @change="$emit('updateSitemapUrls', urls)"
-                        v-for="(url, index) in analysedUrls"
+                        v-for="(url, index) in sitemapUrls"
                         :key="index"
                         :label="url.split('//')[1]"
                         v-model="urls"
@@ -71,7 +71,7 @@ export default {
     data: () => ({
         urls: [],
         analyseLoading: false,
-        analysedUrls: [],
+        sitemapUrls: [],
         sitemapPath: '',
         testMode: '',
         testModes: [
@@ -113,7 +113,8 @@ export default {
     created() {
         ipcRenderer.on('SITEMAP_ANALYSED', (event, urls) => {
             this.analyseLoading = false;
-            this.analysedUrls = urls;
+            this.sitemapUrls = urls;
+            this.urls = urls;
         });
     }
 };
