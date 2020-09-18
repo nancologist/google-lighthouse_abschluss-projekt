@@ -114,15 +114,8 @@ export default {
         };
     },
     methods: {
-        updateSitemapUrls(shouldAdd, url) {
-            const arr = this.auditForm.urls.fromSitemap;
-            const alreadyAdded = arr.includes(url);
-            if (shouldAdd && !alreadyAdded) {
-                arr.push(url);
-            }
-            if (!shouldAdd) {
-                arr.splice(arr.indexOf(url), 1);
-            }
+        updateSitemapUrls(urls) {
+            this.auditForm.urls.fromSitemap = urls;
         },
 
         addConfigAudit(newConfigAudit) {

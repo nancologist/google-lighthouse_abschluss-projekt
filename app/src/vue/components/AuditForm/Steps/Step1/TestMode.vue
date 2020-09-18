@@ -49,13 +49,13 @@
                 <Spinner v-if="analyseLoading"/>
                 <div v-if="analysedUrls.length > 0">
                     <v-checkbox
-                        @change="$emit('updateSitemapUrls', $event, url)"
+                        @change="$emit('updateSitemapUrls', urls)"
+                        v-for="(url, index) in analysedUrls"
                         :key="index"
                         :label="url.split('//')[1]"
-                        v-for="(url, index) in analysedUrls"
+                        v-model="urls"
+                        :value="url"
                     />
-                    <ul>
-                    </ul>
                 </div>
             </div>
         </v-col>
@@ -69,6 +69,7 @@ export default {
     components: { Spinner },
     props: ['inputUrl'],
     data: () => ({
+        urls: [],
         analyseLoading: false,
         analysedUrls: [],
         sitemapPath: '',
