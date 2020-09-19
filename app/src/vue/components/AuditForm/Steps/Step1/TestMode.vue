@@ -1,17 +1,15 @@
 <template>
     <v-row>
         <v-col>
-            <div class="input-file-container">
-                <v-text-field
-                    append-icon="mdi-paperclip"
-                    clearable
-                    @click="callFileInput"
-                    :disabled="testMode !== 'localSitemap'"
-                    label="Sitemap file"
-                    readonly
-                    v-model="sitemapPath"
-                />
-            </div>
+            <v-text-field
+                append-icon="mdi-paperclip"
+                clearable
+                @click="callFileInput"
+                :disabled="testMode !== 'localSitemap'"
+                label="Sitemap file"
+                readonly
+                v-model="sitemapPath"
+            />
             <v-text-field
                 append-icon="mdi-web"
                 @blur="resetUrlField"
@@ -129,16 +127,3 @@ export default {
     }
 };
 </script>
-
-<style scoped>
-.input-file-container {
-    position: relative;
-}
-
-.clean-btn {
-    cursor: pointer;
-    position: absolute;
-    right: 20px;
-    top: 15px;
-}
-</style>
