@@ -37,7 +37,7 @@
                         @change="$emit('updateSitemapUrls', selectedUrls)"
                         v-for="(url, index) in sitemapUrls"
                         :key="index"
-                        :label="'/' + url.split('/')[3]"
+                        :label="url.split('www.')[1]||'/' + url.split('/')[3]"
                         v-model="selectedUrls"
                         :value="url"
                     />
