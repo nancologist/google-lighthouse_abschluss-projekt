@@ -21,11 +21,12 @@
             />
             <input
                 accept=".xml"
-                @change="previewFile"
+                @change="previewSitemapFile"
                 hidden
                 ref="fileInput"
                 type="file"
             >
+            <v-btn @click="previewSitemapUrl">Analyse URL Sitemap</v-btn>
         </v-col>
         <v-divider vertical/>
         <v-col>
@@ -82,14 +83,20 @@ export default {
             this.$refs.fileInput.click();
         },
 
-        previewFile(event) {
+        previewSitemapFile(event) {
             const { files } = event.target;
             if (files.length > 0) {
                 this.sitemapPath = files[0].path;
                 this.analyseLoading = true;
-                ipcRenderer.send('ANALYSE_SITEMAP', this.sitemapPath);
+                ipcRenderer.send('ANALYSE_SITEMAP_FILE', this.sitemapPath);
+                // const sitemapUrl = 'https://www.digitaspixelpark.com/sitemap.xml';
             }
         },
+
+        previewSitemapUrl() {
+            const sitemapUrl = 'https://www.digitaspixelpark.com/sitemap.xml';
+            ipcRenderer.send('ANALYSE_SITEMAP_URL', sitemapUrl);
+        }
     },
     created() {
         ipcRenderer.on('SITEMAP_ANALYSED', (event, urls) => {

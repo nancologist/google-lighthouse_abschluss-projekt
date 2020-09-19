@@ -1,6 +1,8 @@
 const { BrowserWindow, ipcMain, dialog, getCurrentWindow } = require('electron');
 const fs = require('fs');
 const path = require('path');
+const http = require('http');
+const https = require('https');
 const lighthouse = require('lighthouse');
 const { throttling: { desktopDense4G } } = require('lighthouse/lighthouse-core/config/constants.js');
 const chromeLauncher = require('chrome-launcher');
@@ -37,7 +39,7 @@ ipcMain.on('RUN_TEST', async(event, auditForm, urls) => {
     event.reply('REPORT_CREATED', reports);
 });
 
-ipcMain.on('ANALYSE_SITEMAP', async (event, sitemapPath) => {
+ipcMain.on('ANALYSE_SITEMAP_FILE', async (event, sitemapPath) => {
     getAllSitemapUrls(sitemapPath)
         .then((urls) => {
            event.reply('SITEMAP_ANALYSED', urls)
@@ -45,7 +47,21 @@ ipcMain.on('ANALYSE_SITEMAP', async (event, sitemapPath) => {
         .catch((err) => {
             event.reply('ON_ERROR_XML', {...err});
         });
-})
+});
+
+ipcMain.on('ANALYSE_SITEMAP_URL', (event, sitemapUrl) => {
+    // Todo: check if sitemapUrl uses http protocal, so:
+    // http.get(sitemapUrl, ...);
+
+    https.get(sitemapUrl, (res) => {
+        res.on('data', (chunk) => {
+            console.log(chunk);
+        });
+        res.on('error', (err) => {
+            console.log(err);
+        });
+    });
+});
 
 // Write Lighthouse's test report in a html file.
 async function testWebsiteAndCreateReport(auditForm, url, event) {
