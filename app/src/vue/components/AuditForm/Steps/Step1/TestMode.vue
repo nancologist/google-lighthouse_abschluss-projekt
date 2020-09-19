@@ -4,20 +4,13 @@
             <div class="input-file-container">
                 <v-text-field
                     append-icon="mdi-paperclip"
+                    clearable
                     @click="callFileInput"
                     :disabled="testMode !== 'localSitemap'"
                     label="Sitemap file"
                     readonly
                     v-model="sitemapPath"
                 />
-                <v-icon
-                    class="clean-btn"
-                    color="white"
-                    @click="cleanSitemapPath"
-                    v-if="sitemapPath"
-                >
-                    mdi-delete
-                </v-icon>
             </div>
             <v-text-field
                 append-icon="mdi-web"
@@ -49,11 +42,11 @@
                 <Spinner v-if="analyseLoading"/>
                 <div v-if="sitemapUrls.length > 0">
                     <v-checkbox
-                        @change="$emit('updateSitemapUrls', urls)"
+                        @change="$emit('updateSitemapUrls', selectedUrls)"
                         v-for="(url, index) in sitemapUrls"
                         :key="index"
                         :label="url.split('//')[1]"
-                        v-model="urls"
+                        v-model="selectedUrls"
                         :value="url"
                     />
                 </div>
@@ -69,7 +62,7 @@ export default {
     components: { Spinner },
     props: ['inputUrl'],
     data: () => ({
-        urls: [],
+        selectedUrls: [],
         analyseLoading: false,
         sitemapUrls: [],
         sitemapPath: '',
@@ -105,17 +98,23 @@ export default {
                 ipcRenderer.send('ANALYSE_SITEMAP', this.sitemapPath);
             }
         },
-
-        cleanSitemapPath() {
-            this.sitemapPath = '';
-        }
     },
     created() {
         ipcRenderer.on('SITEMAP_ANALYSED', (event, urls) => {
             this.analyseLoading = false;
             this.sitemapUrls = urls;
-            this.urls = urls;
+            this.selectedUrls = urls;
         });
+    },
+
+    watch: {
+        sitemapPath: function(val) {
+            const inputCleared = (val === null);
+            if (inputCleared) {
+                this.sitemapUrls = '';
+                this.selectedUrls = '';
+            }
+        }
     }
 };
 </script>
