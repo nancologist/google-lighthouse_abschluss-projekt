@@ -21,20 +21,20 @@ ipcMain.on('RUN_TEST', async(event, auditForm, urls) => {
     // const parentWin = BrowserWindow.getAllWindows()
     // .find((win) => win.name === 'MAIN_WINDOW');
     const reports = [];
-        for (url of urls) {
-            try {
-                let report = await testWebsiteAndCreateReport(auditForm, url, event);
-                report = JSON.parse(report);
-                report.audits.url = url;
-                reports.push(report.audits);
-                event.reply('PROGRESS', 1 / urls.length);
-            } catch (err) {
-                err.details = `Failed: ${url}`;
-                event.reply('ON_ERROR', {...err});
-                return;
-            }
-        event.reply('REPORT_CREATED', reports);
+    for (url of urls) {
+        try {
+            let report = await testWebsiteAndCreateReport(auditForm, url, event);
+            report = JSON.parse(report);
+            report.audits.url = url;
+            reports.push(report.audits);
+            event.reply('PROGRESS', 1 / urls.length);
+        } catch (err) {
+            err.details = `Failed: ${url}`;
+            event.reply('ON_ERROR', {...err});
+            return;
+        }
     }
+    event.reply('REPORT_CREATED', reports);
 });
 
 ipcMain.on('ANALYSE_SITEMAP', async (event, sitemapPath) => {
