@@ -106,7 +106,6 @@ export default {
             this.selectedUrls = urls;
         });
     },
-
     watch: {
         sitemapPath: function(val) {
             const inputCleared = (val === null);
