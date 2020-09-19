@@ -15,11 +15,13 @@
             <v-text-field
                 append-icon="mdi-web"
                 @blur="resetUrlField"
+                @change="$emit('update:inputUrl', $event)"
                 :disabled="testMode !== 'enterUrl'"
                 @focus="initUrlField"
                 label="URL"
+                :rules="urlRules"
+                validate-on-blur
                 :value="inputUrl"
-                @change="$emit('update:inputUrl', $event)"
             />
             <input
                 accept=".xml"
@@ -72,6 +74,11 @@ export default {
             { text: 'Remote Sitemap', value: 'remoteSitemap' },
             { text: 'Enter URL', value: 'enterUrl' }
         ],
+        urlRules: [
+            // eslint-disable-next-line
+            (v) => /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.test(v)
+                || 'URL must be valid.' // eslint-disable-line
+        ]
     }),
     methods: {
         initUrlField() {
