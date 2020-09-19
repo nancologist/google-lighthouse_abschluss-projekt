@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="showDialog" max-width="50%">
+    <v-dialog v-model="showDialog" max-width="50%" persistent>
         <v-card>
             <v-card-title class="error white--text">
                 <v-icon
@@ -12,8 +12,8 @@
             </v-card-title>
 
             <v-card-text class="text-body-1 mt-5">
-                {{ error.friendlyMessage }}
-                <span style="display: block">{{error.details||'No more details'}}</span>
+                {{ error.msg }}
+                <span style="display: block">{{error.details||'No more details.'}}</span>
             </v-card-text>
             <v-divider/>
 

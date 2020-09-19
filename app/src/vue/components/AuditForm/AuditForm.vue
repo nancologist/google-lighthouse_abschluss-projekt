@@ -21,6 +21,7 @@
                 <TestMode
                     :inputUrl.sync="auditForm.urls.fromInput"
                     @updateSitemapUrls="updateSitemapUrls"
+                    @xmlError="renderXmlError"
                 />
             </v-stepper-content>
 
@@ -143,6 +144,14 @@ export default {
             if (inputUrl) urls = [inputUrl, ...urls];
             ipcRenderer.send('RUN_TEST', this.auditForm, urls);
         },
+
+        renderXmlError({ title, message }) {
+            this.hasError = true;
+            this.error = {
+                title,
+                msg: message
+            };
+        }
     },
     created() {
         ipcRenderer.on('REPORT_CREATED', (event, res) => {
@@ -164,9 +173,20 @@ export default {
             this.hasError = true;
             this.loading = false;
             if (err.code === 'INVALID_URL') {
+            // Example: ajfklöafjieworw
                 err.title = 'Invalid URL';
             }
-            this.error = err;
+            if (err.code === 'DNS_FAILURE') {
+            // Example: http://www.ksljfjklsjlkf.com/
+                err.title = 'DNS Failure';
+            }
+            const { title, details } = err;
+
+            this.error = {
+                title,
+                msg: err.friendlyMessage || err.message,
+                details
+            };
         });
     }
 };

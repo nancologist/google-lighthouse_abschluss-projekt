@@ -23,16 +23,16 @@ ipcMain.on('RUN_TEST', async(event, auditForm, urls) => {
     const reports = [];
         for (url of urls) {
             try {
-                let report = await testWebsiteAndCreateReport(auditForm, url);
+                let report = await testWebsiteAndCreateReport(auditForm, url, event);
+                report = JSON.parse(report);
+                report.audits.url = url;
+                reports.push(report.audits);
+                event.reply('PROGRESS', 1 / urls.length);
             } catch (err) {
-                err.details = `Failed URL: ${url}`;
+                err.details = `Failed: ${url}`;
                 event.reply('ON_ERROR', {...err});
                 return;
             }
-            report = JSON.parse(report);
-            report.audits.url = url;
-            reports.push(report.audits);
-            event.reply('PROGRESS', 1 / urls.length);
         event.reply('REPORT_CREATED', reports);
     }
 });
@@ -43,12 +43,12 @@ ipcMain.on('ANALYSE_SITEMAP', async (event, sitemapPath) => {
            event.reply('SITEMAP_ANALYSED', urls)
         })
         .catch((err) => {
-            event.reply('ON_ERROR', {...err});
+            event.reply('ON_ERROR_XML', {...err});
         });
 })
 
 // Write Lighthouse's test report in a html file.
-async function testWebsiteAndCreateReport(auditForm, url) {
+async function testWebsiteAndCreateReport(auditForm, url, event) {
     const {
         configs
     } = auditForm;
@@ -69,8 +69,12 @@ async function testWebsiteAndCreateReport(auditForm, url) {
     } else {
         runnerResult = await lighthouse(url, options);
     }
-
     await chrome.kill();
+    runtimeErr = runnerResult.lhr.runtimeError;
+    if (runtimeErr) {
+        throw {...runtimeErr};
+        return
+    }
     return runnerResult.report;
 }
 
@@ -80,12 +84,19 @@ function getAllSitemapUrls(xmlPath) {
     const parser = new xml2js.Parser();
     return new Promise((resolve, reject) => {
         fs.readFile(xmlPath, (err, data) => {
-            if (err) reject(err);
+            if (err) return reject(err);
             parser.parseString(data, (err, xmlDoc) => {
-                if (err) reject(err);
+                if (err) {
+                    reject({
+                        title: 'Corrupted/Invalid XML',
+                        message: 'The xml file is either corrupted or invalid.'
+                    });
+                    return;
+                }
                 urls = xmlDoc.urlset.url.map((el) => el.loc[0]);
                 resolve(urls);
             });
         });
     });
 }
+

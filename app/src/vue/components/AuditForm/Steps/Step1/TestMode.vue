@@ -112,6 +112,11 @@ export default {
             this.sitemapUrls = urls;
             this.selectedUrls = urls;
         });
+        ipcRenderer.on('ON_ERROR_XML', (event, err) => {
+            this.analyseLoading = false;
+            this.sitemapPath = '';
+            this.$emit('xmlError', err);
+        });
     },
     watch: {
         sitemapPath: function(val) {
