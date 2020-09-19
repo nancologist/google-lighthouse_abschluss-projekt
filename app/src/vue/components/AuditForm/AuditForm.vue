@@ -41,15 +41,18 @@
                     >
                         <v-icon color="secondaryDarker" left>mdi-test-tube</v-icon> Run Test
                     </v-btn>
-                    <v-progress-linear
-                        :active="loading"
-                        background-color="primary"
-                        color="secondaryDark"
-                        height="10"
-                        rounded
-                        v-model="progress"
-                        style="margin: 10px auto 0 auto; width: 70%;"
-                    />
+                    <div class="progress-bar">
+                        <v-progress-linear
+                            :active="loading"
+                            background-color="primary"
+                            color="secondaryDark"
+                            height="10"
+                            rounded
+                            v-model="progress"
+                            style="margin: 10px auto 0 auto; width: 70%;"
+                        />
+                        <span v-if="loading" class="white--text">{{ progress }} %</span>
+                    </div>
                     <v-tooltip left>
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
@@ -155,9 +158,11 @@ export default {
     },
     created() {
         ipcRenderer.on('REPORT_CREATED', (event, res) => {
-            // Reset states:
-            this.loading = false;
-            setTimeout(() => { this.progress = 0; }, 500);
+            // Reset states slightly after receiving test report:
+            setTimeout(() => {
+                this.loading = false;
+                setTimeout(() => { this.progress = 0; }, 200);
+            }, 500);
 
             this.testResult = res;
             this.isPowertest = Array.isArray(res);
@@ -165,7 +170,8 @@ export default {
         });
 
         ipcRenderer.on('PROGRESS', (event, progress) => {
-            this.progress += 100 * progress;
+            this.progress += Math.ceil(100 * progress);
+            if (this.progress > 100) this.progress = 100;
         });
 
         ipcRenderer.on('ON_ERROR', (event, err) => {
