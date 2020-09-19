@@ -5,7 +5,6 @@
                 append-icon="mdi-paperclip"
                 clearable
                 @click="callFileInput"
-                :disabled="testMode !== 'localSitemap'"
                 label="Sitemap file"
                 readonly
                 v-model="sitemapPath"
@@ -14,7 +13,6 @@
                 append-icon="mdi-web"
                 @blur="resetUrlField"
                 @change="$emit('update:inputUrl', $event)"
-                :disabled="testMode !== 'enterUrl'"
                 @focus="initUrlField"
                 label="URL"
                 :rules="urlRules"
@@ -31,13 +29,7 @@
         </v-col>
         <v-divider vertical/>
         <v-col>
-            <v-select
-                outlined
-                item-color="secondary"
-                label="Select a test mode."
-                v-model="testMode"
-                :items="testModes"
-            />
+            <span class="text--lighten-3">{{ appHint }}</span>
             <div>
                 <Spinner v-if="analyseLoading"/>
                 <div v-if="sitemapUrls.length > 0">
@@ -62,16 +54,11 @@ export default {
     components: { Spinner },
     props: ['inputUrl'],
     data: () => ({
+        appHint: 'Enter URL and/or use a sitemap.',
         selectedUrls: [],
         analyseLoading: false,
         sitemapUrls: [],
         sitemapPath: '',
-        testMode: '',
-        testModes: [
-            { text: 'Local Sitemap', value: 'localSitemap' },
-            { text: 'Remote Sitemap', value: 'remoteSitemap' },
-            { text: 'Enter URL', value: 'enterUrl' }
-        ],
         urlRules: [
             // eslint-disable-next-line
             (v) => /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.test(v)
@@ -109,6 +96,7 @@ export default {
             this.analyseLoading = false;
             this.sitemapUrls = urls;
             this.selectedUrls = urls;
+            this.appHint = 'Include or exclude URLs.';
         });
         ipcRenderer.on('ON_ERROR_XML', (event, err) => {
             this.analyseLoading = false;
@@ -122,6 +110,7 @@ export default {
             if (inputCleared) {
                 this.sitemapUrls = '';
                 this.selectedUrls = '';
+                this.appHint = 'Enter URL and/or use a sitemap.';
             }
         }
     }
