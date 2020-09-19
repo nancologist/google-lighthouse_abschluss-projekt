@@ -13,7 +13,7 @@
                 <v-divider/>
 
                 <v-stepper-step color="secondaryDarker" step="3" editable>
-                    Preview & Run
+                    Preview & Test
                 </v-stepper-step>
             </v-stepper-header>
 
@@ -157,7 +157,6 @@ export default {
         ipcRenderer.on('REPORT_CREATED', (event, res) => {
             // Reset states:
             this.loading = false;
-            this.powertestLoading = false;
             setTimeout(() => { this.progress = 0; }, 500);
 
             this.testResult = res;

@@ -37,7 +37,7 @@
                         @change="$emit('updateSitemapUrls', selectedUrls)"
                         v-for="(url, index) in sitemapUrls"
                         :key="index"
-                        :label="url.split('//')[1]"
+                        :label="'/' + url.split('/')[3]"
                         v-model="selectedUrls"
                         :value="url"
                     />
@@ -96,7 +96,8 @@ export default {
             this.analyseLoading = false;
             this.sitemapUrls = urls;
             this.selectedUrls = urls;
-            this.appHint = 'Include or exclude URLs.';
+            this.appHint = 'Include or exclude routes.';
+            this.$emit('updateSitemapUrls', this.selectedUrls);
         });
         ipcRenderer.on('ON_ERROR_XML', (event, err) => {
             this.analyseLoading = false;
