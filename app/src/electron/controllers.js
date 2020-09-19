@@ -43,8 +43,7 @@ ipcMain.on('ANALYSE_SITEMAP', async (event, sitemapPath) => {
            event.reply('SITEMAP_ANALYSED', urls)
         })
         .catch((err) => {
-            // TODO: 'event.reply('ON_ERROR')'
-            console.log(err);
+            event.reply('ON_ERROR', {...err});
         });
 })
 
