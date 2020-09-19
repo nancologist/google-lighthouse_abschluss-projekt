@@ -75,3 +75,9 @@ input[type=number] {
     z-index: 2;
     width: 100%;
 }
+
+/* Override color of selected text */
+*::selection {
+    background-color: var(--second-color);
+    color: white;
+}
