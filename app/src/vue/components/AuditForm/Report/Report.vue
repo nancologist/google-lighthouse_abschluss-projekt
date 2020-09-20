@@ -1,17 +1,5 @@
 <template>
     <div class="report scrollbar report--have-tabs">
-        <div class="bottom-sheet__header">
-            <v-btn icon>
-                <v-icon>mdi-export-variant</v-icon>
-            </v-btn>
-            <v-btn
-                @click="$emit('close')"
-                color="danger"
-                icon
-            >
-                <v-icon color="danger">mdi-close-circle</v-icon>
-            </v-btn>
-        </div>
         <div class="report__content">
             <v-tabs
                 active-class="active-tab"

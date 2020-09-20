@@ -3,7 +3,7 @@
         <h4>{{ audit.title }}</h4>
         <div class="result-items-container">
             <div class="result-item">
-                <span>Performance</span>
+                <span>Score</span>
                 <v-progress-circular
                     :rotate="360"
                     :size="100"
@@ -14,11 +14,15 @@
                     {{ getScore }}
                 </v-progress-circular>
             </div>
+            <div class="result-item">
+                <span>Ref. Difference</span>
+                <v-icon x-large :color="getDiff.iconColor">
+                    {{ getDiff.icon }}
+                </v-icon>
+                <span>{{ getDiff.val }} %</span>
+            </div>
         </div>
         <v-divider/>
-<!--        <div>Difference: {{ getDiff }} %</div>-->
-<!--        <div>Duration: {{ getDuration }} sec</div>-->
-<!--        <div>Reference Time: {{ getRefTime }} sec</div>-->
     </div>
 </template>
 
@@ -35,7 +39,11 @@ export default {
             const { refTime, numericValue } = this.audit;
             let num = (refTime - numericValue) * 100 / refTime;
             num = num = Number(num.toFixed());
-            return num;
+            return {
+                val: num,
+                icon: num < 0 ? 'mdi-arrow-down-drop-circle' : 'mdi-arrow-up-drop-circle',
+                iconColor: num < 0 ? 'danger' : 'secondaryDark'
+            };
         },
         getRefTime() {
             return this.audit.refTime / 1000;
@@ -71,16 +79,19 @@ export default {
     }
 
     .result-items-container {
+        display: flex;
+        justify-content: space-evenly;
         margin-top: 10px;
         margin-bottom: 15px;
     }
 
     .result-item {
+        text-align: center;
         display: flex;
         flex-direction: column;
     }
 
-    .result-item > *:last-child {
-        margin-top: 5px;
+    .result-item > *:first-child {
+        margin-bottom: 5px;
     }
 </style>
