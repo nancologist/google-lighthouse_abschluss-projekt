@@ -99,6 +99,7 @@ export default {
     }
 
     .result-item {
+        align-items: center;
         text-align: center;
         display: flex;
         flex-direction: column;
