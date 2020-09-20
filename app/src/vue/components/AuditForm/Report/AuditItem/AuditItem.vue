@@ -3,23 +3,34 @@
         <h4>{{ audit.title }}</h4>
         <div class="result-items-container">
             <div class="result-item">
-                <span>Score</span>
+                <span>Lighthouse Score</span>
                 <v-progress-circular
                     :rotate="360"
-                    :size="100"
+                    :size="90"
                     :width="15"
-                    :value="getScore"
-                    :color="getColor"
+                    :value="getScore.val"
+                    :color="getScore.color"
                 >
-                    {{ getScore }}
+                    {{ getScore.val }}
                 </v-progress-circular>
             </div>
             <div class="result-item">
                 <span>Ref. Difference</span>
+                <div style="padding-top: 20px"></div>
                 <v-icon x-large :color="getDiff.iconColor">
                     {{ getDiff.icon }}
                 </v-icon>
                 <span>{{ getDiff.val }} %</span>
+            </div>
+            <div class="result-item">
+                <span>Duration (sec)</span>
+                <div style="padding-top: 30px"></div>
+                <div class="text-h5" style="font-family: Herculanum, fantasy !important;">{{ getDuration }}</div>
+            </div>
+            <div class="result-item">
+                <span>Ref. Time (sec)</span>
+                <div style="padding-top: 30px"></div>
+                <div class="text-h5" style="font-family: Herculanum, fantasy !important;">{{ getRefTime }}</div>
             </div>
         </div>
         <v-divider/>
@@ -49,12 +60,14 @@ export default {
             return this.audit.refTime / 1000;
         },
         getScore() {
-            return this.audit.score * 100;
-        },
-        getColor() {
-            if (this.getScore > 75) return 'secondaryDark';
-            if (this.getScore > 50) return 'warning';
-            return 'danger';
+            const val = this.audit.score * 100;
+            let color = 'danger';
+            if (val > 50) color = 'warning';
+            if (val > 75) color = 'secondaryDark';
+            return {
+                val,
+                color
+            };
         }
     }
 };
