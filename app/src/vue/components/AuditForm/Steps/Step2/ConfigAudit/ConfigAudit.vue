@@ -79,7 +79,7 @@ export default {
 
             const newAudit = {
                 id: this.audit.id,
-                refTime: this.refTime * 1000
+                refTime: +this.refTime * 1000
             };
             this.$emit('addAudit', newAudit);
         },
