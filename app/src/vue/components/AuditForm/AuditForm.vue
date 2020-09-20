@@ -1,20 +1,19 @@
 <template>
     <div>
-        <v-stepper class="stepper" v-model="currentStep">
+        <v-stepper class="stepper" v-model="steps.currentStep">
             <v-stepper-header class="stepper__header">
-                <v-stepper-step color="secondaryDarker" :complete="currentStep > 1" step="1" editable>
-                    <span>Test Mode</span>
-                </v-stepper-step>
-                <v-divider/>
-
-                <v-stepper-step color="secondaryDarker" :complete="currentStep > 2" step="2" editable>
-                    Configuration
-                </v-stepper-step>
-                <v-divider/>
-
-                <v-stepper-step color="secondaryDarker" step="3" editable>
-                    Preview & Test
-                </v-stepper-step>
+                <!-- eslint-disable  vue/valid-v-for -->
+                <template
+                    v-for="(stepName, index) in steps.labels"
+                >
+                    <v-stepper-step
+                        color="secondaryDarker"
+                        :complete="steps.currentStep > index + 1"
+                        editable
+                        :step="index + 1"
+                    >{{ stepName }}</v-stepper-step>
+                    <v-divider v-if="index < steps.labels.length - 1"/>
+                </template>
             </v-stepper-header>
 
             <v-stepper-content class="stepper__content" step="1">
@@ -75,10 +74,10 @@
             </v-stepper-content>
 
             <div class="stepper__buttons">
-                <v-btn class="stepper__buttons__prev" @click="currentStep--" :disabled="currentStep <= 1">
+                <v-btn class="stepper__buttons__prev" @click="steps.currentStep--" :disabled="steps.currentStep <= 1">
                     <v-icon color="secondaryDarker" left>mdi-chevron-left</v-icon> Back
                 </v-btn>
-                <v-btn class="stepper__buttons__next" @click="currentStep++" :disabled="currentStep >= 3">
+                <v-btn class="stepper__buttons__next" @click="steps.currentStep++" :disabled="steps.currentStep >= 3">
                     Next <v-icon color="secondaryDarker" right>mdi-chevron-right</v-icon>
                 </v-btn>
             </div>
@@ -101,6 +100,10 @@ export default {
     components: { Report, TestMode, Configs, Error },
     data() {
         return {
+            steps: {
+                labels: ['Test Mode', 'Configuration', 'Preview & Test'],
+                currentStep: 1,
+            },
             auditForm: {
                 urls: {
                     fromInput: '',
@@ -112,7 +115,6 @@ export default {
                 }
             },
             testResult: null,
-            currentStep: 1,
             loading: false,
             sheetOpen: false,
             isPowertest: false,
