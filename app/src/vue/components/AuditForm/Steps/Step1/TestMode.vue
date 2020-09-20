@@ -142,9 +142,8 @@ export default {
             }
         },
         inputUrl: function(val) {
-            const urlCleared = (val === '');
-            if (urlCleared) {
-                console.log('hi');
+            const urlCleared = (val === null);
+            if (urlCleared && (this.sitemapPath === '' || this.sitemapPath === null)) {
                 this.sitemapUrls = [];
                 this.selectedUrls = [];
                 this.appHint = 'Enter URL and/or use a sitemap.';
