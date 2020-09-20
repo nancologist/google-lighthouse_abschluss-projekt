@@ -35,7 +35,7 @@
             </v-btn>
         </v-col>
         <v-divider vertical/>
-        <v-col>
+        <v-col cols="4">
             <p style="text-align: left; color: #333">{{ appHint }}</p>
             <div>
                 <Spinner v-if="analyseLoading"/>
