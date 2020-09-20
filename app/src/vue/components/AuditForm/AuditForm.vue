@@ -165,8 +165,18 @@ export default {
                 setTimeout(() => { this.progress = 0; }, 200);
             }, 500);
 
+            // Append user refTime to the result of its audit:
+            res = JSON.parse(JSON.stringify(res));
+            res.forEach((test) => {
+                for (const prop in test) {
+                    if (test[prop].id) {
+                        const audit = this.auditForm.configs.audits.find((a) => a.id === test[prop].id);
+                        test[prop].refTime = audit.refTime;
+                    }
+                }
+            });
+
             this.testResult = res;
-            console.log(this.testResult);
             this.sheetOpen = true;
         });
 

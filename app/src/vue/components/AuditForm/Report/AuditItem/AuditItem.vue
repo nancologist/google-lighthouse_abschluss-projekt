@@ -1,15 +1,32 @@
 <template>
     <div class="audit" v-if="!!audit.id">
         <h4>{{ audit.title }}</h4>
-        <p>Score: {{ audit.score }}</p>
-        <p>Duration: {{ audit.numericValue }} ms</p>
-        <p>Difference: </p>
+        <div>Score: {{ audit.score }}</div>
+        <div>Difference: {{ getDiff }} %</div>
+        <div>Duration: {{ getDuration }} sec</div>
+        <div>Reference Time: {{ getRefTime }} sec</div>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['audit']
+    props: ['audit'],
+    computed: {
+        getDuration() {
+            let num = this.audit.numericValue / 1000;
+            num = Number(num.toFixed(2));
+            return num;
+        },
+        getDiff() {
+            const { refTime, numericValue } = this.audit;
+            let num = (refTime - numericValue) * 100 / refTime;
+            num = num = Number(num.toFixed());
+            return num;
+        },
+        getRefTime() {
+            return this.audit.refTime / 1000;
+        }
+    }
 };
 // audit:
 // {
