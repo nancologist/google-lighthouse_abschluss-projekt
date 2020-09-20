@@ -26,9 +26,10 @@
                     class="config-panel__control__input"
                     color="secondary"
                     :disabled="inputDisabled"
-                    label="Reference Time (ms)"
-                    outlined
+                    label="Reference Time (sec)"
                     v-model="refTime"
+                    outlined
+                    type="number"
                 />
                 <v-btn
                     v-if="!added"
@@ -78,7 +79,7 @@ export default {
 
             const newAudit = {
                 id: this.audit.id,
-                refTime: this.refTime
+                refTime: this.refTime * 1000
             };
             this.$emit('addAudit', newAudit);
         },
