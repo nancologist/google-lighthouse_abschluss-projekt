@@ -50,15 +50,36 @@ ipcMain.on('ANALYSE_SITEMAP_FILE', async (event, sitemapPath) => {
 });
 
 ipcMain.on('ANALYSE_SITEMAP_URL', (event, sitemapUrl) => {
+    let xml;
     // Todo: check if sitemapUrl uses http protocal, so:
     // http.get(sitemapUrl, ...);
 
     https.get(sitemapUrl, (res) => {
         res.on('data', (chunk) => {
-            console.log(chunk);
+            if (chunk) xml += chunk;
         });
-        res.on('error', (err) => {
-            console.log(err);
+        // res.on('error', (err) => {
+        //     console.log(err);
+        // });
+
+        res.on('end', () => {
+            const parser = new xml2js.Parser();
+            if (!xml.startsWith('<?xml')) {
+                const index = xml.indexOf('<?xml');
+                xml = xml.substring(index);
+            }
+            parser.parseString(xml, (err, xmlDoc) => {
+                if (err) {
+                    event.reply('ON_ERROR_XML', {
+                        title: 'Corrupted/Invalid XML',
+                        message: 'The provided XML URL is either corrupted or' +
+                            ' invalid.'
+                    });
+                    return;
+                }
+                const urls = xmlDoc.urlset.url.map((el) => el.loc[0]);
+                event.reply('SITEMAP_ANALYSED', urls);
+            });
         });
     });
 });
@@ -105,7 +126,8 @@ function getAllSitemapUrls(xmlPath) {
                 if (err) {
                     reject({
                         title: 'Corrupted/Invalid XML',
-                        message: 'The xml file is either corrupted or invalid.'
+                        message: 'The provided XML file is either corrupted' +
+                            ' or invalid.'
                     });
                     return;
                 }

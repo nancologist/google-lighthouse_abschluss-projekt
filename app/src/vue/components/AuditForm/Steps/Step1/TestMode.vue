@@ -26,19 +26,28 @@
                 ref="fileInput"
                 type="file"
             >
-            <v-btn @click="previewSitemapUrl">Analyse URL Sitemap</v-btn>
+            <v-btn
+                class="preview-btn"
+                @click="previewSitemapUrl"
+                elevation="3"
+            >
+                Preview
+            </v-btn>
         </v-col>
         <v-divider vertical/>
         <v-col>
-            <span class="text--lighten-3">{{ appHint }}</span>
+            <p style="text-align: left; color: #333">{{ appHint }}</p>
             <div>
                 <Spinner v-if="analyseLoading"/>
-                <div v-if="sitemapUrls.length > 0">
+                <div
+                    v-if="sitemapUrls.length > 0"
+                    :class="{'full-width': sitemapUrls.length > 6}"
+                >
                     <v-checkbox
                         @change="$emit('updateSitemapUrls', selectedUrls)"
                         v-for="(url, index) in sitemapUrls"
                         :key="index"
-                        :label="url.split('www.')[1]||'/' + url.split('/')[3]"
+                        :label="url.split('.com')[1]||url.split('.de')[1]"
                         v-model="selectedUrls"
                         :value="url"
                     />
@@ -68,6 +77,8 @@ export default {
     }),
     methods: {
         initUrlField() {
+            this.appHint = 'You can either enter a URL of a Website to test or a URL of a remote sitemap. ' +
+                'For a remote sitemap, after entering URL (e.g. https://www.digitaspixelpark.com/sitemap.xml), please click on "PREVIEW".';
             if (!this.inputUrl) {
                 this.$emit('update:inputUrl', 'https://');
             }
@@ -89,21 +100,21 @@ export default {
                 this.sitemapPath = files[0].path;
                 this.analyseLoading = true;
                 ipcRenderer.send('ANALYSE_SITEMAP_FILE', this.sitemapPath);
-                // const sitemapUrl = 'https://www.digitaspixelpark.com/sitemap.xml';
             }
         },
 
         previewSitemapUrl() {
-            const sitemapUrl = 'https://www.digitaspixelpark.com/sitemap.xml';
-            ipcRenderer.send('ANALYSE_SITEMAP_URL', sitemapUrl);
+            this.analyseLoading = true;
+            ipcRenderer.send('ANALYSE_SITEMAP_URL', this.inputUrl);
         }
     },
     created() {
         ipcRenderer.on('SITEMAP_ANALYSED', (event, urls) => {
             this.analyseLoading = false;
             this.sitemapUrls = urls;
-            this.selectedUrls = urls;
-            this.appHint = 'Include or exclude routes.';
+            // Preselect Routes only if they are less than 6:
+            if (urls.length < 6) this.selectedUrls = urls;
+            this.appHint = 'Include or exclude routes';
             this.$emit('updateSitemapUrls', this.selectedUrls);
         });
         ipcRenderer.on('ON_ERROR_XML', (event, err) => {
@@ -124,3 +135,14 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+    .preview-btn {
+        display: block;
+        margin-top: 20px;
+    }
+
+    .full-width {
+        width: 100vw;
+    }
+</style>
