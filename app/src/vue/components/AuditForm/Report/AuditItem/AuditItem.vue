@@ -60,7 +60,7 @@ export default {
             return this.audit.refTime / 1000;
         },
         getScore() {
-            const val = this.audit.score * 100;
+            const val = Number((this.audit.score * 100).toFixed());
             let color = 'danger';
             if (val > 50) color = 'warning';
             if (val > 75) color = 'secondaryDark';

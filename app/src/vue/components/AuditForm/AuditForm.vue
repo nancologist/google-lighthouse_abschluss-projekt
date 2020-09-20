@@ -145,7 +145,13 @@ export default {
             const inputUrl = this.auditForm.urls.fromInput;
             const sitemapUrls = this.auditForm.urls.fromSitemap;
             let urls = [...sitemapUrls];
-            if (inputUrl) urls = [inputUrl, ...urls];
+            // Only if input URL is not empty or sitemap it's testable.
+            if (inputUrl &&
+                !inputUrl.includes('sitemap') &&
+                !inputUrl.includes('xml')
+            ) {
+                urls = [inputUrl, ...urls];
+            }
             ipcRenderer.send('RUN_TEST', this.auditForm, urls);
         },
 
@@ -170,7 +176,9 @@ export default {
             res.forEach((test) => {
                 for (const prop in test) {
                     if (test[prop].id) {
+                        console.log(test[prop].id);
                         const audit = this.auditForm.configs.audits.find((a) => a.id === test[prop].id);
+                        console.log(audit);
                         test[prop].refTime = audit.refTime;
                     }
                 }
