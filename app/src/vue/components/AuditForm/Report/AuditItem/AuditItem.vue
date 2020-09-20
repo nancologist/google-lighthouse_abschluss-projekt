@@ -1,10 +1,24 @@
 <template>
     <div class="audit" v-if="!!audit.id">
         <h4>{{ audit.title }}</h4>
-        <div>Score: {{ audit.score }}</div>
-        <div>Difference: {{ getDiff }} %</div>
-        <div>Duration: {{ getDuration }} sec</div>
-        <div>Reference Time: {{ getRefTime }} sec</div>
+        <div class="result-items-container">
+            <div class="result-item">
+                <span>Performance</span>
+                <v-progress-circular
+                    :rotate="360"
+                    :size="100"
+                    :width="15"
+                    :value="getScore"
+                    :color="getColor"
+                >
+                    {{ getScore }}
+                </v-progress-circular>
+            </div>
+        </div>
+        <v-divider/>
+<!--        <div>Difference: {{ getDiff }} %</div>-->
+<!--        <div>Duration: {{ getDuration }} sec</div>-->
+<!--        <div>Reference Time: {{ getRefTime }} sec</div>-->
     </div>
 </template>
 
@@ -25,6 +39,14 @@ export default {
         },
         getRefTime() {
             return this.audit.refTime / 1000;
+        },
+        getScore() {
+            return this.audit.score * 100;
+        },
+        getColor() {
+            if (this.getScore > 75) return 'secondaryDark';
+            if (this.getScore > 50) return 'warning';
+            return 'danger';
         }
     }
 };
@@ -43,7 +65,22 @@ export default {
 
 <style scoped>
     .audit {
-        text-align: left;
+        margin-top: 10px;
         padding: 5px 12px;
+        text-align: left;
+    }
+
+    .result-items-container {
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+
+    .result-item {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .result-item > *:last-child {
+        margin-top: 5px;
     }
 </style>
