@@ -37,7 +37,7 @@ ipcMain.on('RUN_TEST', async(event, auditForm, urls) => {
 });
 
 ipcMain.on('ANALYSE_SITEMAP_FILE', async (event, sitemapPath) => {
-    getAllSitemapUrls(sitemapPath)
+    getAllSitemapUrls(sitemapPath, null)
         .then((urls) => {
            event.reply('SITEMAP_ANALYSED', urls)
         })
@@ -117,37 +117,29 @@ function getAllSitemapUrls(sitemapFilePath, sitemapFromUrl) {
         if (sitemapFilePath) {
             fs.readFile(sitemapFilePath, (err, data) => {
                 if (err) return reject(err);
-                parser.parseString(data, (err, xmlDoc) => {
-                    if (err) {
-                        reject({
-                            title: 'Corrupted/Invalid XML',
-                            message: 'The provided XML is either corrupted' +
-                                ' or invalid.'
-                        });
-                        return;
-                    }
-                    urls = xmlDoc.urlset.url.map((el) => el.loc[0]);
-                    resolve(urls);
-                });
+                parseSitemapXml(data, parser, resolve, reject);
             });
         } else if (sitemapFromUrl) {
             if (!sitemapFromUrl.startsWith('<?xml')) {
                 const index = sitemapFromUrl.indexOf('<?xml');
                 sitemapFromUrl = sitemapFromUrl.substring(index);
             }
-            parser.parseString(sitemapFromUrl, (err, xmlDoc) => {
-                if (err) {
-                    reject({
-                        title: 'Corrupted/Invalid XML',
-                        message: 'The provided XML is either corrupted' +
-                            ' or invalid.'
-                    });
-                    return;
-                }
-                urls = xmlDoc.urlset.url.map((el) => el.loc[0]);
-                resolve(urls);
-            });
+            parseSitemapXml(sitemapFromUrl, parser, resolve, reject);
         }
     });
 }
 
+function parseSitemapXml(data, parser, promiseRes, promiseRej) {
+    parser.parseString(data, (err, xmlDoc) => {
+        if (err) {
+            promiseRej({
+                title: 'Corrupted/Invalid XML',
+                message: 'The provided XML is either corrupted' +
+                    ' or invalid.'
+            });
+            return;
+        }
+        urls = xmlDoc.urlset.url.map((el) => el.loc[0]);
+        promiseRes(urls);
+    });
+};
