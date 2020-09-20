@@ -1,8 +1,5 @@
 <template>
-    <div
-        class="report scrollbar"
-        :class="{'report--have-tabs': reports.length > 1}"
-    >
+    <div class="report scrollbar report--have-tabs">
         <div class="bottom-sheet__header">
             <v-btn icon>
                 <v-icon>mdi-export-variant</v-icon>
@@ -74,12 +71,6 @@ import AuditItem from './AuditItem/AuditItem.vue';
 export default {
     components: { AuditItem },
     props: ['audits', 'reports'],
-    mounted() {
-        const tabsBar = document.querySelector('.fixed-tabs-bar .v-tabs-bar');
-        if (this.reports.length < 2) {
-            tabsBar.style.display = 'none';
-        }
-    }
 };
 </script>
 

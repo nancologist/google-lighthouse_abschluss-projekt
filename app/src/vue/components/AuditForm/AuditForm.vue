@@ -166,6 +166,7 @@ export default {
             }, 500);
 
             this.testResult = res;
+            console.log(this.testResult);
             this.sheetOpen = true;
         });
 

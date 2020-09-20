@@ -3,6 +3,7 @@
         <h4>{{ audit.title }}</h4>
         <p>Score: {{ audit.score }}</p>
         <p>Duration: {{ audit.numericValue }} ms</p>
+        <p>Difference: </p>
     </div>
 </template>
 
