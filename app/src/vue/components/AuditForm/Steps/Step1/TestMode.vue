@@ -1,44 +1,52 @@
 <template>
-    <v-row>
-        <v-col>
-            <v-text-field
-                append-icon="mdi-paperclip"
-                clearable
-                @click="callFileInput"
-                label="Sitemap file"
-                readonly
-                v-model="sitemapPath"
-            />
-            <v-text-field
-                append-icon="mdi-web"
-                @blur="resetUrlField"
-                @change="$emit('update:inputUrl', $event)"
-                @focus="initUrlField"
-                label="URL"
-                :rules="urlRules"
-                validate-on-blur
-                :value="inputUrl"
-            />
-            <input
-                accept=".xml"
-                @change="previewSitemapFile"
-                hidden
-                ref="fileInput"
-                type="file"
-            >
-            <v-btn
-                class="preview-btn"
-                @click="previewSitemapUrl"
-                elevation="3"
-            >
-                Preview
-            </v-btn>
-        </v-col>
-        <v-divider vertical/>
-        <v-col cols="4">
-            <p style="text-align: left; color: #333">{{ appHint }}</p>
-            <div>
-                <Spinner v-if="analyseLoading"/>
+    <v-container>
+        <v-row>
+            <v-col>
+                <v-text-field
+                    append-icon="mdi-paperclip"
+                    clearable
+                    @click="callFileInput"
+                    label="Sitemap file"
+                    readonly
+                    v-model="sitemapPath"
+                />
+                <v-text-field
+                    append-icon="mdi-web"
+                    @blur="resetUrlField"
+                    @change="$emit('update:inputUrl', $event)"
+                    @focus="initUrlField"
+                    label="URL"
+                    :rules="urlRules"
+                    validate-on-blur
+                    :value="inputUrl"
+                />
+                <input
+                    accept=".xml"
+                    @change="previewSitemapFile"
+                    hidden
+                    ref="fileInput"
+                    type="file"
+                >
+                <v-btn
+                    class="preview-btn"
+                    @click="previewSitemapUrl"
+                    elevation="3"
+                >
+                    Preview
+                </v-btn>
+            </v-col>
+            <v-divider vertical/>
+            <v-col cols="4">
+                <v-icon large>mdi-information-outline</v-icon>
+                <br>
+                <p class="hint-box">{{ appHint }}</p>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col>
+                <div class="spinner">
+                    <Spinner v-if="!analyseLoading"/>
+                </div>
                 <div
                     v-if="sitemapUrls.length > 0"
                     :class="{'full-width': sitemapUrls.length > 6}"
@@ -52,9 +60,9 @@
                         :value="url"
                     />
                 </div>
-            </div>
-        </v-col>
-    </v-row>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
@@ -142,7 +150,19 @@ export default {
         margin-top: 20px;
     }
 
-    .full-width {
-        width: 100vw;
+    .hint-box {
+        color: #333;
+        /*
+            For Long words and URLs.
+            These are technically the same, but use both:
+        */
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+    }
+
+    .spinner {
+        transform: scale(0.6);
+        position: relative;
+        bottom: 50px;
     }
 </style>

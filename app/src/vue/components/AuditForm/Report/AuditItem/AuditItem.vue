@@ -49,7 +49,7 @@ export default {
         getDiff() {
             const { refTime, numericValue } = this.audit;
             let num = (refTime - numericValue) * 100 / refTime;
-            num = num = Number(num.toFixed());
+            num = Number(num.toFixed());
             return {
                 val: num,
                 icon: num < 0 ? 'mdi-arrow-down-drop-circle' : 'mdi-arrow-up-drop-circle',
