@@ -19,9 +19,6 @@ const customConfig = {
 };
 
 ipcMain.on('RUN_TEST', async(event, auditForm, urls) => {
-    // To attach the dialog to its parent window:
-    // const parentWin = BrowserWindow.getAllWindows()
-    // .find((win) => win.name === 'MAIN_WINDOW');
     const reports = [];
     for (url of urls) {
         try {
@@ -58,31 +55,28 @@ ipcMain.on('ANALYSE_SITEMAP_URL', (event, sitemapUrl) => {
         res.on('data', (chunk) => {
             if (chunk) xml += chunk;
         });
-        // res.on('error', (err) => {
-        //     console.log(err);
-        // });
+        res.on('error', (err) => {
+            // Todo: Forword Error with event.reply()
+            console.log(err);
+        });
 
         res.on('end', () => {
-            const parser = new xml2js.Parser();
-            if (!xml.startsWith('<?xml')) {
-                const index = xml.indexOf('<?xml');
-                xml = xml.substring(index);
-            }
-            parser.parseString(xml, (err, xmlDoc) => {
-                if (err) {
-                    event.reply('ON_ERROR_XML', {
-                        title: 'Corrupted/Invalid XML',
-                        message: 'The provided XML URL is either corrupted or' +
-                            ' invalid.'
-                    });
-                    return;
-                }
-                const urls = xmlDoc.urlset.url.map((el) => el.loc[0]);
-                event.reply('SITEMAP_ANALYSED', urls);
-            });
+            getAllSitemapUrls(null, xml)
+                .then((urls) => {
+                    event.reply('SITEMAP_ANALYSED', urls);
+                })
+                .catch((err) => {
+                    event.reply('ON_ERROR_XML', {...err});
+                });
         });
     });
 });
+
+// ipcMain.on('EXPORT_REPORT', (event, args) => {
+//     // To attach the dialog to its parent window:
+//     const parentWin = BrowserWindow.getAllWindows()
+//     .find((win) => win.name === 'MAIN_WINDOW');
+// })
 
 // Write Lighthouse's test report in a html file.
 async function testWebsiteAndCreateReport(auditForm, url, event) {
@@ -116,17 +110,36 @@ async function testWebsiteAndCreateReport(auditForm, url, event) {
 }
 
 // XML -> POJO
-function getAllSitemapUrls(xmlPath) {
+function getAllSitemapUrls(sitemapFilePath, sitemapFromUrl) {
     let urls = [];
     const parser = new xml2js.Parser();
     return new Promise((resolve, reject) => {
-        fs.readFile(xmlPath, (err, data) => {
-            if (err) return reject(err);
-            parser.parseString(data, (err, xmlDoc) => {
+        if (sitemapFilePath) {
+            fs.readFile(sitemapFilePath, (err, data) => {
+                if (err) return reject(err);
+                parser.parseString(data, (err, xmlDoc) => {
+                    if (err) {
+                        reject({
+                            title: 'Corrupted/Invalid XML',
+                            message: 'The provided XML is either corrupted' +
+                                ' or invalid.'
+                        });
+                        return;
+                    }
+                    urls = xmlDoc.urlset.url.map((el) => el.loc[0]);
+                    resolve(urls);
+                });
+            });
+        } else if (sitemapFromUrl) {
+            if (!sitemapFromUrl.startsWith('<?xml')) {
+                const index = sitemapFromUrl.indexOf('<?xml');
+                sitemapFromUrl = sitemapFromUrl.substring(index);
+            }
+            parser.parseString(sitemapFromUrl, (err, xmlDoc) => {
                 if (err) {
                     reject({
                         title: 'Corrupted/Invalid XML',
-                        message: 'The provided XML file is either corrupted' +
+                        message: 'The provided XML is either corrupted' +
                             ' or invalid.'
                     });
                     return;
@@ -134,7 +147,7 @@ function getAllSitemapUrls(xmlPath) {
                 urls = xmlDoc.urlset.url.map((el) => el.loc[0]);
                 resolve(urls);
             });
-        });
+        }
     });
 }
 
