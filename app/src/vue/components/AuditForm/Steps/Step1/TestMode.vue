@@ -45,7 +45,7 @@
         <v-row>
             <v-col>
                 <div class="spinner">
-                    <Spinner v-if="!analyseLoading"/>
+                    <Spinner v-if="analyseLoading"/>
                 </div>
                 <div
                     v-if="sitemapUrls.length > 0"
