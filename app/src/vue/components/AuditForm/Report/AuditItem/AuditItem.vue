@@ -10,6 +10,17 @@
 export default {
     props: ['audit']
 };
+// audit:
+// {
+//     "id": "first-contentful-paint",
+//     "title": "First Contentful Paint",
+//     "description": "First Contentful Paint marks the time at which the first text or image is painted. [Learn more](https://web.dev/first-contentful-paint/).",
+//     "score": 0.79,
+//     "scoreDisplayMode": "numeric",
+//     "numericValue": 2845.5780000000004,
+//     "numericUnit": "millisecond",
+//     "displayValue": "2.8 s"
+// }
 </script>
 
 <style scoped>
