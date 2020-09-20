@@ -84,7 +84,7 @@
         </v-stepper>
 
         <v-bottom-sheet v-model="sheetOpen" scrollable persistent>
-            <Report :isPowertest="isPowertest" :reports="testResult" @close="sheetOpen = false" />
+            <Report :reports="testResult" @close="sheetOpen = false" />
         </v-bottom-sheet>
         <Error :showDialog.sync="hasError" :error="error"/>
     </div>
@@ -117,7 +117,6 @@ export default {
             testResult: null,
             loading: false,
             sheetOpen: false,
-            isPowertest: false,
             progress: 0,
             hasError: false,
             error: {}
@@ -167,7 +166,6 @@ export default {
             }, 500);
 
             this.testResult = res;
-            this.isPowertest = Array.isArray(res);
             this.sheetOpen = true;
         });
 
