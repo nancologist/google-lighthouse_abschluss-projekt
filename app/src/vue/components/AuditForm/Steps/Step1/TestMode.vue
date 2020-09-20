@@ -14,6 +14,7 @@
                     append-icon="mdi-web"
                     @blur="resetUrlField"
                     @change="$emit('update:inputUrl', $event)"
+                    clearable
                     @focus="initUrlField"
                     label="URL"
                     :rules="urlRules"
@@ -135,11 +136,20 @@ export default {
         sitemapPath: function(val) {
             const inputCleared = (val === null);
             if (inputCleared) {
-                this.sitemapUrls = '';
-                this.selectedUrls = '';
+                this.sitemapUrls = [];
+                this.selectedUrls = [];
                 this.appHint = 'Enter URL and/or use a sitemap.';
             }
-        }
+        },
+        inputUrl: function(val) {
+            const urlCleared = (val === '');
+            if (urlCleared) {
+                console.log('hi');
+                this.sitemapUrls = [];
+                this.selectedUrls = [];
+                this.appHint = 'Enter URL and/or use a sitemap.';
+            }
+        },
     }
 };
 </script>
@@ -152,6 +162,7 @@ export default {
 
     .hint-box {
         color: #333;
+        overflow: scroll;
         /*
             For Long words and URLs.
             These are technically the same, but use both:
@@ -163,6 +174,6 @@ export default {
     .spinner {
         transform: scale(0.6);
         position: relative;
-        bottom: 50px;
+        bottom: 150px;
     }
 </style>
