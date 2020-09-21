@@ -2,16 +2,7 @@
     <v-app>
         <div class="layout"> <!-- Todo: Maybe add a Layout cmp ? (but for now it's very thin and ok here) -->
             <div class="main-window">
-                <v-snackbar
-                    color="danger"
-                    v-model="notConnected"
-                    :timeout="-1"
-                    top
-                    elevation="10"
-                >
-                    <v-icon style="margin-right: 10px">mdi-wifi-strength-off-outline</v-icon>
-                    <span>No internet connection detected.</span>
-                </v-snackbar>
+                <NoConnection :showDialog="notConnected"/>
                 <template v-if="!appStarted">
                     <v-btn
                         @click="appStarted = true"
@@ -30,14 +21,23 @@
 <script>
 import AuditForm from './components/AuditForm/AuditForm.vue';
 import PoweredBy from './components/PoweredBy/PoweredBy.vue';
+import NoConnection from './components/NoConnection/NoConnection.vue';
 export default {
-    components: { AuditForm, PoweredBy },
+    components: { AuditForm, PoweredBy, NoConnection },
     data() {
         return {
             appStarted: false,
             notConnected: !navigator.onLine,
         };
     },
+    created() {
+        window.addEventListener('online', () => {
+            this.notConnected = false;
+        });
+        window.addEventListener('offline', () => {
+            this.notConnected = true;
+        });
+    }
 };
 </script>
 

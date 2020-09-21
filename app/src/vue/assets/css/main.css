@@ -81,3 +81,15 @@ input[type=number] {
     background-color: var(--second-color);
     color: white;
 }
+
+.no-connection-msg {
+    background-color: var(--danger);
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.no-connection-msg > *:first-child {
+    width: 50px;
+}
