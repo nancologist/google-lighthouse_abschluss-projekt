@@ -46,7 +46,18 @@
             </template>
             <template v-if="audit.id === 'final-screenshot'">
                 <div class="result-item">
+                    <span>after {{ msToSec(audit.details.timing, 1) }} sec</span>
                     <img :src="audit.details.data" :alt="audit.title">
+                </div>
+            </template>
+            <template v-if="audit.id === 'screenshot-thumbnails'">
+                <div
+                    class="result-item"
+                    v-for="screenshot in audit.details.items"
+                    :key="screenshot.timestamp"
+                >
+                    <small>+ {{screenshot.timing}} ms</small>
+                    <img :src="screenshot.data" :alt="audit.title + ' after ' + screenshot.timing">
                 </div>
             </template>
         </div>
@@ -106,6 +117,11 @@ export default {
                 icon: auditPassed ? 'mdi-thumb-up' : 'mdi-thumb-down',
                 iconColor: auditPassed ? 'secondaryDark' : 'danger'
             };
+        },
+    },
+    methods: {
+        msToSec(val, dec) {
+            return Number((val / 1000).toFixed(dec));
         }
     }
 };
@@ -113,9 +129,10 @@ export default {
 
 <style scoped>
     img {
-        /*height: auto;*/
-        max-height: 300px;
-        /*width: auto;*/
+        border: 1px solid gray;
+        height: auto;
+        max-height: 250px;
+        width: auto;
     }
 
     .audit {
