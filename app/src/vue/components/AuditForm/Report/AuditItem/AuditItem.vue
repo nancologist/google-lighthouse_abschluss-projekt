@@ -61,8 +61,7 @@
                 </div>
             </template>
         </div>
-<!--        <v-expansion-panels v-if="audit.scoreDisplayMode === 'informative'">-->
-        <v-expansion-panels flat hover tile>
+        <v-expansion-panels flat hover tile v-if="audit.scoreDisplayMode !== 'notApplicable'">
             <v-expansion-panel>
                 <v-expansion-panel-header color="secondary" style="max-width: 170px; border-radius: 5px;">More Details</v-expansion-panel-header>
                 <v-expansion-panel-content>
