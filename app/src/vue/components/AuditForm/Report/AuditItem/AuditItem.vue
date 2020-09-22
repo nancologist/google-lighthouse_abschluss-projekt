@@ -27,19 +27,39 @@
                 <div class="result-item">
                     <span>Duration (sec)</span>
                     <div style="padding-top: 30px"></div>
-                    <div class="text-h5" style="font-family: Herculanum, fantasy !important;">{{ getDuration }}</div>
+                    <div class="text-h5">{{ getDuration }}</div>
                 </div>
                 <div class="result-item" v-if="getRefTime">
                     <span>Ref. Time (sec)</span>
                     <div style="padding-top: 30px"></div>
-                    <div class="text-h5" style="font-family: Herculanum, fantasy !important;">{{ getRefTime }}</div>
+                    <div class="text-h5">{{ getRefTime }}</div>
                 </div>
             </template>
             <template v-else-if="audit.scoreDisplayMode === 'binary'">
                 <v-icon :color="binaryAudit.iconColor">{{ binaryAudit.icon }}</v-icon>
             </template>
+            <template v-else-if="audit.scoreDisplayMode === 'informative'">
+                <v-expansion-panels flat hover tile style="padding: 0">
+                    <v-expansion-panel>
+                        <v-expansion-panel-header color="secondary" style="max-width: 170px; border-radius: 5px;">More Details</v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            <ul>
+                                <li v-for="(v, k, i) in audit" :key="i">
+                                    <pre>{{ k }} : {{ v }}</pre>
+                                </li>
+                            </ul>
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
+                </v-expansion-panels>
+            </template>
+            <template v-else-if="audit.scoreDisplayMode === 'notApplicable'">
+                <span>
+                    <v-icon color="warning">mdi-minus-circle</v-icon>
+                    Not Applicable!
+                </span>
+            </template>
             </div>
-        <v-divider/>
+        <v-divider style="margin-top: 10px"/>
     </div>
 </template>
 
@@ -56,10 +76,11 @@ export default {
             const { refTime, numericValue } = this.audit;
             let num = (refTime - numericValue) * 100 / refTime;
             num = Number(num.toFixed());
+            const betterThanExpected = (num < 0);
             return {
                 val: num,
-                icon: num < 0 ? 'mdi-arrow-down-drop-circle' : 'mdi-arrow-up-drop-circle',
-                iconColor: num < 0 ? 'danger' : 'secondaryDark'
+                icon: betterThanExpected ? 'mdi-arrow-up-drop-circle' : 'mdi-arrow-down-drop-circle',
+                iconColor: betterThanExpected ? 'secondaryDark' : 'danger',
             };
         },
         getRefTime() {
