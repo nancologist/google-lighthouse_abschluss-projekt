@@ -38,27 +38,31 @@
             <template v-else-if="audit.scoreDisplayMode === 'binary'">
                 <v-icon :color="binaryAudit.iconColor">{{ binaryAudit.icon }}</v-icon>
             </template>
-            <template v-else-if="audit.scoreDisplayMode === 'informative'">
-                <v-expansion-panels flat hover tile style="padding: 0">
-                    <v-expansion-panel>
-                        <v-expansion-panel-header color="secondary" style="max-width: 170px; border-radius: 5px;">More Details</v-expansion-panel-header>
-                        <v-expansion-panel-content>
-                            <ul>
-                                <li v-for="(v, k, i) in audit" :key="i">
-                                    <pre>{{ k }} : {{ v }}</pre>
-                                </li>
-                            </ul>
-                        </v-expansion-panel-content>
-                    </v-expansion-panel>
-                </v-expansion-panels>
-            </template>
             <template v-else-if="audit.scoreDisplayMode === 'notApplicable'">
                 <span>
                     <v-icon color="warning">mdi-minus-circle</v-icon>
                     Not Applicable!
                 </span>
             </template>
-            </div>
+            <template v-if="audit.id === 'final-screenshot'">
+                <div class="result-item">
+                    <img :src="audit.details.data" :alt="audit.title">
+                </div>
+            </template>
+        </div>
+<!--        <v-expansion-panels v-if="audit.scoreDisplayMode === 'informative'">-->
+        <v-expansion-panels flat hover tile>
+            <v-expansion-panel>
+                <v-expansion-panel-header color="secondary" style="max-width: 170px; border-radius: 5px;">More Details</v-expansion-panel-header>
+                <v-expansion-panel-content>
+                    <ul>
+                        <li v-for="(v, k, i) in audit" :key="i">
+                            <pre>{{ k }} : {{ v }}</pre>
+                        </li>
+                    </ul>
+                </v-expansion-panel-content>
+            </v-expansion-panel>
+        </v-expansion-panels>
         <v-divider style="margin-top: 10px"/>
     </div>
 </template>
@@ -105,20 +109,15 @@ export default {
         }
     }
 };
-// audit:
-// {
-//     "id": "first-contentful-paint",
-//     "title": "First Contentful Paint",
-//     "description": "First Contentful Paint marks the time at which the first text or image is painted. [Learn more](https://web.dev/first-contentful-paint/).",
-//     "score": 0.79,
-//     "scoreDisplayMode": ["numeric", "binary", "informative", "manual", "notApplicable"]
-//     "numericValue": 2845.5780000000004,
-//     "numericUnit": "millisecond",
-//     "displayValue": "2.8 s"
-// }
 </script>
 
 <style scoped>
+    img {
+        /*height: auto;*/
+        max-height: 300px;
+        /*width: auto;*/
+    }
+
     .audit {
         margin-top: 10px;
         padding: 5px 12px;
