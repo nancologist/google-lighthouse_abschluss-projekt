@@ -35,9 +35,9 @@
                     <div class="text-h5" style="font-family: Herculanum, fantasy !important;">{{ getRefTime }}</div>
                 </div>
             </template>
-<!--            <template v-else>-->
-<!--                <span>{{ audit }}</span>-->
-<!--            </template>-->
+            <template v-else-if="audit.scoreDisplayMode === 'binary'">
+                <v-icon :color="binaryAudit.iconColor">{{ binaryAudit.icon }}</v-icon>
+            </template>
             </div>
         <v-divider/>
     </div>
@@ -73,6 +73,13 @@ export default {
             return {
                 val,
                 color
+            };
+        },
+        binaryAudit() {
+            const auditPassed = (this.audit.score === 1);
+            return {
+                icon: auditPassed ? 'mdi-thumb-up' : 'mdi-thumb-down',
+                iconColor: auditPassed ? 'secondaryDark' : 'danger'
             };
         }
     }
