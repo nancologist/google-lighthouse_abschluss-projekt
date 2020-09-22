@@ -9,11 +9,9 @@
                 background-color="secondary"
             >
                 <span style="align-self: center; margin-left: 5px;">Routes:</span>
-                <template v-show="reports.length > 1">
-                    <v-tab v-for="(_, count) in reports" :key="count">
-                        {{ count + 1 }}
-                    </v-tab>
-                </template>
+                <v-tab v-for="(_, count) in reports" :key="count">
+                    {{ count + 1 }}
+                </v-tab>
                 <v-tab-item v-for="audits in reports" :key="audits.url">
                     <div class="bottom-sheet__header">
                         <v-btn icon>
@@ -58,7 +56,7 @@
 import AuditItem from './AuditItem/AuditItem.vue';
 export default {
     components: { AuditItem },
-    props: ['audits', 'reports'],
+    props: ['reports'],
 };
 </script>
 
