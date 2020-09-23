@@ -13,6 +13,7 @@ ipcMain.on('RUN_TEST', async(event, auditForm, urls) => {
             let report = await runLighthouse(auditForm, url);
             report = JSON.parse(report);
             report.audits.url = url;
+            // console.log(report);
             reports.push(report.audits);
             event.reply('PROGRESS', 1 / urls.length);
         } catch (err) {

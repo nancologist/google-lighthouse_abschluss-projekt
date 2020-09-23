@@ -90,7 +90,7 @@ export default {
             const { refTime, numericValue } = this.audit;
             let num = (refTime - numericValue) * 100 / refTime;
             num = Number(num.toFixed());
-            const betterThanExpected = (num < 0);
+            const betterThanExpected = (num > 0);
             return {
                 val: num,
                 icon: betterThanExpected ? 'mdi-arrow-up-drop-circle' : 'mdi-arrow-down-drop-circle',
