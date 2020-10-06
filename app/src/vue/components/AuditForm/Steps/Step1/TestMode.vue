@@ -8,7 +8,7 @@
                     @click="callFileInput"
                     label="Sitemap file"
                     readonly
-                    v-model="sitemapPath"
+                    v-model="sitemapName"
                 />
                 <v-text-field
                     append-icon="mdi-web"
@@ -88,6 +88,7 @@ export default {
         analyseLoading: false,
         sitemapUrls: [],
         sitemapPath: '',
+        sitemapName: '',
         selectAllCheckbox: null,
         mainUrl: '',
         urlRules: [
@@ -118,6 +119,7 @@ export default {
         previewSitemapFile(event) {
             const { files } = event.target;
             if (files.length > 0) {
+                this.sitemapName = files[0].name;
                 this.sitemapPath = files[0].path;
                 this.analyseLoading = true;
                 ipcRenderer.send('ANALYSE_SITEMAP_FILE', this.sitemapPath);
@@ -152,7 +154,7 @@ export default {
         });
     },
     watch: {
-        sitemapPath: function(val) {
+        sitemapName: function(val) {
             const inputCleared = (val === null);
             if (inputCleared) {
                 this.sitemapUrls = [];
@@ -169,7 +171,9 @@ export default {
             }
         },
         sitemapUrls: function(val) {
-            this.mainUrl = val[0].split('/')[2];
+            if (val.length > 0) {
+                this.mainUrl = val[0].split('/')[2];
+            }
         }
     },
 };
