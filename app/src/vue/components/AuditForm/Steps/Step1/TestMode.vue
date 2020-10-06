@@ -53,6 +53,10 @@
                     :class="{'full-width': sitemapUrls.length > 6}"
                 >
                     <v-checkbox
+                        @change="toggleSelectAll"
+                        label="Select All"
+                    />
+                    <v-checkbox
                         @change="$emit('updateSitemapUrls', selectedUrls)"
                         v-for="(url, index) in sitemapUrls"
                         :key="index"
@@ -78,6 +82,7 @@ export default {
         analyseLoading: false,
         sitemapUrls: [],
         sitemapPath: '',
+        selectAllCheckbox: null,
         urlRules: [
             // eslint-disable-next-line
             (v) => /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.test(v)
@@ -115,14 +120,21 @@ export default {
         previewSitemapUrl() {
             this.analyseLoading = true;
             ipcRenderer.send('ANALYSE_SITEMAP_URL', this.inputUrl);
+        },
+
+        toggleSelectAll(checked) {
+            if (checked) {
+                this.selectedUrls = [...this.sitemapUrls];
+            } else {
+                this.selectedUrls = [];
+            }
+            this.$emit('updateSitemapUrls', this.selectedUrls);
         }
     },
     created() {
         ipcRenderer.on('SITEMAP_ANALYSED', (event, urls) => {
             this.analyseLoading = false;
             this.sitemapUrls = urls;
-            // Preselect Routes only if they are less than 6:
-            if (urls.length < 6) this.selectedUrls = urls;
             this.appHint = 'Include or exclude routes';
             this.$emit('updateSitemapUrls', this.selectedUrls);
         });
@@ -149,7 +161,7 @@ export default {
                 this.appHint = 'Enter URL and/or use a sitemap.';
             }
         },
-    }
+    },
 };
 </script>
 
