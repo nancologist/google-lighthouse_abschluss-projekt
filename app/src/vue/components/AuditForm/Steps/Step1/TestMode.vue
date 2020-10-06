@@ -56,6 +56,8 @@
                         @change="toggleSelectAll"
                         label="Select All"
                     />
+                    <v-divider/>
+                    <span>{{ mainUrl }}</span>
                     <v-checkbox
                         @change="$emit('updateSitemapUrls', selectedUrls)"
                         v-for="(url, index) in sitemapUrls"
@@ -83,6 +85,7 @@ export default {
         sitemapUrls: [],
         sitemapPath: '',
         selectAllCheckbox: null,
+        mainUrl: '',
         urlRules: [
             // eslint-disable-next-line
             (v) => /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.test(v)
@@ -161,6 +164,9 @@ export default {
                 this.appHint = 'Enter URL and/or use a sitemap.';
             }
         },
+        sitemapUrls: function(val) {
+            this.mainUrl = val[0].split('/')[2];
+        }
     },
 };
 </script>
