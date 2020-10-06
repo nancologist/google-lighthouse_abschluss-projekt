@@ -55,7 +55,7 @@
                     <div
                         class="sitemap-urls__header"
                     >
-                        <span>{{ mainUrl }}</span>
+                        <strong>{{ mainUrl }}</strong>
                         <v-checkbox
                             @change="toggleSelectAll"
                             label="all"
@@ -154,11 +154,13 @@ export default {
         });
     },
     watch: {
+        // Clear Sitemap File (Click on X)
         sitemapName: function(val) {
             const inputCleared = (val === null);
             if (inputCleared) {
                 this.sitemapUrls = [];
                 this.selectedUrls = [];
+                this.$refs.fileInput.value = null;
                 this.appHint = 'Enter URL and/or use a sitemap.';
             }
         },
