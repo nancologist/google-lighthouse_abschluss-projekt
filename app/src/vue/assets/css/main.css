@@ -1,3 +1,5 @@
+@import "montserrat.css";
+
 *, *::before, *::after {
     padding: 0;
     margin: 0;
@@ -32,7 +34,7 @@ input[type=number] {
 .layout {
     background-color: var(--third-color);
     color: var(--first-color);
-    font-family: 'Montserrat', "Times New Roman";
+    font-family: 'Montserrat', Arial, Helvetica, Helvetica Neue, sans-serif;
 }
 
 /* Force Vuetify to show the labels of the steps */
