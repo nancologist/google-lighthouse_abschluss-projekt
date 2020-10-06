@@ -1,10 +1,15 @@
 <template>
     <div class="stepper__content__lh-configs">
         <v-switch
-            label="Custom Configs"
+            label="Advance Mode"
             v-model="isCustom"
         />
-        <v-expansion-panels class="expansion-panels" :disabled="!isCustom">
+        <div v-show="!isCustom">
+            <strong>Default Configurations</strong>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad dolores eum facilis illum necessitatibus officia sed! Aspernatur harum laudantium, minus modi praesentium quia recusandae rem, sit tenetur unde veniam voluptatem!
+            </p>
+        </div>
+        <v-expansion-panels class="expansion-panels" v-show="isCustom">
             <ConfigAudit
                 v-for="configAudit in configAudits"
                 :key="configAudit.id"
