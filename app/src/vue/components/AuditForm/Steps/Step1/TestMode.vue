@@ -50,16 +50,20 @@
                 </div>
                 <div
                     v-if="sitemapUrls.length > 0"
-                    :class="{'full-width': sitemapUrls.length > 6}"
+                    class="sitemap-urls"
                 >
-                    <v-checkbox
-                        @change="toggleSelectAll"
-                        label="Select All"
-                    />
-                    <v-divider/>
-                    <span>{{ mainUrl }}</span>
+                    <div
+                        class="sitemap-urls__header"
+                    >
+                        <span>{{ mainUrl }}</span>
+                        <v-checkbox
+                            @change="toggleSelectAll"
+                            label="all"
+                        />
+                    </div>
                     <v-checkbox
                         @change="$emit('updateSitemapUrls', selectedUrls)"
+                        class="url-checkbox"
                         v-for="(url, index) in sitemapUrls"
                         :key="index"
                         :label="url.split('.com')[1]||url.split('.de')[1]"
@@ -192,5 +196,22 @@ export default {
         transform: scale(0.6);
         position: relative;
         bottom: 150px;
+    }
+
+    .sitemap-urls {
+        background-color: rgba(0, 0, 0, 0.15);
+        border-radius: 5px;
+        padding: 5px 25px;
+    }
+
+    .sitemap-urls__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .url-checkbox {
+        padding: 0;
+        margin: 0;
     }
 </style>
