@@ -6,8 +6,11 @@
                     append-icon="mdi-paperclip"
                     clearable
                     @click="callFileInput"
+                    @dragover.prevent
+                    @drop="addDropFile"
                     label="Sitemap file"
                     readonly
+                    v-cloak
                     v-model="sitemapName"
                 />
                 <v-text-field
@@ -138,6 +141,13 @@ export default {
                 this.selectedUrls = [];
             }
             this.$emit('updateSitemapUrls', this.selectedUrls);
+        },
+
+        addDropFile(event) {
+            const { name, path } = event.dataTransfer.files[0];
+            this.sitemapName = name;
+            this.sitemapPath = path;
+            ipcRenderer.send('ANALYSE_SITEMAP_FILE', this.sitemapPath);
         }
     },
     created() {
