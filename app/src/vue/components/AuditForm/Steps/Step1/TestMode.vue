@@ -8,7 +8,7 @@
                     @click="callFileInput"
                     @dragover.prevent
                     @drop="addDropFile"
-                    label="Sitemap file"
+                    label="Sitemap file (BROWSE or DRAG&DROP)"
                     readonly
                     v-cloak
                     v-model="sitemapName"

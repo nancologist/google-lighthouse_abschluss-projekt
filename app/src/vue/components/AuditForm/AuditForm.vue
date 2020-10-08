@@ -1,6 +1,15 @@
 <template>
-    <div>
-        <v-stepper class="stepper" v-model="steps.currentStep">
+    <div
+        class="audit-form"
+        @dragenter.prevent="handleDragEnter"
+        @dragleave.prevent="handleDragLeave"
+    >
+        <v-stepper
+            class="stepper"
+            :class="{'drag-mode': dragMode}"
+            v-model="steps.currentStep"
+        >
+            <span class="drag-mode__msg" v-if="dragMode">Drop sitemap file!</span>
             <v-stepper-header class="stepper__header">
                 <!-- eslint-disable  vue/valid-v-for -->
                 <template
@@ -82,7 +91,6 @@
                 </v-btn>
             </div>
         </v-stepper>
-
         <v-bottom-sheet v-model="sheetOpen" scrollable persistent>
             <Report :reports="testResult" @close="sheetOpen = false" />
         </v-bottom-sheet>
@@ -119,7 +127,9 @@ export default {
             sheetOpen: false,
             progress: 0,
             hasError: false,
-            error: {}
+            error: {},
+            dragMode: false,
+            dragCount: 0,
         };
     },
     methods: {
@@ -161,6 +171,26 @@ export default {
                 title,
                 msg: message
             };
+        },
+
+        handleDragEnter(event) {
+            const isFirstStep = (this.steps.currentStep === 1);
+            if (isFirstStep) {
+                this.dragCount++;
+                if (this.dragCount > 0) {
+                    this.dragMode = true;
+                }
+            }
+        },
+
+        handleDragLeave(event) {
+            const isFirstStep = (this.steps.currentStep === 1);
+            if (isFirstStep) {
+                this.dragCount--;
+                if (this.dragCount === 0) {
+                    this.dragMode = false;
+                }
+            }
         }
     },
     created() {
@@ -219,4 +249,28 @@ export default {
 
 <style scoped>
     @import "AuditForm.css";
+
+    .drag-mode:after {
+        background-color: rgba(0,0,0,0.7);
+        content: '';
+        color: white;
+        pointer-events: none;
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .drag-mode__msg {
+        position: absolute;
+        top: 50%;
+        left: 30%;
+        right: 30%;
+        padding: 10px 5px;
+        border-radius: 5px;
+        color: #bbb;
+        z-index: 10;
+        border: 2px dashed #bbb;
+    }
 </style>
