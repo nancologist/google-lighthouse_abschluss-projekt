@@ -84,7 +84,7 @@ import Spinner from '../../../UI/spinners/Spinner1.vue';
 const { ipcRenderer } = require('electron');
 export default {
     components: { Spinner },
-    props: ['inputUrl'],
+    props: ['inputUrl', 'dropEvent'],
     data: () => ({
         appHint: 'Enter URL and/or use a sitemap.',
         selectedUrls: [],
@@ -119,8 +119,13 @@ export default {
             this.$refs.fileInput.click();
         },
 
-        previewSitemapFile(event) {
-            const { files } = event.target;
+        previewSitemapFile(event, dragMode = false) {
+            let files;
+            if (dragMode) {
+                files = event.dataTransfer.files;
+            } else {
+                files = event.target.files;
+            }
             if (files.length > 0) {
                 this.sitemapName = files[0].name;
                 this.sitemapPath = files[0].path;
@@ -185,6 +190,11 @@ export default {
         sitemapUrls: function(val) {
             if (val.length > 0) {
                 this.mainUrl = val[0].split('/')[2];
+            }
+        },
+        dropEvent: function(val) {
+            if (val) {
+                this.previewSitemapFile(val, true);
             }
         }
     },

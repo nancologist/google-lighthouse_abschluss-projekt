@@ -3,6 +3,8 @@
         class="audit-form"
         @dragenter.prevent="handleDragEnter"
         @dragleave.prevent="handleDragLeave"
+        @dragover.prevent
+        @drop="handleDrop"
     >
         <v-stepper
             class="stepper"
@@ -28,6 +30,7 @@
             <v-stepper-content class="stepper__content" step="1">
                 <TestMode
                     :inputUrl.sync="auditForm.urls.fromInput"
+                    :dropEvent="dropEvent"
                     @updateSitemapUrls="updateSitemapUrls"
                     @xmlError="renderXmlError"
                 />
@@ -130,6 +133,7 @@ export default {
             error: {},
             dragMode: false,
             dragCount: 0,
+            dropEvent: null,
         };
     },
     methods: {
@@ -191,6 +195,12 @@ export default {
                     this.dragMode = false;
                 }
             }
+        },
+
+        handleDrop(event) {
+            this.dropEvent = event;
+            this.dragCount = 0;
+            this.dragMode = false;
         }
     },
     created() {
