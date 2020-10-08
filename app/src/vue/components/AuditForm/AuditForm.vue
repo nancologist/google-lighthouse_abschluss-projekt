@@ -251,7 +251,7 @@ export default {
     @import "AuditForm.css";
 
     .drag-mode:after {
-        background-color: rgba(0,0,0,0.7);
+        background-color: rgba(0,0,0,0.9);
         content: '';
         color: white;
         pointer-events: none;
@@ -264,7 +264,7 @@ export default {
 
     .drag-mode__msg {
         position: absolute;
-        top: 50%;
+        top: 40%;
         left: 30%;
         right: 30%;
         padding: 10px 5px;
