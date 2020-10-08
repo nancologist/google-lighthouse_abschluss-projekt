@@ -45,7 +45,7 @@
 
             <v-stepper-content class="stepper__content" step="3">
                 <div class="step-three">
-                    <p>THE PREVIEW OF SET CONFIG WILL BE SHOWN HERE...</p>
+                    <p>The test could take couple of minutes for large amount of URLs.</p>
                     <v-btn
                         @click.prevent="runTest"
                         :loading="loading"
