@@ -198,7 +198,17 @@ export default {
         },
 
         handleDrop(event) {
-            this.dropEvent = event;
+            const fileExtension = event.dataTransfer
+                .files[0].name.split('.')[1].toLowerCase();
+            if (fileExtension === 'xml') {
+                this.dropEvent = event;
+            } else {
+                this.hasError = true;
+                this.error = {
+                    title: 'File Type',
+                    msg: 'Wrong file type. Only xml files are allowed.'
+                };
+            }
             this.dragCount = 0;
             this.dragMode = false;
         }
