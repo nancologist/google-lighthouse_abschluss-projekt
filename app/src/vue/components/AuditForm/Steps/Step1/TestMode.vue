@@ -8,7 +8,7 @@
                     @click="callFileInput"
                     @dragover.prevent
                     @drop="addDropFile"
-                    label="Sitemap file (BROWSE or DRAG&DROP)"
+                    label="Sitemap file"
                     readonly
                     v-cloak
                     v-model="sitemapName"
@@ -86,7 +86,7 @@ export default {
     components: { Spinner },
     props: ['inputUrl', 'dropEvent'],
     data: () => ({
-        appHint: 'Enter URL and/or use a sitemap.',
+        appHint: 'Enter URL or use a sitemap file (Browse or Drag&Drop).',
         selectedUrls: [],
         analyseLoading: false,
         sitemapUrls: [],
@@ -176,7 +176,7 @@ export default {
                 this.sitemapUrls = [];
                 this.selectedUrls = [];
                 this.$refs.fileInput.value = null;
-                this.appHint = 'Enter URL and/or use a sitemap.';
+                this.appHint = 'Enter URL or use a sitemap file (Browse or Drag&Drop).';
             }
         },
         inputUrl: function(val) {
@@ -184,7 +184,7 @@ export default {
             if (urlCleared && (this.sitemapPath === '' || this.sitemapPath === null)) {
                 this.sitemapUrls = [];
                 this.selectedUrls = [];
-                this.appHint = 'Enter URL and/or use a sitemap.';
+                this.appHint = 'Enter URL or use a sitemap file (Browse or Drag&Drop).';
             }
         },
         sitemapUrls: function(val) {
