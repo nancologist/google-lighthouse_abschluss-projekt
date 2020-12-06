@@ -36,7 +36,7 @@ ___
 2. ``npm start``
 ___
 
-## 4. Core: ElectronJS + VueJS
+## 4. Core Stacks: ElectronJS + VueJS
     
 ### [App2 mit Vue Cli & Electron-builder Plugin](https://github.com/nklayman/vue-cli-plugin-electron-builder)
 * https://nklayman.github.io/vue-cli-plugin-electron-builder/
