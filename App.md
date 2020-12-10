@@ -80,3 +80,17 @@ ___
 * __Skeleton Loaders__ for Spinner (or Luke Haas)
 * __Tabs__
 * __Tooltips__
+
+___
+
+### Planungsabweichungen
+
+* Menü: Für die Applikation wurde nachhinein festgestellt, dass ein klassisches Fenster-Menü nicht unbedingt notwendig ist. Stattdessen wurde für eine bessere Benutzererfahrung (UX) die Drag&Drop-Funktion implementiert, damit der Benutzer nicht lange nach der Sitemap-Datei auf seinem Rechner
+ sucht...
+ 
+
+___
+
+### Benötigte Code-Snippets für die Doku
+
+* __Doku / Seit 9__ : ``utils.js`` > vor allem wo ``lighthouse()`` zu konfigurieren gerufen wird.

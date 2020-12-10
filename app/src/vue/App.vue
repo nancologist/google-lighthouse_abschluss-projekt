@@ -2,6 +2,7 @@
     <v-app>
         <div class="layout"> <!-- Todo: Maybe add a Layout cmp ? (but for now it's very thin and ok here) -->
             <div class="main-window">
+                <h1 class="app-title">DPX Lighthouse</h1>
                 <NoConnection :showDialog="notConnected"/>
                 <template v-if="!appStarted">
                     <v-btn
@@ -45,8 +46,14 @@ export default {
     @import "assets/css/main.css";
 
     .main-window {
-        margin: auto;
         text-align: center;
         width: 100%;
+        height: 100%;
+        margin-top: 90px;
+    }
+
+    .app-title {
+        color: var(--fifth-color);
+        margin-bottom: 80px;
     }
 </style>
