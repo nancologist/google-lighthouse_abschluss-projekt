@@ -2,9 +2,9 @@
     <v-app>
         <div class="layout"> <!-- Todo: Maybe add a Layout cmp ? (but for now it's very thin and ok here) -->
             <div class="main-window">
-                <h1 class="app-title">DPX Lighthouse</h1>
                 <NoConnection :showDialog="notConnected"/>
                 <template v-if="!appStarted">
+                    <h1 class="app-title">DPX Lighthouse</h1>
                     <v-btn
                         @click="appStarted = true"
                         :disabled="notConnected"
