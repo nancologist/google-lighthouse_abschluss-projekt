@@ -284,10 +284,12 @@ export default {
 
     .drag-mode__msg {
         position: absolute;
-        top: 40%;
-        left: 30%;
-        right: 30%;
-        padding: 10px 5px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 20px;
+        padding: 200px 200px;
         border-radius: 5px;
         color: #bbb;
         z-index: 10;
